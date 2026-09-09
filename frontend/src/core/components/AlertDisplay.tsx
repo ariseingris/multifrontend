@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useAlertStore } from '../../store';
-import { getStatusColor } from '../../utils/formatting';
+import { useAlertStore } from '../store';
+import { getStatusColor } from '../utils/formatting';
 
 export const AlertDisplay: React.FC = () => {
   const currentAlert = useAlertStore((s) => s.currentAlert);

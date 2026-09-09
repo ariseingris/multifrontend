@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { Dashboard, LiveChart, ThresholdChart, Gauge } from '../../core/components';
+import { Dashboard, ThresholdChart, Gauge } from '../../core/components';
 import { vitalchainConfig } from './config';
-import { useTelemetryStore, useScenarioStore, useTimelineStore, useAlertStore, useLocalTelemetrySimulation } from '../../core/store';
-import { getMetricStatus } from '../../core/utils/formatting';
-import { useDataBridge } from '../../core/hooks/useDataBridge';
-import { TimelineEvent, Alert } from '../../core/types';
+import { useTelemetryStore, useScenarioStore, useTimelineStore, useAlertStore } from '../../core/store';
+import { getMetricStatus, formatElapsedTime } from '../../core/utils/formatting';
+import { useDataBridge, useLocalTelemetrySimulation } from '../../core/hooks/useDataBridge';
+import { KPIConfig, TelemetryPoint, TimelineEvent, Alert } from '../../core/types';
 
 export const VitalChainDashboard: React.FC = () => {
   const latest = useTelemetryStore((s) => s.getLatest());
   const scenario = useScenarioStore((s) => s.scenario);
+  const alerts = useAlertStore((s) => s.alerts);
   const addEvent = useTimelineStore((s) => s.addEvent);
   const addAlert = useAlertStore((s) => s.addAlert);
   const setPhase = useScenarioStore((s) => s.setPhase);
   const setElapsed = useScenarioStore((s) => s.setElapsed);
-  const [useSimulation, setUseSimulation] = useState(true);
+  const [useSimulation] = useState(true);
 
   // Try to connect to WebSocket, but fall back to local simulation
   const { isConnected } = useDataBridge('ws://localhost:8765');
@@ -113,7 +114,14 @@ export const VitalChainDashboard: React.FC = () => {
         }}
       >
         {vitalchainConfig.kpis?.map((kpi) => (
-          <KPICard key={kpi.id} kpi={kpi} />
+          <KPICard
+            key={kpi.id}
+            kpi={kpi}
+            latest={latest}
+            elapsedSeconds={scenario.elapsedSeconds}
+            alertCount={alerts.length}
+            activeSensorCount={vitalchainConfig.devices.filter((device) => device.status === 'online').length}
+          />
         ))}
       </div>
 
@@ -218,10 +226,35 @@ export const VitalChainDashboard: React.FC = () => {
 };
 
 interface KPICardProps {
-  kpi: any;
+  kpi: KPIConfig;
+  latest: TelemetryPoint | null;
+  elapsedSeconds: number;
+  alertCount: number;
+  activeSensorCount: number;
 }
 
-const KPICard: React.FC<KPICardProps> = ({ kpi }) => {
+const KPICard: React.FC<KPICardProps> = ({
+  kpi,
+  latest,
+  elapsedSeconds,
+  alertCount,
+  activeSensorCount,
+}) => {
+  const value = (() => {
+    switch (kpi.id) {
+      case 'alert_time':
+        return latest?.status === 'critical'
+          ? formatElapsedTime(elapsedSeconds)
+          : kpi.value;
+      case 'sensors_active':
+        return activeSensorCount;
+      case 'events_handled':
+        return alertCount;
+      default:
+        return kpi.value;
+    }
+  })();
+
   return (
     <div
       style={{
@@ -252,7 +285,7 @@ const KPICard: React.FC<KPICardProps> = ({ kpi }) => {
           color: '#3b82f6',
         }}
       >
-        {kpi.value}
+        {value}
         {kpi.unit && <span style={{ fontSize: '14px', opacity: 0.7 }}>{kpi.unit}</span>}
       </div>
       {kpi.target && (

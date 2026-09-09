@@ -1,6 +1,6 @@
 import { useEffect, useRef, useCallback } from 'react';
 import { useTelemetryStore, useAlertStore, useTimelineStore } from '../store';
-import { TelemetryPoint, Alert, TimelineEvent } from '../types';
+import { TelemetryPoint } from '../types';
 
 export function useDataBridge(wsUrl: string = 'ws://localhost:8765') {
   const wsRef = useRef<WebSocket | null>(null);

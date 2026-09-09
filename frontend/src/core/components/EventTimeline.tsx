@@ -1,6 +1,6 @@
 import React from 'react';
-import { useTimelineStore } from '../../store';
-import { formatTime, getStatusColor } from '../../utils/formatting';
+import { useTimelineStore } from '../store';
+import { formatTime, getStatusColor } from '../utils/formatting';
 
 export const EventTimeline: React.FC = () => {
   const events = useTimelineStore((s) => s.events);

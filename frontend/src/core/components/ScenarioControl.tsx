@@ -4,8 +4,8 @@ import {
   useTimelineStore,
   useAlertStore,
   useTelemetryStore,
-} from '../../store';
-import { formatElapsedTime } from '../../utils/formatting';
+} from '../store';
+import { formatElapsedTime } from '../utils/formatting';
 
 interface ScenarioControlProps {
   scenarios: Array<{ id: string; name: string }>;

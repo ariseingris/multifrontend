@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { VitalChainDashboard } from './projects/vitalchain/Dashboard';
 
 type ProjectId = 'vitalchain' | 'pulseguard' | 'factsafe' | 'aquasense' | 'hirdop' | 'datacool';
 
 export const App: React.FC = () => {
-  const [selectedProject, setSelectedProject] = useState<ProjectId>('vitalchain');
+  const selectedProject: ProjectId = 'vitalchain';
 
   const renderProject = () => {
     switch (selectedProject) {

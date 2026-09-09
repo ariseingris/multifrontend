@@ -1,7 +1,6 @@
 import React from 'react';
-import { useProjectStore, useSystemStore, useDemoModeStore } from '../../store';
-import { formatElapsedTime } from '../../utils/formatting';
-import { useScenarioStore } from '../../store';
+import { useProjectStore, useSystemStore, useDemoModeStore, useScenarioStore } from '../store';
+import { formatElapsedTime } from '../utils/formatting';
 
 export const Header: React.FC = () => {
   const config = useProjectStore((s) => s.config);

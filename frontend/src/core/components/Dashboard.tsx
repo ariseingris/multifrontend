@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import { useProjectStore, useSystemStore } from '../../store';
+import { useProjectStore, useSystemStore } from '../store';
 import { Header } from './Header';
 import { AlertDisplay } from './AlertDisplay';
 import { EventTimeline } from './EventTimeline';
 import { ScenarioControl } from './ScenarioControl';
-import { ProjectConfig } from '../../types';
+import { ProjectConfig } from '../types';
 
 interface DashboardProps {
   projectConfig: ProjectConfig;

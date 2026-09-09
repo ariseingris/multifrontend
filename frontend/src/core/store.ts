@@ -8,7 +8,7 @@ import {
   SystemStatus,
   DemoModeState,
   ProjectConfig,
-} from '../types';
+} from './types';
 
 interface TelemetryStore {
   telemetry: TelemetryPoint[];

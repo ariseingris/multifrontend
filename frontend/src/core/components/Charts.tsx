@@ -13,8 +13,8 @@ import {
   ResponsiveContainer,
   Legend,
 } from 'recharts';
-import { useTelemetryStore } from '../../store';
-import { formatTime } from '../../utils/formatting';
+import { useTelemetryStore } from '../store';
+import { formatTime } from '../utils/formatting';
 
 interface LiveChartProps {
   metricKeys: string[];
@@ -51,8 +51,6 @@ export const LiveChart: React.FC<LiveChartProps> = ({
   }, [telemetry, metricKeys]);
 
   const Chart = chartType === 'line' ? LineChart : chartType === 'area' ? AreaChart : BarChart;
-  const DataComponent = chartType === 'line' ? Line : chartType === 'area' ? Area : Bar;
-
   return (
     <div
       style={{
@@ -106,24 +104,21 @@ export const LiveChart: React.FC<LiveChartProps> = ({
           />
           {showLegend && (
             <Legend
-              wrapperStyle={{ paddingTop: '12px' }}
               iconType="line"
               wrapperStyle={{ fontSize: '12px', color: '#9ca3af' }}
             />
           )}
 
-          {metricKeys.map((key, index) => (
-            <DataComponent
-              key={key}
-              type="monotone"
-              dataKey={key}
-              stroke={colors[index % colors.length]}
-              fill={colors[index % colors.length]}
-              dot={false}
-              isAnimationActive={false}
-              strokeWidth={2}
-            />
-          ))}
+          {metricKeys.map((key, index) => {
+            const color = colors[index % colors.length];
+            if (chartType === 'line') {
+              return <Line key={key} type="monotone" dataKey={key} stroke={color} dot={false} isAnimationActive={false} strokeWidth={2} />;
+            }
+            if (chartType === 'area') {
+              return <Area key={key} type="monotone" dataKey={key} stroke={color} fill={color} dot={false} isAnimationActive={false} strokeWidth={2} />;
+            }
+            return <Bar key={key} dataKey={key} fill={color} isAnimationActive={false} />;
+          })}
         </Chart>
       </ResponsiveContainer>
     </div>
@@ -181,17 +176,6 @@ export const ThresholdChart: React.FC<ThresholdChartProps> = ({
     criticalMin,
     criticalMax,
   ]);
-
-  const maxValue = Math.max(
-    ...(chartData
-      .map((d) => d.value)
-      .filter((v) => v !== null) as number[])
-  );
-  const minValue = Math.min(
-    ...(chartData
-      .map((d) => d.value)
-      .filter((v) => v !== null) as number[])
-  );
 
   return (
     <div
