@@ -16,6 +16,9 @@ from typing import Dict, Any, Optional, List
 from abc import ABC, abstractmethod
 import argparse
 
+
+TELEMETRY_INTERVAL_SECONDS = 1.0
+
 try:
     import websockets
     from websockets.server import WebSocketServerProtocol
@@ -228,8 +231,18 @@ class VitalChainSimulator(ScenarioSimulator):
         return None
 
     def _interpolate(self, start: float, end: float, t: float) -> float:
-        """Linear interpolation"""
-        return start + (end - start) * t
+        """Interpolate smoothly with zero slope at both ends of a step."""
+        progress = max(0.0, min(1.0, t))
+        smooth_progress = progress * progress * (3.0 - 2.0 * progress)
+        return start + (end - start) * smooth_progress
+
+    def _smooth_noise(self, key: str) -> float:
+        """Return low-amplitude deterministic noise for a metric."""
+        phase = sum((index + 1) * ord(char) for index, char in enumerate(key))
+        return (
+            math.sin(self.elapsed * 0.35 + phase) * 0.003
+            + math.sin(self.elapsed * 0.11 + phase * 1.7) * 0.002
+        )
 
     def get_metrics(self) -> Dict[str, float]:
         """Generate metrics based on current step"""
@@ -248,9 +261,7 @@ class VitalChainSimulator(ScenarioSimulator):
         for key, value_range in step['metrics'].items():
             start = value_range['start']
             end = value_range['end']
-            # Add small noise
-            noise = (hash(f"{key}{int(self.elapsed)}") % 100 - 50) / 10000
-            metrics[key] = self._interpolate(start, end, t) + noise
+            metrics[key] = self._interpolate(start, end, t) + self._smooth_noise(key)
 
         return metrics
 
@@ -337,7 +348,11 @@ class SimulatorServer:
         for client in disconnected:
             await self.unregister(client)
 
-    async def handle_client(self, websocket: WebSocketServerProtocol, path: str):
+    async def handle_client(
+        self,
+        websocket: WebSocketServerProtocol,
+        path: Optional[str] = None,
+    ):
         """Handle a single client connection"""
         await self.register(websocket)
 
@@ -419,7 +434,7 @@ class SimulatorServer:
                                 }
                             )
 
-                await asyncio.sleep(0.1)
+                await asyncio.sleep(TELEMETRY_INTERVAL_SECONDS)
 
             except Exception as e:
                 print(f'Update loop error: {e}')

@@ -20,15 +20,25 @@ pip install websockets
 ### Start Default Server
 
 ```bash
-python simulator.py
+python vitalchain_simulator.py
 ```
 
 Server starts on `ws://localhost:8765`
 
+## Docker
+
+From the repository root, start the VitalChain frontend and simulator together:
+
+```bash
+docker compose up --build vitalchain
+```
+
+The Compose service `vitalchain` depends on `vitalchain-simulator`.
+
 ### Start with Specific Scenario
 
 ```bash
-python simulator.py --scenario door_open --speed 2
+python vitalchain_simulator.py --scenario door_open --speed 2
 ```
 
 ### Command-line Options
@@ -45,16 +55,16 @@ python simulator.py --scenario door_open --speed 2
 
 ```bash
 # VitalChain door open scenario at 2x speed
-python simulator.py --scenario door_open --speed 2
+python vitalchain_simulator.py --scenario door_open --speed 2
 
 # PulseGuard landslide scenario at 5x speed
-python simulator.py --project pulseguard --scenario landslide --speed 5
+python vitalchain_simulator.py --project pulseguard --scenario landslide --speed 5
 
 # FactSafe gas leak scenario at 1x speed (normal)
-python simulator.py --project factsafe --scenario gas_leak
+python vitalchain_simulator.py --project factsafe --scenario gas_leak
 
 # Custom port
-python simulator.py --port 9000
+python vitalchain_simulator.py --port 9000
 ```
 
 ## Architecture
@@ -468,7 +478,7 @@ def get_events(self) -> List[TimelineEvent]:
 
 ```bash
 # Test door_open scenario, record output
-python simulator.py --scenario door_open --speed 1 > output.log
+python vitalchain_simulator.py --scenario door_open --speed 1 > output.log
 
 # Manually verify behavior:
 # - Metrics interpolate smoothly
