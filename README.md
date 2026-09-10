@@ -22,6 +22,78 @@ npm run dev
 
 Then open http://localhost:5173 in your browser.
 
+To run the PulseGuard demo, start its simulator scenario and select the project:
+
+```bash
+cd simulator
+python vitalchain_simulator.py --project pulseguard --scenario landslide --speed 5
+
+cd ../frontend
+VITE_PROJECT=pulseguard npm run dev
+```
+
+Available PulseGuard scenarios: `normal`, `heavy_rain`, `landslide`, and `communication_loss`.
+
+To run FactSafe:
+
+```bash
+cd simulator
+python vitalchain_simulator.py --project factsafe --scenario gas_leak --speed 5
+
+cd ../frontend
+VITE_PROJECT=factsafe npm run dev
+```
+
+Available FactSafe scenarios: `normal`, `gas_leak`, and `dust_event`.
+
+To run AquaSense:
+
+```bash
+cd simulator
+python vitalchain_simulator.py --project aquasense --scenario low_oxygen --speed 5
+
+cd ../frontend
+VITE_PROJECT=aquasense npm run dev
+```
+
+Available AquaSense scenarios: `normal`, `low_oxygen`, and `sensor_fouling`.
+
+To run DataCool:
+
+```bash
+cd simulator
+python vitalchain_simulator.py --project datacool --scenario hotspot --speed 5
+
+cd ../frontend
+VITE_PROJECT=datacool npm run dev
+```
+
+Available DataCool scenarios: `normal`, `hotspot`, and `cooling_imbalance`.
+
+To run Hirdop Power:
+
+```bash
+cd simulator
+python vitalchain_simulator.py --project hirdop --scenario flood_warning --speed 5
+
+cd ../frontend
+VITE_PROJECT=hirdop npm run dev
+```
+
+Available Hirdop scenarios: `normal`, `flood_warning`, and `turbine_anomaly`.
+
+To run PAM:
+
+```bash
+cd simulator
+python vitalchain_simulator.py --project pam --scenario gas_leak --speed 5
+
+cd ../frontend
+VITE_PROJECT=pam npm run dev
+```
+
+Available PAM scenarios: `normal` and `gas_leak`.
+
 ## Run VitalChain with Docker
 
 Build and start the VitalChain frontend together with its simulator:

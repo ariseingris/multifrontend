@@ -778,11 +778,11 @@ class ProjectSimulator(ScenarioSimulator):
 
 **Priority 2: Project Implementations**
 
-- [ ] PulseGuard config and dashboard (landslide + communication loss scenarios)
-- [ ] FactSafe config and dashboard (multi-gas monitoring)
-- [ ] AquaSense config and dashboard (biological rhythm visualization)
-- [ ] Hirdop Power config and dashboard (power generation tracking)
-- [ ] DataCool config and dashboard (rack heatmap + thermal management)
+- [x] PulseGuard config and dashboard (landslide + communication loss scenarios)
+- [x] FactSafe config and dashboard (multi-gas monitoring)
+- [x] AquaSense config and dashboard (biological rhythm visualization)
+- [x] Hirdop Power config and dashboard (power generation tracking)
+- [x] DataCool config and dashboard (rack heatmap + thermal management)
 
 **Priority 3: Advanced Components**
 

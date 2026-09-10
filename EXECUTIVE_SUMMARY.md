@@ -50,6 +50,16 @@ Simulator (deterministic scenario playback)
 - Demo mode store
 - Project store (config)
 
+**Implemented Projects**:
+
+- **VitalChain** - full working cold chain monitoring example
+- **PulseGuard** - rainfall/soil/tilt risk dashboard with offline local alarm flow
+- **FactSafe** - normalized gas severity, dust monitoring and localized factory zone risk
+- **AquaSense** - dissolved oxygen rhythm, pond metrics and sensor fouling signal
+- **DataCool** - 32-rack thermal map, derived PUE/energy/carbon and human-approved cooling recommendation
+- **Hirdop Power** - derived hydro energy, diesel comparison and local flood/turbine protection
+- **PAM** - minimal physical alarm UI with LED, buzzer and acknowledgement flow
+
 **VitalChain Implementation**:
 - Full working example of cold chain monitoring
 - 4 realistic scenarios (normal, door open, compressor failure, freeze fault)
@@ -148,7 +158,7 @@ Open http://localhost:5173 to see:
 - [ ] More chart types (heatmap, waterfall)
 
 **For Later**:
-- [ ] 3 special UI projects (STEMLab, FireScout, PAM)
+- [ ] 2 special UI projects (STEMLab, FireScout)
 - [ ] AI recommendation cards
 - [ ] Mock notifications
 - [ ] Compliance report mockup
@@ -242,6 +252,6 @@ The framework solves the core problem: **build impressive IoT dashboards quickly
 
 ---
 
-**Status**: ✅ **COMPLETE AND READY TO USE**
+**Status**: P0 framework complete; VitalChain and PulseGuard are implemented. Remaining projects are still planned P1/P2 work.
 
 Start with: `python vitalchain_simulator.py && npm run dev`

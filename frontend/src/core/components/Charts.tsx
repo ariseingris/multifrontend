@@ -23,6 +23,7 @@ interface LiveChartProps {
   showLegend?: boolean;
   chartType?: 'line' | 'area' | 'bar';
   colors?: string[];
+  latestOnly?: boolean;
 }
 
 export const LiveChart: React.FC<LiveChartProps> = ({
@@ -32,11 +33,13 @@ export const LiveChart: React.FC<LiveChartProps> = ({
   showLegend = true,
   chartType = 'line',
   colors = ['#3b82f6', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981', '#ef4444'],
+  latestOnly = false,
 }) => {
   const telemetry = useTelemetryStore((s) => s.telemetry);
 
   const chartData = useMemo(() => {
-    return telemetry.map((point) => {
+    const points = latestOnly ? telemetry.slice(-1) : telemetry;
+    return points.map((point) => {
       const row: any = {
         time: formatTime(point.timestamp),
         timestamp: point.timestamp,
@@ -48,7 +51,7 @@ export const LiveChart: React.FC<LiveChartProps> = ({
 
       return row;
     });
-  }, [telemetry, metricKeys]);
+  }, [telemetry, metricKeys, latestOnly]);
 
   const Chart = chartType === 'line' ? LineChart : chartType === 'area' ? AreaChart : BarChart;
   return (

@@ -455,6 +455,9 @@ Outputs to `dist/` directory.
 
 ### Environment Variables
 
+- `VITE_PROJECT`: project dashboard to render (`vitalchain` by default; `pulseguard`, `factsafe`, `aquasense`, `datacool`, `hirdop`, and `pam` supported)
+- `VITE_WS_URL`: simulator WebSocket URL (`ws://localhost:8765` by default)
+
 Create `.env`:
 
 ```

@@ -10,6 +10,7 @@ export function useDataBridge(wsUrl: string = 'ws://localhost:8765') {
   const [isConnected, setIsConnected] = useState(false);
   const reconnectTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const disposedRef = useRef(false);
+  const hasLoggedConnectionErrorRef = useRef(false);
 
   const connect = useCallback(() => {
     try {
@@ -17,6 +18,7 @@ export function useDataBridge(wsUrl: string = 'ws://localhost:8765') {
 
       wsRef.current.onopen = () => {
         setIsConnected(true);
+        hasLoggedConnectionErrorRef.current = false;
         console.log('WebSocket connected');
       };
 
@@ -28,6 +30,13 @@ export function useDataBridge(wsUrl: string = 'ws://localhost:8765') {
             addTelemetry(data.payload);
           } else if (data.type === 'alert' && data.payload) {
             addAlert(data.payload);
+            addEvent({
+              timestamp: data.payload.timestamp,
+              type: 'threshold_exceeded',
+              message: data.payload.message,
+              severity: data.payload.severity,
+              icon: data.payload.severity === 'critical' ? '🚨' : '⚠',
+            });
           } else if (data.type === 'event' && data.payload) {
             addEvent(data.payload);
           }
@@ -37,7 +46,10 @@ export function useDataBridge(wsUrl: string = 'ws://localhost:8765') {
       };
 
       wsRef.current.onerror = (error) => {
-        console.error('WebSocket error:', error);
+        if (!hasLoggedConnectionErrorRef.current) {
+          console.error('WebSocket connection unavailable:', error);
+          hasLoggedConnectionErrorRef.current = true;
+        }
       };
 
       wsRef.current.onclose = () => {

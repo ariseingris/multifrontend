@@ -37,6 +37,9 @@ export const ScenarioControl: React.FC<ScenarioControlProps> = ({
   const clearEvents = useTimelineStore((s) => s.clearEvents);
 
   const handleStart = (scenarioId: string) => {
+    clearTelemetry();
+    clearAlerts();
+    clearEvents();
     startScenario();
     onScenarioStart?.(scenarioId, scenario.speed);
   };

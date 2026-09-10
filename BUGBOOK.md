@@ -221,3 +221,201 @@ Khi gặp lỗi mới, ghi ngay:
 4. File/code path đã sửa.
 5. Lệnh kiểm tra xác nhận fix.
 6. Quy tắc phòng tránh cho project tiếp theo.
+
+## 12. PulseGuard dashboard không tiến triển đồng hồ và tạo alert trùng
+
+**Triệu chứng**
+
+- Bấm `RUN SCENARIO` nhưng `ScenarioControl` vẫn hiển thị thời gian `00:00` và phase không đổi.
+- Một alert critical mới được tạo ở frontend cho mỗi telemetry, đồng thời simulator cũng phát alert theo cooldown.
+
+**Nguyên nhân**
+
+- Dashboard PulseGuard chưa có interval gọi `advanceElapsed()`, trong khi VitalChain đang tự quản lý interval này.
+- `PulseGuardDashboard` gọi `addAlert()` trực tiếp từ mỗi telemetry critical; simulator đã là nơi sở hữu logic threshold và phát alert qua WebSocket.
+
+**Cách xử lý**
+
+- Thêm một interval cố định 100 ms trong dashboard để cập nhật scenario clock khi status là `running`, có cleanup khi unmount.
+- Bỏ frontend-generated alert; chỉ nhận alert từ WebSocket simulator.
+
+**Xác nhận**
+
+```bash
+cd frontend
+npm run build
+
+cd ..
+python3 -m py_compile simulator/vitalchain_simulator.py
+```
+
+**Phòng tránh**
+
+- Chỉ một lớp được sở hữu alert threshold cho mỗi project; frontend chỉ render alert từ simulator.
+- Mọi dashboard có `ScenarioControl` phải có fixed interval cập nhật elapsed time và không đặt interval phụ thuộc vào chính giá trị elapsed.
+
+## 13. PulseGuard fallback tạo trạng thái offline giả và spam console
+
+**Triệu chứng**
+
+- Khi simulator chưa chạy, PulseGuard vẫn nhận dữ liệu random nhưng thiếu các metric `*_index`, `network_online` và `local_alarm`.
+- Header có thể hiển thị `INTERNET OFFLINE`/`LOCAL ALARM ACTIVE` dù chưa có scenario simulator nào chạy.
+- Console lặp `WebSocket error` theo mỗi lần reconnect.
+
+**Nguyên nhân**
+
+- `useLocalTelemetrySimulation()` sinh random theo `ProjectConfig.metrics`, nhưng PulseGuard cần quan hệ causal và các metric trạng thái do simulator tạo.
+- Hook log mỗi lỗi connection trong reconnect loop.
+
+**Cách xử lý**
+
+- Tắt random fallback riêng cho PulseGuard; các trạng thái offline chỉ được hiển thị từ telemetry simulator thật.
+- Chỉ log lần đầu trong một chu kỳ mất kết nối; reset cờ log khi kết nối thành công.
+
+**Xác nhận**
+
+```bash
+cd frontend
+npm run build
+```
+
+Sau đó mở PulseGuard khi port `8765` không có listener: UI không sinh metric random PulseGuard và console không spam một lỗi cho mỗi reconnect.
+
+**Phòng tránh**
+
+- Không dùng fallback random cho project có metric derived/status hoặc yêu cầu causal story.
+- Reconnect loop phải có logging throttling; trạng thái connection vẫn phải cập nhật bằng React state.
+
+## 14. PulseGuard phase hiển thị critical trước khi sensor risk tăng
+
+**Triệu chứng**
+
+- Chọn `Landslide Risk` rồi bấm chạy: `ScenarioControl` hiển thị `Phase: CRITICAL` ngay lập tức nhưng metric vẫn ở baseline (`rain≈2`, `risk=15`).
+
+**Nguyên nhân**
+
+- Dashboard lấy `phase` từ step đầu tiên trong config. Các scenario PulseGuard dùng step mô tả toàn bộ câu chuyện và có phase `critical`, nên phase UI không phản ánh telemetry hiện tại.
+
+**Cách xử lý**
+
+- Khởi động scenario ở phase `normal`.
+- Cập nhật phase từ `latest.status` và `local_alarm` của telemetry simulator trong mỗi tick.
+
+**Xác nhận**
+
+```bash
+cd frontend
+npm run build
+```
+
+Runtime: khi bắt đầu `landslide`, phase là `NORMAL` ở baseline và chỉ đổi `WARNING`/`CRITICAL`/`ALERT` khi sensor values vượt điều kiện.
+
+**Phòng tránh**
+
+- Không dùng phase tĩnh của config làm runtime state nếu simulator không gửi phase theo telemetry.
+- Runtime state phải được dẫn xuất từ telemetry hoặc protocol event.
+
+## 15. Dashboard rỗng trước khi chạy scenario
+
+**Triệu chứng**
+
+- Chart không có line và gauge hiển thị `0.0` trước khi bấm `RUN SCENARIO`.
+- Frontend đã kết nối nhưng chưa có telemetry baseline để render.
+
+**Nguyên nhân**
+
+- `main()` chỉ tạo simulator khi scenario khác `normal` hoặc speed khác `1.0`.
+- Khi khởi động với project/scenario mặc định, WebSocket server chạy nhưng `self.simulator` vẫn là `None`.
+
+**Cách xử lý**
+
+- Luôn tạo simulator lúc server khởi động, kể cả scenario `normal`, để phát baseline telemetry.
+- Lệnh `start_scenario` vẫn thay thế simulator bằng scenario được chọn.
+
+**Xác nhận**
+
+```bash
+python3 simulator/vitalchain_simulator.py --project pulseguard
+```
+
+Kết nối WebSocket phải nhận telemetry baseline trước khi gửi `start_scenario`; sau đó scenario mới làm risk/chart nổi bật.
+
+**Phòng tránh**
+
+- Server phải phát baseline stream ngay khi dashboard kết nối.
+- Không dùng random fallback frontend làm thay thế cho simulator thật.
+
+## 16. FactSafe chart lặp bar, giữ dữ liệu scenario cũ và thiếu timeline alert
+
+**Triệu chứng**
+
+- Dust chart hiển thị hàng trăm bar giống nhau theo từng timestamp, khó đọc và không thể hiện “giá trị hiện tại”.
+- Khi đổi scenario, chart giữ spike của scenario trước rồi nối sang baseline mới, tạo cảm giác dữ liệu giả hoặc tụt bất thường.
+- Alert popup xuất hiện nhưng Live Events không có dòng tương ứng.
+
+**Nguyên nhân**
+
+- `LiveChart` dùng toàn bộ telemetry history cho `BarChart`; mỗi sample trở thành một bar.
+- `ScenarioControl.handleStart()` không xoá telemetry/alert/event history trước khi gửi `start_scenario`.
+- `useDataBridge` chỉ đưa message `alert` vào AlertStore, không tạo TimelineEvent.
+
+**Cách xử lý**
+
+- Thêm `latestOnly` cho `LiveChart` và bật cho dust chart FactSafe.
+- Xoá history khi bắt đầu scenario mới, giống reset semantics.
+- Tạo timeline event từ alert WebSocket với severity/icon tương ứng.
+
+**Xác nhận**
+
+```bash
+cd frontend
+npm run build
+```
+
+Runtime FactSafe: dust chart chỉ có sample hiện tại, scenario mới không giữ spike cũ, alert xuất hiện cả ở popup và Live Events.
+
+**Phòng tránh**
+
+- Bar chart realtime phải hiển thị snapshot hoặc aggregate có chủ đích, không vẽ toàn bộ time series mặc định.
+- Scenario transition phải reset history hiển thị trước khi nạp dữ liệu mới.
+- Mọi alert từ simulator phải có representation trong timeline nếu UI có event feed.
+
+## 17. FactSafe latest-sample dust chart trông như đứng yên
+
+**Triệu chứng**
+
+- Dust chart chỉ còn hai cột đúng như thiết kế snapshot, nhưng chiều cao gần như không đổi giữa các telemetry sample.
+- Người xem có cảm giác dữ liệu bị hard-code hoặc không được simulator cập nhật.
+
+**Nguyên nhân**
+
+- Baseline deterministic noise của PM2.5/PM10 có biên độ quá nhỏ (`0.3`/`0.5`) so với thang đo chart.
+- Việc giảm lịch sử xuống latest sample làm dao động nhỏ càng khó nhìn thấy.
+
+**Cách xử lý**
+
+- Tăng smooth deterministic noise lên `4.5` cho PM2.5 và `8.0` cho PM10.
+- Giữ giá trị bounded theo domain range; không dùng random độc lập mỗi tick.
+
+**Xác nhận**
+
+```bash
+python3 -m py_compile simulator/vitalchain_simulator.py
+python3 - <<'PY'
+import sys
+sys.path.insert(0, 'simulator')
+from vitalchain_simulator import FactSafeSimulator
+sim = FactSafeSimulator('normal')
+values = []
+for elapsed in range(8):
+    sim.elapsed = elapsed
+    metrics = sim.get_metrics()
+    values.append((metrics['pm25_ug_m3'], metrics['pm10_ug_m3']))
+assert len(set(values)) > 1
+PY
+```
+
+**Phòng tránh**
+
+- Khi dùng snapshot chart, kiểm tra biên độ thay đổi trên thang đo thực tế, không chỉ kiểm tra rằng giá trị có khác nhau về mặt số học.
+- Noise phải liên tục, deterministic và đủ rõ để demo quan sát được.
