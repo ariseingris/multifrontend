@@ -10,19 +10,19 @@
 
 ```bash
 # Check if simulator is running
-ps aux | grep simulator.py
+ps aux | grep vitalchain_simulator.py
 
 # If not running, start it:
 cd simulator
 pip install websockets
-python simulator.py
+python vitalchain_simulator.py
 
 # Check if port 8765 is in use:
 ss -tlnp | grep 8765
 lsof -i :8765
 
 # If port is in use, use different port:
-python simulator.py --port 9000
+python vitalchain_simulator.py --port 9000
 # Then update frontend: const { isConnected } = useDataBridge('ws://localhost:9000');
 ```
 
@@ -354,7 +354,7 @@ kill -9 <PID>
 
 # Or use different ports:
 npm run dev -- --port 5174
-python simulator.py --port 8766
+python vitalchain_simulator.py --port 8766
 ```
 
 **macOS Specific**:

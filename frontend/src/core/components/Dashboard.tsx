@@ -10,7 +10,9 @@ interface DashboardProps {
   projectConfig: ProjectConfig;
   children?: React.ReactNode;
   onScenarioStart?: (scenarioId: string, speed: number) => void;
+  onSpeedChange?: (speed: number) => void;
   onScenarioPause?: () => void;
+  onScenarioResume?: () => void;
   onScenarioReset?: () => void;
 }
 
@@ -18,7 +20,9 @@ export const Dashboard: React.FC<DashboardProps> = ({
   projectConfig,
   children,
   onScenarioStart,
+  onSpeedChange,
   onScenarioPause,
+  onScenarioResume,
   onScenarioReset,
 }) => {
   const setConfig = useProjectStore((s) => s.setConfig);
@@ -62,7 +66,9 @@ export const Dashboard: React.FC<DashboardProps> = ({
               name: s.name,
             }))}
             onScenarioStart={onScenarioStart}
+            onSpeedChange={onSpeedChange}
             onScenarioPause={onScenarioPause}
+            onScenarioResume={onScenarioResume}
             onScenarioReset={onScenarioReset}
           />
 

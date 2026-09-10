@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useCallback, useState } from 'react';
 import { useTelemetryStore, useAlertStore, useTimelineStore } from '../store';
 import { TelemetryPoint } from '../types';
 
@@ -7,12 +7,16 @@ export function useDataBridge(wsUrl: string = 'ws://localhost:8765') {
   const addTelemetry = useTelemetryStore((state) => state.addTelemetry);
   const addAlert = useAlertStore((state) => state.addAlert);
   const addEvent = useTimelineStore((state) => state.addEvent);
+  const [isConnected, setIsConnected] = useState(false);
+  const reconnectTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const disposedRef = useRef(false);
 
   const connect = useCallback(() => {
     try {
       wsRef.current = new WebSocket(wsUrl);
 
       wsRef.current.onopen = () => {
+        setIsConnected(true);
         console.log('WebSocket connected');
       };
 
@@ -37,11 +41,11 @@ export function useDataBridge(wsUrl: string = 'ws://localhost:8765') {
       };
 
       wsRef.current.onclose = () => {
+        setIsConnected(false);
         console.log('WebSocket disconnected');
-        // Attempt reconnect after 2 seconds
-        setTimeout(() => {
-          connect();
-        }, 2000);
+        if (!disposedRef.current) {
+          reconnectTimeoutRef.current = setTimeout(connect, 2000);
+        }
       };
     } catch (err) {
       console.error('Failed to connect WebSocket:', err);
@@ -49,9 +53,14 @@ export function useDataBridge(wsUrl: string = 'ws://localhost:8765') {
   }, [wsUrl, addTelemetry, addAlert, addEvent]);
 
   useEffect(() => {
+    disposedRef.current = false;
     connect();
 
     return () => {
+      disposedRef.current = true;
+      if (reconnectTimeoutRef.current) {
+        clearTimeout(reconnectTimeoutRef.current);
+      }
       if (wsRef.current) {
         wsRef.current.close();
       }
@@ -65,7 +74,7 @@ export function useDataBridge(wsUrl: string = 'ws://localhost:8765') {
   }, []);
 
   return {
-    isConnected: wsRef.current?.readyState === WebSocket.OPEN,
+    isConnected,
     send,
   };
 }

@@ -554,7 +554,7 @@ addTelemetry: (point) => set((state) => {
 
 ### WebSocket connection fails
 
-- Ensure simulator is running: `python simulator.py`
+- Ensure simulator is running: `python vitalchain_simulator.py`
 - Check host/port: `ws://localhost:8765`
 - Check browser Network tab for WebSocket connection
 - Verify firewall allows WebSocket connections

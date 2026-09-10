@@ -10,14 +10,18 @@ import { formatElapsedTime } from '../utils/formatting';
 interface ScenarioControlProps {
   scenarios: Array<{ id: string; name: string }>;
   onScenarioStart?: (scenarioId: string, speed: number) => void;
+  onSpeedChange?: (speed: number) => void;
   onScenarioPause?: () => void;
+  onScenarioResume?: () => void;
   onScenarioReset?: () => void;
 }
 
 export const ScenarioControl: React.FC<ScenarioControlProps> = ({
   scenarios,
   onScenarioStart,
+  onSpeedChange,
   onScenarioPause,
+  onScenarioResume,
   onScenarioReset,
 }) => {
   const scenario = useScenarioStore((s) => s.scenario);
@@ -43,7 +47,7 @@ export const ScenarioControl: React.FC<ScenarioControlProps> = ({
       onScenarioPause?.();
     } else {
       resumeScenario();
-      onScenarioStart?.(scenario.name, scenario.speed);
+      onScenarioResume?.();
     }
   };
 
@@ -144,7 +148,10 @@ export const ScenarioControl: React.FC<ScenarioControlProps> = ({
           {[1, 2, 5, 10].map((speed) => (
             <button
               key={speed}
-              onClick={() => setSpeed(speed)}
+              onClick={() => {
+                setSpeed(speed);
+                onSpeedChange?.(speed);
+              }}
               style={{
                 flex: 1,
                 padding: '8px',

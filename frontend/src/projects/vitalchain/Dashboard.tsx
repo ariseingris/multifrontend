@@ -13,11 +13,13 @@ export const VitalChainDashboard: React.FC = () => {
   const addEvent = useTimelineStore((s) => s.addEvent);
   const addAlert = useAlertStore((s) => s.addAlert);
   const setPhase = useScenarioStore((s) => s.setPhase);
-  const setElapsed = useScenarioStore((s) => s.setElapsed);
+  const advanceElapsed = useScenarioStore((s) => s.advanceElapsed);
   const [useSimulation] = useState(true);
 
   // Try to connect to WebSocket, but fall back to local simulation
-  const { isConnected } = useDataBridge('ws://localhost:8765');
+  const { isConnected, send } = useDataBridge(
+    import.meta.env.VITE_WS_URL || 'ws://localhost:8765'
+  );
   useLocalTelemetrySimulation(useSimulation && !isConnected, vitalchainConfig);
 
   // Scenario progression and event generation
@@ -25,11 +27,11 @@ export const VitalChainDashboard: React.FC = () => {
     if (scenario.status !== 'running') return;
 
     const interval = setInterval(() => {
-      setElapsed(scenario.elapsedSeconds + 0.1 * scenario.speed);
+      advanceElapsed(0.1 * scenario.speed);
     }, 100);
 
     return () => clearInterval(interval);
-  }, [scenario.status, scenario.elapsedSeconds, scenario.speed, setElapsed]);
+  }, [scenario.status, scenario.speed, advanceElapsed]);
 
   // Generate events and alerts based on telemetry
   useEffect(() => {
@@ -87,9 +89,15 @@ export const VitalChainDashboard: React.FC = () => {
   return (
     <Dashboard
       projectConfig={vitalchainConfig}
-      onScenarioStart={(scenarioId) => {
+      onScenarioStart={(scenarioId, speed) => {
         const scenario = vitalchainConfig.scenarios.find((s) => s.id === scenarioId);
         if (scenario) {
+          send({
+            type: 'start_scenario',
+            project: vitalchainConfig.id,
+            scenario: scenarioId,
+            speed,
+          });
           const firstStep = scenario.steps[0];
           setPhase(firstStep.phase);
 
@@ -103,6 +111,10 @@ export const VitalChainDashboard: React.FC = () => {
           addEvent(event);
         }
       }}
+      onSpeedChange={(speed) => send({ type: 'set_speed', speed })}
+      onScenarioPause={() => send({ type: 'pause' })}
+      onScenarioResume={() => send({ type: 'resume' })}
+      onScenarioReset={() => send({ type: 'reset' })}
     >
       {/* KPIs Row */}
       <div

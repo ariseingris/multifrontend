@@ -28,7 +28,7 @@ The framework separates concerns into:
    - Project-specific dashboard layout
    - Custom components (if needed)
 
-3. **Simulator** (`simulator/simulator.py`)
+3. **Simulator** (`simulator/vitalchain_simulator.py`)
    - Deterministic scenario playback
    - WebSocket server for real-time data
    - Support for multiple projects and scenarios
@@ -159,7 +159,7 @@ uih/
 │
 └── simulator/                         # Python WebSocket Server
     ├── README.md                      # Simulator docs
-    ├── simulator.py                   # Main simulator
+    ├── vitalchain_simulator.py                   # Main simulator
     ├── requirements.txt               # Python dependencies
     └── scenarios/                     # (Optional) Scenario configs
 ```
@@ -178,7 +178,7 @@ uih/
 - `projects/*/Dashboard.tsx` - One per project (layout)
 
 **Simulator**:
-- `simulator/simulator.py` - All projects
+- `simulator/vitalchain_simulator.py` - All projects
 
 ---
 
@@ -244,7 +244,7 @@ cd simulator
 pip install websockets
 
 # 3. Start server
-python simulator.py
+python vitalchain_simulator.py
 
 # Output:
 # Simulator server running on ws://localhost:8765
@@ -259,7 +259,7 @@ python simulator.py
 
 ```bash
 # Start with specific scenario and speed
-python simulator.py --scenario door_open --speed 2
+python vitalchain_simulator.py --scenario door_open --speed 2
 ```
 
 ---
@@ -273,7 +273,7 @@ All scenarios are 60-120 seconds, designed to show complete flow.
 #### Normal Operation
 
 ```bash
-python simulator.py --scenario normal --speed 1
+python vitalchain_simulator.py --scenario normal --speed 1
 ```
 
 Shows: Stable cold chain, no alerts.
@@ -281,7 +281,7 @@ Shows: Stable cold chain, no alerts.
 #### Door Open Incident
 
 ```bash
-python simulator.py --scenario door_open --speed 2
+python vitalchain_simulator.py --scenario door_open --speed 2
 ```
 
 Timeline:
@@ -302,7 +302,7 @@ Visible in UI:
 #### Compressor Failure
 
 ```bash
-python simulator.py --scenario compressor_failure --speed 2
+python vitalchain_simulator.py --scenario compressor_failure --speed 2
 ```
 
 Similar to door open but:
@@ -314,7 +314,7 @@ Similar to door open but:
 #### Freeze Fault
 
 ```bash
-python simulator.py --scenario freeze_fault --speed 2
+python vitalchain_simulator.py --scenario freeze_fault --speed 2
 ```
 
 Temperature drops instead of rises:
@@ -326,16 +326,16 @@ Temperature drops instead of rises:
 
 ```bash
 # At 1x speed, scenarios play in real time
-python simulator.py --scenario door_open --speed 1
+python vitalchain_simulator.py --scenario door_open --speed 1
 
 # At 2x speed, 20-second scenario plays in 10 seconds
-python simulator.py --scenario door_open --speed 2
+python vitalchain_simulator.py --scenario door_open --speed 2
 
 # At 5x speed, play 5 scenarios in 1 minute
-python simulator.py --scenario door_open --speed 5
+python vitalchain_simulator.py --scenario door_open --speed 5
 
 # At 10x speed, perfect for rapid testing
-python simulator.py --scenario door_open --speed 10
+python vitalchain_simulator.py --scenario door_open --speed 10
 ```
 
 ### Controls in UI
@@ -468,7 +468,7 @@ export const App: React.FC = () => {
 
 ### Step 4: Add to Simulator (Python)
 
-Edit `simulator/simulator.py`:
+Edit `simulator/vitalchain_simulator.py`:
 
 Add handler for new project:
 
@@ -536,7 +536,7 @@ class NewProjectSimulator(ScenarioSimulator):
 
 ```bash
 # Terminal 1
-python simulator.py --project newproject
+python vitalchain_simulator.py --project newproject
 
 # Terminal 2
 cd frontend && npm run dev
@@ -611,7 +611,7 @@ Reusable functions:
 
 **Usage**: Use in any component for consistent formatting.
 
-### Simulator (simulator/simulator.py)
+### Simulator (simulator/vitalchain_simulator.py)
 
 Base classes and server framework are shared:
 
@@ -670,7 +670,7 @@ export const ProjectDashboard: React.FC = () => {
 };
 ```
 
-### Simulator Implementation (simulator/simulator.py)
+### Simulator Implementation (simulator/vitalchain_simulator.py)
 
 For each project, create a simulator class:
 
@@ -834,9 +834,9 @@ class ProjectSimulator(ScenarioSimulator):
 1. Create `projects/{id}/config.ts` with metrics and scenarios
 2. Create `projects/{id}/Dashboard.tsx` with layout
 3. Add to `App.tsx` switch statement
-4. Create simulator class in `simulator/simulator.py`
+4. Create simulator class in `simulator/vitalchain_simulator.py`
 5. Add to server's `handle_command()` method
-6. Test with: `python simulator.py --project {id}`
+6. Test with: `python vitalchain_simulator.py --project {id}`
 
 **To add a new chart type**:
 1. Add to `core/components/Charts.tsx`
@@ -872,7 +872,7 @@ class ProjectSimulator(ScenarioSimulator):
 # Terminal 1: Start simulator
 cd simulator
 pip install websockets
-python simulator.py --scenario door_open --speed 2
+python vitalchain_simulator.py --scenario door_open --speed 2
 
 # Terminal 2: Start frontend
 cd frontend
@@ -959,7 +959,7 @@ cd frontend && npm run dev
 cd frontend && npm run build
 
 # Start simulator with options
-python simulator.py --scenario door_open --speed 2
+python vitalchain_simulator.py --scenario door_open --speed 2
 
 # Reinstall dependencies
 cd frontend && rm -rf node_modules && npm install
@@ -1072,7 +1072,7 @@ cd frontend && npx prettier --write src/
    - Which charts to show?
    - Custom components needed?
 
-4. **Implement simulator** in `simulator/simulator.py`
+4. **Implement simulator** in `simulator/vitalchain_simulator.py`
    - Extend `ScenarioSimulator`
    - Interpolate metrics for each scenario
    - Implement threshold checking

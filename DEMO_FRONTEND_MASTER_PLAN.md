@@ -186,7 +186,7 @@ demo-platform/
 │   │   ├── stemlab.py
 │   │   ├── firescout.py
 │   │   └── pam.py
-│   └── simulator.py
+│   └── vitalchain_simulator.py
 ├── controller/
 │   └── demo_controller.py
 ├── scripts/
@@ -534,7 +534,7 @@ Không dùng random jump liên tục.
 Mọi scenario phải deterministic khi có seed.
 
 ```bash
-python simulator.py --project vitalchain --scenario compressor_failure --seed 42
+python vitalchain_simulator.py --project vitalchain --scenario compressor_failure --seed 42
 ```
 
 Cùng seed + cùng scenario = cùng sequence.
@@ -2200,10 +2200,10 @@ Chọn một canonical timestamp + formatter.
 
 # 28. BUGBOOK — QUY TẮC GHI BUG
 
-Tạo file:
+Tạo file ở root repository:
 
 ```text
-docs/BUGBOOK.md
+BUGBOOK.md
 ```
 
 Template:
@@ -2710,7 +2710,7 @@ Agent phải:
 - identify existing `iot-demo-template`
 - identify existing `engine.js`
 - identify existing `style.css`
-- identify existing `simulator.py`
+- identify existing `vitalchain_simulator.py`
 - identify chart library
 - identify build system
 - identify current ports

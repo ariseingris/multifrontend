@@ -43,12 +43,15 @@ interface AlertStore {
   setCurrentAlert: (alert: Alert | null) => void;
 }
 
+const MAX_ALERT_HISTORY = 100;
+const MAX_TIMELINE_HISTORY = 200;
+
 export const useAlertStore = create<AlertStore>((set) => ({
   alerts: [],
   currentAlert: null,
   addAlert: (alert: Alert) =>
     set((state) => ({
-      alerts: [...state.alerts, alert],
+      alerts: [...state.alerts.slice(-(MAX_ALERT_HISTORY - 1)), alert],
       currentAlert: alert,
     })),
   clearAlerts: () => set({ alerts: [] }),
@@ -67,7 +70,7 @@ export const useTimelineStore = create<TimelineStore>((set) => ({
   events: [],
   addEvent: (event: TimelineEvent) =>
     set((state) => ({
-      events: [...state.events, event],
+      events: [...state.events.slice(-(MAX_TIMELINE_HISTORY - 1)), event],
     })),
   clearEvents: () => set({ events: [] }),
   setEvents: (events: TimelineEvent[]) => set({ events }),
@@ -82,6 +85,7 @@ interface ScenarioStore {
   resumeScenario: () => void;
   setPhase: (phase: ScenarioPhase) => void;
   setElapsed: (seconds: number) => void;
+  advanceElapsed: (seconds: number) => void;
   setSpeed: (speed: number) => void;
 }
 
@@ -119,6 +123,13 @@ export const useScenarioStore = create<ScenarioStore>((set) => ({
   setElapsed: (seconds: number) =>
     set((state) => ({
       scenario: { ...state.scenario, elapsedSeconds: seconds },
+    })),
+  advanceElapsed: (seconds: number) =>
+    set((state) => ({
+      scenario: {
+        ...state.scenario,
+        elapsedSeconds: state.scenario.elapsedSeconds + seconds,
+      },
     })),
   setSpeed: (speed: number) =>
     set((state) => ({

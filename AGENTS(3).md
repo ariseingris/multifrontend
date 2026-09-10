@@ -84,7 +84,7 @@ The repository currently contains:
 ├── simulator
 │   ├── README.md
 │   ├── requirements.txt
-│   └── simulator.py
+│   └── vitalchain_simulator.py
 └── TROUBLESHOOTING.md
 ```
 
@@ -208,7 +208,7 @@ For VitalChain, start with:
 ```text
 frontend/src/projects/vitalchain/
 frontend/src/core/
-simulator/simulator.py
+simulator/vitalchain_simulator.py
 ```
 
 ### First response/report from an agent

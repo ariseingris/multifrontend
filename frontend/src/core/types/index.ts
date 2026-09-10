@@ -111,7 +111,7 @@ export interface KPIConfig {
   format: 'number' | 'percentage' | 'duration' | 'status';
   value?: number | string;
   unit?: string;
-  target?: number;
+  target?: number | string;
   trend?: 'up' | 'down' | 'stable';
 }
 

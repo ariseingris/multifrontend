@@ -356,7 +356,7 @@ export const vitalchainConfig: ProjectConfig = {
       format: 'duration',
       value: '00:00',
       unit: 'seconds',
-      target: 60,
+      target: ">60",
     },
     {
       id: 'uptime',

@@ -72,7 +72,7 @@ Simulator (deterministic scenario playback)
 ```bash
 cd simulator
 pip install websockets
-python simulator.py --scenario door_open --speed 2
+python vitalchain_simulator.py --scenario door_open --speed 2
 ```
 
 ### Terminal 2: Start Frontend
@@ -102,7 +102,7 @@ Open http://localhost:5173 to see:
 | Type Definitions | 1 | `core/types/` |
 | Utilities | 1 | `core/utils/` |
 | VitalChain Project | 2 | `projects/vitalchain/` |
-| Python Simulator | 1 | `simulator/simulator.py` |
+| Python Simulator | 1 | `simulator/vitalchain_simulator.py` |
 | Documentation | 5 | README files |
 | Config | 4 | vite.config, tsconfig, package.json, .gitignore |
 
@@ -221,7 +221,7 @@ The framework is ready to test immediately:
 
 ```bash
 # Complete end-to-end test in 5 minutes:
-cd simulator && python simulator.py --scenario door_open --speed 2 &
+cd simulator && python vitalchain_simulator.py --scenario door_open --speed 2 &
 cd frontend && npm run dev
 # Open http://localhost:5173
 # Observe: Charts animate → Alert appears → Event timeline fills → Recovery happens
@@ -244,4 +244,4 @@ The framework solves the core problem: **build impressive IoT dashboards quickly
 
 **Status**: ✅ **COMPLETE AND READY TO USE**
 
-Start with: `python simulator.py && npm run dev`
+Start with: `python vitalchain_simulator.py && npm run dev`

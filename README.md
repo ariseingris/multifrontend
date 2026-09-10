@@ -9,7 +9,7 @@ A reusable, modular demo framework for building impressive IoT dashboards for pi
 ```bash
 cd simulator
 pip install websockets
-python simulator.py --scenario door_open --speed 2
+python vitalchain_simulator.py --scenario door_open --speed 2
 ```
 
 ### 2. Start the Frontend
@@ -21,6 +21,29 @@ npm run dev
 ```
 
 Then open http://localhost:5173 in your browser.
+
+## Run VitalChain with Docker
+
+Build and start the VitalChain frontend together with its simulator:
+
+```bash
+docker compose up --build vitalchain
+```
+
+Open http://localhost:5173. The frontend connects to the simulator at
+`ws://localhost:8765`.
+
+Choose another demo scenario without changing the image:
+
+```bash
+VITALCHAIN_SCENARIO=compressor_failure VITALCHAIN_SPEED=2 docker compose up --build vitalchain
+```
+
+Stop the stack with:
+
+```bash
+docker compose down
+```
 
 ## Architecture
 
@@ -92,7 +115,7 @@ uih/
 │   ├── tsconfig.json
 │   └── README.md
 └── simulator/
-    ├── simulator.py             # Python WebSocket server
+    ├── vitalchain_simulator.py             # Python WebSocket server
     ├── requirements.txt
     └── README.md
 ```
@@ -242,7 +265,7 @@ export const App: React.FC = () => {
 
 ### Step 4: Add to Simulator
 
-Update `simulator/simulator.py` with your own simulator class:
+Update `simulator/vitalchain_simulator.py` with your own simulator class:
 
 ```python
 class MyProjectSimulator(ScenarioSimulator):
@@ -260,13 +283,13 @@ class MyProjectSimulator(ScenarioSimulator):
 ### Start with default scenario
 
 ```bash
-python simulator.py
+python vitalchain_simulator.py
 ```
 
 ### Start with specific scenario and speed
 
 ```bash
-python simulator.py --project vitalchain --scenario door_open --speed 2
+python vitalchain_simulator.py --project vitalchain --scenario door_open --speed 2
 ```
 
 ### Command-line options

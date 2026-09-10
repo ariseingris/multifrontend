@@ -35,7 +35,7 @@ if [ $? -ne 0 ]; then
     pip install websockets
 fi
 
-$PYTHON_CMD simulator.py --scenario "$SCENARIO" --speed "$SPEED" &
+$PYTHON_CMD vitalchain_simulator.py --scenario "$SCENARIO" --speed "$SPEED" &
 SIMULATOR_PID=$!
 echo "✓ Simulator PID: $SIMULATOR_PID"
 echo ""
