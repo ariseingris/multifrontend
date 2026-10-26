@@ -5,8 +5,8 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY vitalchain_simulator.py .
+COPY server.py scenario_engine.py scenario_models.py telemetry_history.py pond_environment.py ./
 
 EXPOSE 8765
 
-CMD ["python", "vitalchain_simulator.py", "--host", "0.0.0.0", "--project", "vitalchain", "--scenario", "door_open", "--speed", "1"]
+CMD ["python", "server.py", "--host", "0.0.0.0", "--project", "aquasense"]

@@ -1,8 +1,8 @@
 import React from 'react';
 import { useTimelineStore } from '../store';
-import { formatTime, getStatusColor } from '../utils/formatting';
+import { formatTime, formatElapsedTime, getStatusColor } from '../utils/formatting';
 
-export const EventTimeline: React.FC = () => {
+export const EventTimeline: React.FC<{ theme?: 'dark' | 'light'; limit?: number }> = ({ theme = 'dark', limit = 10 }) => {
   const events = useTimelineStore((s) => s.events);
 
   if (events.length === 0) {
@@ -22,13 +22,22 @@ export const EventTimeline: React.FC = () => {
   }
 
   // Show last 10 events, most recent at top
-  const displayEvents = [...events].reverse().slice(0, 10);
+  const displayEvents = [...events].reverse().slice(0, Math.min(200, limit));
 
   return (
-    <div style={{ padding: '12px 0' }}>
+    <div role="log" aria-live="polite" style={{ padding: '12px 0' }}>
+      <style>{`
+        @keyframes mfTimelineEventIn {
+          from { opacity: 0; transform: translateY(4px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .mf-timeline-item { animation: none !important; }
+        }
+      `}</style>
       <div style={{ paddingBottom: '12px' }}>
         {displayEvents.map((event, index) => (
-          <TimelineItem key={`${event.timestamp}-${index}`} event={event} />
+          <TimelineItem key={`${event.timestamp}-${index}`} event={event} theme={theme} />
         ))}
       </div>
     </div>
@@ -37,9 +46,10 @@ export const EventTimeline: React.FC = () => {
 
 interface TimelineItemProps {
   event: any;
+  theme: 'dark' | 'light';
 }
 
-const TimelineItem: React.FC<TimelineItemProps> = ({ event }) => {
+const TimelineItem: React.FC<TimelineItemProps> = ({ event, theme }) => {
   const iconMap: Record<string, string> = {
     sensor_connected: '📡',
     system_normal: '✓',
@@ -58,33 +68,36 @@ const TimelineItem: React.FC<TimelineItemProps> = ({ event }) => {
 
   return (
     <div
+      className="mf-timeline-item"
       style={{
         display: 'flex',
         gap: '12px',
         padding: '8px 12px',
         borderLeft: `3px solid ${color}`,
-        background: 'rgba(0,0,0,0.2)',
+        background: theme === 'light' ? '#f1f5f9' : 'rgba(0,0,0,0.2)',
         marginBottom: '6px',
         borderRadius: '0 4px 4px 0',
-        animation: 'slideIn 0.3s ease-out',
+        animation: 'mfTimelineEventIn 0.2s ease-out',
       }}
     >
       <div
         style={{
           minWidth: '60px',
           fontSize: '11px',
-          color: '#9ca3af',
+          color: theme === 'light' ? '#52657a' : '#9ca3af',
           fontFamily: 'monospace',
           fontWeight: '600',
         }}
       >
-        {formatTime(event.timestamp)}
+        {event.elapsedSimSeconds !== undefined ? `Sim ${formatElapsedTime(event.elapsedSimSeconds)}` : formatTime(event.timestamp)}
       </div>
 
       <div
         style={{
           display: 'flex',
           alignItems: 'center',
+          flexWrap: 'wrap',
+          minWidth: 0,
           gap: '8px',
           flex: 1,
         }}
@@ -102,8 +115,9 @@ const TimelineItem: React.FC<TimelineItemProps> = ({ event }) => {
         <span
           style={{
             fontSize: '12px',
-            color: '#e0e0e0',
+            color: theme === 'light' ? '#334155' : '#e0e0e0',
             flex: 1,
+            overflowWrap: 'anywhere',
           }}
         >
           {event.message}
@@ -124,18 +138,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({ event }) => {
         )}
       </div>
 
-      <style>{`
-        @keyframes slideIn {
-          from {
-            opacity: 0;
-            transform: translateX(-10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-      `}</style>
+
     </div>
   );
 };

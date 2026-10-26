@@ -9,6 +9,7 @@ frontend/src/**/*.jsx
 
 # Python
 simulator/__pycache__/
+simulator/**/__pycache__/
 simulator/*.pyc
 simulator/.venv/
 simulator/venv/
@@ -38,3 +39,21 @@ build/
 *.pid
 .cache/
 .next/
+
+# Local archives and documentation
+*.[zZ][iI][pP]
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+*.rar
+docs/
+*.[mM][dD]
+*.pdf
+*.doc
+*.docx
+
+# Loose reference images (application assets remain tracked)
+/*.png
+/*.jpg
+/*.jpeg

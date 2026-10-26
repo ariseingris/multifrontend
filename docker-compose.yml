@@ -1,31 +1,25 @@
 services:
-  vitalchain-simulator:
+  simulator:
     build:
       context: ./simulator
       dockerfile: Dockerfile
-    container_name: vitalchain-simulator
     command:
       - python
-      - vitalchain_simulator.py
+      - server.py
       - --host
       - 0.0.0.0
       - --project
-      - vitalchain
-      - --scenario
-      - ${VITALCHAIN_SCENARIO:-door_open}
-      - --speed
-      - ${VITALCHAIN_SPEED:-1}
+      - ${SIMULATOR_PROJECT:-aquasense}
     ports:
       - "8765:8765"
 
-  vitalchain:
+  frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
       args:
         VITE_WS_URL: ${VITE_WS_URL:-ws://localhost:8765}
-    container_name: vitalchain-frontend
     depends_on:
-      - vitalchain-simulator
+      - simulator
     ports:
       - "5173:80"

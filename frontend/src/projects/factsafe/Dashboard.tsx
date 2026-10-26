@@ -1,79 +1,27 @@
-import React, { useEffect } from 'react';
-import { Dashboard, Gauge, LiveChart } from '../../core/components';
+import { SimulationDashboard, displayValue } from '../../core/components/SimulationDashboard';
+import { Gauge } from '../../core/components';
 import { factsafeConfig } from './config';
-import { useDataBridge } from '../../core/hooks/useDataBridge';
-import { useScenarioStore, useSystemStore, useTelemetryStore, useTimelineStore } from '../../core/store';
-import { TimelineEvent } from '../../core/types';
 
-const metric = (key: string, metrics?: Record<string, number>) => metrics?.[key] ?? 0;
-const zoneTone = (risk: number) => risk >= 75 ? '#ef4444' : risk >= 55 ? '#f59e0b' : '#22c55e';
+const metric = (key: string) => factsafeConfig.metrics.find((item) => item.key === key)!;
 
-export const FactSafeDashboard: React.FC = () => {
-  const latest = useTelemetryStore((state) => state.getLatest());
-  const scenario = useScenarioStore((state) => state.scenario);
-  const setPhase = useScenarioStore((state) => state.setPhase);
-  const advanceElapsed = useScenarioStore((state) => state.advanceElapsed);
-  const addEvent = useTimelineStore((state) => state.addEvent);
-  const setStatus = useSystemStore((state) => state.setStatus);
-  const { send } = useDataBridge(import.meta.env.VITE_WS_URL || 'ws://localhost:8765');
-
-  useEffect(() => {
-    if (scenario.status !== 'running') return;
-    const interval = setInterval(() => advanceElapsed(0.1 * scenario.speed), 100);
-    return () => clearInterval(interval);
-  }, [scenario.status, scenario.speed, advanceElapsed]);
-
-  useEffect(() => {
-    if (!latest) return;
-    setStatus({ online: true, dataStreamActive: true, sensorCount: factsafeConfig.devices.length });
-    setPhase(latest.status === 'critical' ? 'critical' : latest.status === 'warning' ? 'warning' : 'normal');
-  }, [latest, setPhase, setStatus]);
-
-  const metrics = latest?.metrics;
-  const zoneRisks = [
-    { id: 'A', risk: metric('zone_a_risk', metrics) },
-    { id: 'B', risk: metric('zone_b_risk', metrics) },
-    { id: 'C', risk: metric('zone_c_risk', metrics) },
-    { id: 'D', risk: metric('zone_d_risk', metrics) },
-  ];
-
-  return (
-    <Dashboard projectConfig={factsafeConfig}
-      onScenarioStart={(scenarioId, speed) => {
-        const selected = factsafeConfig.scenarios.find((item) => item.id === scenarioId);
-        if (!selected) return;
-        send({ type: 'start_scenario', project: 'factsafe', scenario: scenarioId, speed });
-        setPhase('normal');
-        const event: TimelineEvent = { timestamp: new Date().toISOString(), type: 'system_normal', message: `Scenario started: ${selected.name}`, severity: 'info', icon: '▶' };
-        addEvent(event);
-      }}
-      onSpeedChange={(speed) => send({ type: 'set_speed', speed })}
-      onScenarioPause={() => send({ type: 'pause' })}
-      onScenarioResume={() => send({ type: 'resume' })}
-      onScenarioReset={() => send({ type: 'reset' })}
-    >
-      <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 12, marginBottom: 16 }}>
-        <MetricCard label="Overall risk" value={String(Math.round(latest?.riskScore ?? 0))} unit="/ 100" critical={(latest?.riskScore ?? 0) >= 75} />
-        <MetricCard label="Active alerts" value={String(zoneRisks.filter((zone) => zone.risk >= 55).length)} unit="zones" />
-        <MetricCard label="Highest-risk zone" value={zoneRisks.reduce((highest, zone) => zone.risk > highest.risk ? zone : highest, zoneRisks[0]).id} unit="" />
-        <MetricCard label="Sensor health" value="100" unit="%" />
-      </section>
-
-      <LiveChart metricKeys={['nh3_severity', 'co_severity', 'h2s_severity', 'ch4_severity']} title="Gas severity · normalized to DEMO-DEFAULT thresholds" height={290} colors={['#f97316', '#eab308', '#ef4444', '#a855f7']} />
-
-      <section style={{ display: 'grid', gridTemplateColumns: 'minmax(280px, 1.2fr) minmax(220px, 0.8fr)', gap: 16, marginBottom: 16 }}>
-        <LiveChart metricKeys={['pm25_ug_m3', 'pm10_ug_m3']} title="Dust concentration · latest sample" chartType="bar" height={250} colors={['#f59e0b', '#fb923c']} latestOnly />
-        <div style={{ background: '#1a1a1a', border: '1px solid #2d2d2d', borderRadius: 8, padding: 20, display: 'flex', justifyContent: 'center' }}><Gauge value={latest?.riskScore ?? 0} min={0} max={100} label="Unified risk" unit="score" thresholdWarning={55} thresholdCritical={75} size={160} /></div>
-      </section>
-
-      <section style={{ background: '#1a1a1a', border: '1px solid #2d2d2d', borderRadius: 8, padding: 20, marginBottom: 16 }}>
-        <h3 style={{ margin: '0 0 16px', color: '#e0e0e0', fontSize: 14 }}>Factory zone risk</h3>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12 }}>
-          {zoneRisks.map((zone) => <div key={zone.id} style={{ minHeight: 92, border: `1px solid ${zoneTone(zone.risk)}66`, background: `${zoneTone(zone.risk)}18`, borderRadius: 6, padding: 12 }}><strong style={{ color: '#e0e0e0' }}>ZONE {zone.id}</strong><div style={{ color: zoneTone(zone.risk), fontSize: 24, fontWeight: 700, marginTop: 12 }}>{Math.round(zone.risk)}</div><small style={{ color: '#9ca3af' }}>risk score</small></div>)}
-        </div>
-      </section>
-    </Dashboard>
-  );
-};
-
-const MetricCard: React.FC<{ label: string; value: string; unit: string; critical?: boolean }> = ({ label, value, unit, critical }) => <div style={{ background: '#1a1a1a', border: `1px solid ${critical ? '#ef4444' : '#2d2d2d'}`, borderRadius: 8, padding: 16 }}><div style={{ color: '#9ca3af', fontSize: 11, textTransform: 'uppercase', letterSpacing: '.5px' }}>{label}</div><strong style={{ display: 'block', color: critical ? '#ef4444' : '#f97316', fontSize: 25, marginTop: 8 }}>{value}<small style={{ color: '#9ca3af', fontSize: 12, marginLeft: 5 }}>{unit}</small></strong></div>;
+export function FactSafeDashboard() {
+  return <SimulationDashboard config={factsafeConfig} primary={[
+    { metric: metric('nh3_ppm'), kind: 'raw sensor', thresholdDirection: 'high' },
+    { metric: metric('pm25_ug_m3'), kind: 'raw sensor', thresholdDirection: 'high' },
+    { metric: metric('risk_score'), kind: 'derived score', axisLabel: 'Risk score (0–100)' },
+  ]} insight={({ latest, state }) => <>
+    {!latest ? <p>Waiting for simulated factory telemetry. No factory safety assessment is available.</p>
+      : <p>Demo status: <strong>{latest.status}</strong>. {state?.scenario === 'gas_leak' ? 'NH3 rises first in Zone B; dust remains near baseline.'
+        : state?.scenario === 'dust_event' ? 'Particulates rise in Zone D; gases remain near baseline.' : 'Synthetic factory baseline; no event is expected.'}
+        {state?.phase === 'recovery' && ' Simulated isolation/ventilation is followed by recovery monitoring; no equipment was actuated.'}</p>}
+    <p><small>DEMO-DEFAULT: score = min(100, gain × max(NH3 / NH3 critical, PM2.5 / PM2.5 critical)); gain {state?.riskModel?.gain ?? 80}. Overall is the maximum zone score. Unified risk is a derived 0–100 demo score, not a certified dose or calibrated safety assessment. Thresholds require EHS approval before real use.</small></p>
+  </>} details={({ latest }) => <>
+    <dl>{factsafeConfig.metrics.filter((item) => !['nh3_ppm','pm25_ug_m3','risk_score'].includes(item.key)).map((item) =>
+      <div className="fdb-diagnostic" key={item.key}><dt>{item.name}</dt><dd>{displayValue(latest?.metrics[item.key], item.precision)} {item.unit}</dd></div>)}
+      <div className="fdb-diagnostic"><dt>Sensor health</dt><dd>Unavailable · synthetic data</dd></div>
+      {['a','b','c','d'].map((zone) => <div className="fdb-diagnostic" key={zone}><dt>Zone {zone.toUpperCase()} risk</dt><dd>{displayValue(latest?.metrics[`zone_${zone}_risk`])} demo score</dd></div>)}
+      {['nh3','co','h2s','ch4'].map((gas) => <div className="fdb-diagnostic" key={gas}><dt>{gas.toUpperCase()} normalized severity (demo)</dt><dd>{displayValue(latest?.metrics[`${gas}_severity`],2)}</dd></div>)}
+    </dl>
+    {latest && <Gauge value={latest.riskScore} min={0} max={100} theme="light" label="Unified zone risk (demo)" unit="score" thresholdWarning={55} thresholdCritical={75} />}
+  </>} />;
+}

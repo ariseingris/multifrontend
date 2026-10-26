@@ -89,6 +89,9 @@ export function getPhaseName(phase: ScenarioPhase): string {
     alert: 'Alert',
     action: 'Action',
     recovery: 'Recovery',
+    oxygen_decline: 'Oxygen decline',
+    monitoring: 'Post-event monitoring',
+    maintenance_required: 'Maintenance required',
   };
   return names[phase];
 }

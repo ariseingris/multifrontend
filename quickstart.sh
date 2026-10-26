@@ -1,71 +1,43 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
 
-# Quick Start Script for IoT Demo Framework
-# Usage: ./quickstart.sh [scenario] [speed]
+# Usage: ./quickstart.sh [aquasense|factsafe|firescout]
+project_id=${1:-aquasense}
+case "$project_id" in
+  aquasense|factsafe|firescout) ;;
+  *) echo "Supported projects: aquasense, factsafe, firescout" >&2; exit 2 ;;
+esac
 
-SCENARIO=${1:-door_open}
-SPEED=${2:-2}
-
-echo "======================================"
-echo "  IoT Demo Framework - Quick Start"
-echo "======================================"
-echo ""
-echo "Starting simulator with:"
-echo "  Scenario: $SCENARIO"
-echo "  Speed: ${SPEED}x"
-echo ""
-
-# Check if running on macOS or Linux
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    # macOS
-    PYTHON_CMD="python3"
+cd -- "$(dirname -- "${BASH_SOURCE[0]}")"
+if [[ -x .venv/bin/python ]]; then
+  python_cmd=.venv/bin/python
 else
-    # Linux
-    PYTHON_CMD="python3"
+  python_cmd=python3
 fi
 
-# Start simulator
-echo "[1/2] Starting simulator..."
-cd simulator
-
-# Check if websockets is installed
-$PYTHON_CMD -c "import websockets" 2>/dev/null
-if [ $? -ne 0 ]; then
-    echo "Installing websockets..."
-    pip install websockets
+if ! "$python_cmd" -c 'import websockets' 2>/dev/null; then
+  "$python_cmd" -m pip install -r simulator/requirements.txt
+fi
+if [[ ! -d frontend/node_modules ]]; then
+  npm --prefix frontend ci
 fi
 
-$PYTHON_CMD vitalchain_simulator.py --scenario "$SCENARIO" --speed "$SPEED" &
-SIMULATOR_PID=$!
-echo "✓ Simulator PID: $SIMULATOR_PID"
-echo ""
+"$python_cmd" -u simulator/server.py --project "$project_id" &
+simulator_pid=$!
+cleanup() {
+  kill "$simulator_pid" 2>/dev/null || true
+  wait "$simulator_pid" 2>/dev/null || true
+}
+trap cleanup EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
 
-# Wait for simulator to start
-sleep 2
-
-# Start frontend
-echo "[2/2] Starting frontend..."
-cd ../frontend
-
-# Check if dependencies are installed
-if [ ! -d "node_modules" ]; then
-    echo "Installing npm dependencies..."
-    npm install
+sleep 1
+if ! kill -0 "$simulator_pid" 2>/dev/null; then
+  echo "Simulator could not start. Check whether port 8765 is already in use." >&2
+  exit 1
 fi
 
-echo ""
-echo "======================================"
-echo "  Framework Started Successfully!"
-echo "======================================"
-echo ""
-echo "Frontend:  http://localhost:5173"
-echo "Simulator: ws://localhost:8765"
-echo ""
-echo "Press Ctrl+C to stop both services"
-echo "======================================"
-echo ""
-
-npm run dev
-
-# Clean up simulator when frontend exits
-kill $SIMULATOR_PID 2>/dev/null
+echo "Open http://localhost:5173/?project=$project_id"
+echo "Use Scenarios to start playback. Ctrl+C stops both services."
+VITE_PROJECT="$project_id" npm --prefix frontend run dev -- --strictPort

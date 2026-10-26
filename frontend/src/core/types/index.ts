@@ -9,6 +9,19 @@ export interface TelemetryPoint {
   status: 'normal' | 'warning' | 'critical';
   riskScore: number;
   scenario: string;
+  project?: string;
+  sessionId?: string;
+  elapsedSimSeconds?: number;
+  elapsedSimMinutes?: number;
+  historyBucketSeconds?: number;
+  historyRetentionSeconds?: number;
+  historyMaxPoints?: number;
+  source?: 'simulator' | 'sensor';
+  quality?: Record<string, 'valid' | 'degraded' | 'missing' | 'simulated'>;
+  sensorStatus?: 'valid' | 'degraded' | 'missing';
+  missionStatus?: string | null;
+  metricStatus?: Record<string, 'normal' | 'warning' | 'critical'>;
+  groundTruth?: Record<string, number>;
 }
 
 export interface Alert {
@@ -21,18 +34,52 @@ export interface Alert {
   value?: number;
   threshold?: number;
   deviceId?: string;
+  project?: string;
+  sessionId?: string;
+  source?: string;
+  elapsedSimSeconds?: number;
 }
 
 export interface TimelineEvent {
   timestamp: string;
-  type: 'sensor_connected' | 'system_normal' | 'anomaly_detected' | 'threshold_exceeded' | 'critical_event' | 'alert_dispatched' | 'operator_acknowledged' | 'system_recovered' | 'action_approved' | 'action_rejected';
+  type: 'sensor_connected' | 'system_normal' | 'anomaly_detected' | 'threshold_exceeded' | 'critical_event' | 'alert_dispatched' | 'operator_acknowledged' | 'system_recovered' | 'action_approved' | 'action_rejected' | 'started' | 'completed' | 'reset' | 'pause' | 'resume' | 'set_speed' | 'warning_entered' | 'critical_entered' | 'normal_restored' | 'simulated_intervention' | 'recovery' | 'sensor_quality_warning' | 'simulated_containment' | 'normal_telemetry' | 'suspected_leak' | 'dust_detected' | 'link_lost' | 'link_degraded' | 'link_recovered' | 'telemetry_stale' | 'reconnecting' | 'candidate_detected' | 'track_lost' | 'hotspot_detected' | 'telemetry_healthy' | 'monitoring_started';
   message: string;
   severity: 'info' | 'warning' | 'critical' | 'success';
   icon: string;
+  project?: string;
+  sessionId?: string;
+  elapsedSimSeconds?: number;
+  source?: string;
 }
 
-export type ScenarioStatus = 'stopped' | 'running' | 'paused';
-export type ScenarioPhase = 'normal' | 'early_signal' | 'warning' | 'critical' | 'alert' | 'action' | 'recovery';
+export type ScenarioStatus = 'stopped' | 'running' | 'paused' | 'completed';
+export type ScenarioPhase = 'normal' | 'early_signal' | 'warning' | 'critical' | 'alert' | 'action' | 'recovery' | 'oxygen_decline' | 'monitoring' | 'maintenance_required';
+
+export interface SimulationState {
+  project: string;
+  scenario: string;
+  sessionId: string;
+  status: ScenarioStatus;
+  phase: ScenarioPhase;
+  speed: number;
+  elapsedSimSeconds: number;
+  durationSeconds: number;
+  continuous?: boolean;
+  activeAlert?: Alert | null;
+  realElapsedSeconds?: number;
+  source: 'simulator_state';
+  timestamp: string;
+  seed: number;
+  riskModel?: Record<string, number>;
+  telemetryAvailable: boolean;
+  sensorStatus: 'valid' | 'degraded' | 'missing';
+  missionStatus: string | null;
+  candidateDetected: boolean;
+  hotspotDetected: boolean;
+  rules: Record<string, number> | null;
+  lastSeenSimSeconds: number | null;
+  lastTelemetrySimSeconds: number | null;
+}
 
 export interface ScenarioState {
   name: string;
@@ -103,6 +150,11 @@ export interface ProjectConfig {
   aiEngine?: boolean;
   defaultScenario?: string;
   defaultSpeed?: number;
+  sessionHistory?: boolean;
+  chartWindowSeconds?: number;
+  controlsInitiallyOpen?: boolean;
+  simulationTimeUnit?: 'minutes' | 'seconds';
+  simulationSpeeds?: number[];
 }
 
 export interface KPIConfig {

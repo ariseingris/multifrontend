@@ -4,11 +4,17 @@ import { Header } from './Header';
 import { AlertDisplay } from './AlertDisplay';
 import { EventTimeline } from './EventTimeline';
 import { ScenarioControl } from './ScenarioControl';
+import { FigmaDashboardShell } from './FigmaDashboard/Shell';
 import { ProjectConfig } from '../types';
 
 interface DashboardProps {
   projectConfig: ProjectConfig;
   children?: React.ReactNode;
+  variant?: 'classic' | 'figma';
+  connected?: boolean;
+  authoritative?: boolean;
+  hasSession?: boolean;
+  wsUrl?: string;
   onScenarioStart?: (scenarioId: string, speed: number) => void;
   onSpeedChange?: (speed: number) => void;
   onScenarioPause?: () => void;
@@ -19,6 +25,11 @@ interface DashboardProps {
 export const Dashboard: React.FC<DashboardProps> = ({
   projectConfig,
   children,
+  variant = 'classic',
+  connected = false,
+  authoritative = false,
+  hasSession = true,
+  wsUrl,
   onScenarioStart,
   onSpeedChange,
   onScenarioPause,
@@ -35,6 +46,20 @@ export const Dashboard: React.FC<DashboardProps> = ({
       aiEngineActive: projectConfig.aiEngine ?? true,
     });
   }, [projectConfig, setConfig, setStatus]);
+
+  if (variant === 'figma') {
+    return (
+      <FigmaDashboardShell projectConfig={projectConfig} connected={connected} wsUrl={wsUrl}
+        controls={<ScenarioControl variant="compact" initiallyOpen={projectConfig.controlsInitiallyOpen} disabled={!connected} authoritative={authoritative} hasSession={hasSession} speeds={projectConfig.simulationSpeeds}
+          scenarios={projectConfig.scenarios.map(({ id, name }) => ({ id, name }))}
+          onScenarioStart={onScenarioStart} onSpeedChange={onSpeedChange}
+          onScenarioPause={onScenarioPause} onScenarioResume={onScenarioResume}
+          onScenarioReset={onScenarioReset} />}>
+        <AlertDisplay projectId={projectConfig.id} />
+        {children}
+      </FigmaDashboardShell>
+    );
+  }
 
   return (
     <div
@@ -73,6 +98,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
           />
 
           {/* Custom Content */}
+          <AlertDisplay projectId={projectConfig.id} />
           {children}
 
           {/* Event Timeline */}
@@ -106,8 +132,6 @@ export const Dashboard: React.FC<DashboardProps> = ({
         </div>
       </div>
 
-      {/* Alert Display */}
-      <AlertDisplay />
     </div>
   );
 };

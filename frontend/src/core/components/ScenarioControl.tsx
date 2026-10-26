@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useId, useState, useEffect, useRef } from 'react';
 import {
   useScenarioStore,
   useTimelineStore,
@@ -8,6 +8,12 @@ import {
 import { formatElapsedTime } from '../utils/formatting';
 
 interface ScenarioControlProps {
+  variant?: 'classic' | 'compact';
+  initiallyOpen?: boolean;
+  authoritative?: boolean;
+  hasSession?: boolean;
+  speeds?: number[];
+  disabled?: boolean;
   scenarios: Array<{ id: string; name: string }>;
   onScenarioStart?: (scenarioId: string, speed: number) => void;
   onSpeedChange?: (speed: number) => void;
@@ -18,12 +24,23 @@ interface ScenarioControlProps {
 
 export const ScenarioControl: React.FC<ScenarioControlProps> = ({
   scenarios,
+  variant = 'classic',
+  initiallyOpen = false,
+  disabled = false,
+  authoritative = false,
+  hasSession = true,
+  speeds = [1, 2, 5, 10],
   onScenarioStart,
   onSpeedChange,
   onScenarioPause,
   onScenarioResume,
   onScenarioReset,
 }) => {
+  const scenarioSelectId = useId();
+  const disclosure = useRef<HTMLDetailsElement>(null);
+  useEffect(() => { if (initiallyOpen && disclosure.current) disclosure.current.open = true; }, [initiallyOpen]);
+  const [selection, setSelection] = useState(scenarios[0]?.id ?? '');
+  const [nextSpeed, setNextSpeed] = useState(1);
   const scenario = useScenarioStore((s) => s.scenario);
   const {
     startScenario,
@@ -32,37 +49,81 @@ export const ScenarioControl: React.FC<ScenarioControlProps> = ({
     resetScenario,
     setSpeed,
   } = useScenarioStore();
+  useEffect(() => {
+    if (authoritative && scenarios.some((item) => item.id === scenario.name)) setSelection(scenario.name);
+  }, [authoritative, scenario.name]);
+  useEffect(() => {
+    if (authoritative && scenario.status !== 'stopped') setNextSpeed(scenario.speed);
+  }, [authoritative, scenario.speed, scenario.status]);
+  const canStart = scenario.status === 'stopped' || scenario.status === 'completed';
+  const selectedSpeed = authoritative && canStart ? nextSpeed : scenario.speed;
   const clearTelemetry = useTelemetryStore((s) => s.clearTelemetry);
   const clearAlerts = useAlertStore((s) => s.clearAlerts);
   const clearEvents = useTimelineStore((s) => s.clearEvents);
 
   const handleStart = (scenarioId: string) => {
-    clearTelemetry();
-    clearAlerts();
-    clearEvents();
-    startScenario();
-    onScenarioStart?.(scenarioId, scenario.speed);
+    if (!authoritative) {
+      clearTelemetry(); clearAlerts(); clearEvents(); startScenario();
+    }
+    onScenarioStart?.(scenarioId, selectedSpeed);
   };
 
   const handlePauseResume = () => {
     if (scenario.status === 'running') {
-      pauseScenario();
+      if (!authoritative) pauseScenario();
       onScenarioPause?.();
     } else {
-      resumeScenario();
+      if (!authoritative) resumeScenario();
       onScenarioResume?.();
     }
   };
 
   const handleReset = () => {
-    resetScenario();
-    clearTelemetry();
-    clearAlerts();
-    clearEvents();
+    if (!authoritative) {
+      resetScenario(); clearTelemetry(); clearAlerts(); clearEvents();
+    }
     onScenarioReset?.();
   };
 
   const isRunning = scenario.status === 'running';
+
+  if (variant === 'compact') {
+    const selected = authoritative ? selection : scenarios.some((item) => item.id === scenario.name)
+      ? scenario.name : scenarios[0]?.id ?? '';
+    return (
+      <div className="fdb-controls">
+        <details ref={disclosure}>
+          <summary>Scenarios</summary>
+          <fieldset disabled={disabled} className="fdb-controls__panel">
+            <legend>Scenario controls</legend>
+            <label htmlFor={scenarioSelectId}>Scenario</label>
+            <select id={scenarioSelectId} value={selected} disabled={isRunning || scenario.status === 'paused'}
+              onChange={(event) => authoritative ? setSelection(event.target.value) : useScenarioStore.getState().setScenario({ name: event.target.value })}>
+              {scenarios.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}
+            </select>
+            <span>Speed{authoritative && canStart ? ' for next run' : ''}</span>
+            <div className="fdb-controls__buttons">
+              {speeds.map((speed) => <button key={speed} aria-pressed={selectedSpeed === speed}
+                onClick={() => {
+                  setNextSpeed(speed);
+                  if (authoritative && canStart) return;
+                  if (!authoritative) setSpeed(speed);
+                  onSpeedChange?.(speed);
+                }}>{speed}x</button>)}
+            </div>
+            <div className="fdb-controls__buttons">
+              {(scenario.status === 'stopped' || scenario.status === 'completed')
+                ? <button onClick={() => handleStart(selected)}>Run scenario</button>
+                : <button onClick={handlePauseResume}>{isRunning ? 'Pause' : 'Resume'}</button>}
+              <button disabled={authoritative && !hasSession} onClick={handleReset}>Reset</button>
+            </div>
+            {disabled && <p className="fdb-empty">Connect the simulator to enable controls.</p>}
+          </fieldset>
+        </details>
+        <span>{authoritative ? 'Simulation · ' : ''}{scenario.status} · {scenario.phase.replace(/_/g, ' ')} · {formatElapsedTime(scenario.elapsedSeconds)} · {scenario.speed}x</span>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -203,7 +264,7 @@ export const ScenarioControl: React.FC<ScenarioControlProps> = ({
 
       {/* Control Buttons */}
       <div style={{ display: 'flex', gap: '8px' }}>
-        {scenario.status === 'stopped' ? (
+        {(scenario.status === 'stopped' || scenario.status === 'completed') ? (
           <button
             onClick={() => handleStart(scenario.name)}
             style={{

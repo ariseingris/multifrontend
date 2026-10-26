@@ -1,6 +1,10 @@
 export { Header } from './Header';
 export { AlertDisplay } from './AlertDisplay';
+export { AlertMessage } from './AlertMessage';
+export type { AlertMessageProps } from './AlertMessage';
 export { EventTimeline } from './EventTimeline';
 export { ScenarioControl } from './ScenarioControl';
 export { Dashboard } from './Dashboard';
 export { LiveChart, ThresholdChart, Gauge } from './Charts';
+export { FigmaDashboardContent, ChartCard, MetricCard } from './FigmaDashboard';
+export { SimulationDashboard } from './SimulationDashboard';

@@ -1,3 +1,4 @@
+import { appendTelemetry } from './utils/telemetryPresentation';
 import { create } from 'zustand';
 import {
   TelemetryPoint,
@@ -8,6 +9,7 @@ import {
   SystemStatus,
   DemoModeState,
   ProjectConfig,
+  SimulationState,
 } from './types';
 
 interface TelemetryStore {
@@ -22,7 +24,7 @@ export const useTelemetryStore = create<TelemetryStore>((set, get) => ({
   telemetry: [],
   addTelemetry: (point: TelemetryPoint) =>
     set((state) => ({
-      telemetry: [...state.telemetry.slice(-999), point], // Keep last 1000 points
+      telemetry: appendTelemetry(state.telemetry, point),
     })),
   clearTelemetry: () => set({ telemetry: [] }),
   setTelemetry: (points: TelemetryPoint[]) => set({ telemetry: points }),
@@ -54,7 +56,7 @@ export const useAlertStore = create<AlertStore>((set) => ({
       alerts: [...state.alerts.slice(-(MAX_ALERT_HISTORY - 1)), alert],
       currentAlert: alert,
     })),
-  clearAlerts: () => set({ alerts: [] }),
+  clearAlerts: () => set({ alerts: [], currentAlert: null }),
   clearCurrentAlert: () => set({ currentAlert: null }),
   setCurrentAlert: (alert: Alert | null) => set({ currentAlert: alert }),
 }));
@@ -181,4 +183,27 @@ interface ProjectStore {
 export const useProjectStore = create<ProjectStore>((set) => ({
   config: null,
   setConfig: (config: ProjectConfig) => set({ config }),
+}));
+
+
+interface SimulationStore {
+  state: SimulationState | null;
+  receivedAt: number;
+  commandError: string | null;
+  serverProject: string | null;
+  setServerProject: (project: string) => void;
+  setSimulation: (state: SimulationState) => void;
+  setCommandError: (message: string | null) => void;
+  clear: () => void;
+}
+
+export const useSimulationStore = create<SimulationStore>((set) => ({
+  state: null,
+  receivedAt: 0,
+  serverProject: null,
+  setServerProject: (serverProject) => set({ serverProject }),
+  commandError: null,
+  setSimulation: (state) => set({ state, receivedAt: Date.now(), commandError: null }),
+  setCommandError: (commandError) => set({ commandError }),
+  clear: () => set({ state: null, receivedAt: 0, commandError: null, serverProject: null }),
 }));

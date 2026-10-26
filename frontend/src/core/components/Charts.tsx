@@ -12,8 +12,11 @@ import {
   Tooltip,
   ResponsiveContainer,
   Legend,
+  ReferenceArea,
+  ReferenceLine,
 } from 'recharts';
 import { useTelemetryStore } from '../store';
+import { elapsedAxis, visibleTelemetry } from '../utils/telemetryPresentation';
 import { formatTime } from '../utils/formatting';
 
 interface LiveChartProps {
@@ -24,6 +27,15 @@ interface LiveChartProps {
   chartType?: 'line' | 'area' | 'bar';
   colors?: string[];
   latestOnly?: boolean;
+  theme?: 'dark' | 'light';
+  sessionTime?: boolean;
+  windowSeconds?: number;
+  axisLabel?: string;
+  timeUnit?: 'minutes' | 'seconds';
+  unit?: string;
+  domain?: [number, number];
+  labels?: Record<string, string>;
+  reference?: { value: number; label: string };
 }
 
 export const LiveChart: React.FC<LiveChartProps> = ({
@@ -34,14 +46,17 @@ export const LiveChart: React.FC<LiveChartProps> = ({
   chartType = 'line',
   colors = ['#3b82f6', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981', '#ef4444'],
   latestOnly = false,
+  theme = 'dark',
+  timeUnit, unit, domain, labels, reference, sessionTime = false, windowSeconds, axisLabel,
 }) => {
   const telemetry = useTelemetryStore((s) => s.telemetry);
+  const sessionAxis = sessionTime && timeUnit ? elapsedAxis(telemetry, timeUnit, windowSeconds) : undefined;
 
   const chartData = useMemo(() => {
-    const points = latestOnly ? telemetry.slice(-1) : telemetry;
+    const points = latestOnly ? telemetry.slice(-1) : visibleTelemetry(telemetry, windowSeconds);
     return points.map((point) => {
       const row: any = {
-        time: formatTime(point.timestamp),
+        time: timeUnit ? (point.elapsedSimSeconds === undefined ? null : point.elapsedSimSeconds / (timeUnit === 'minutes' ? 60 : 1)) : formatTime(point.timestamp),
         timestamp: point.timestamp,
       };
 
@@ -51,17 +66,17 @@ export const LiveChart: React.FC<LiveChartProps> = ({
 
       return row;
     });
-  }, [telemetry, metricKeys, latestOnly]);
+  }, [telemetry, metricKeys, latestOnly, timeUnit, windowSeconds]);
 
   const Chart = chartType === 'line' ? LineChart : chartType === 'area' ? AreaChart : BarChart;
   return (
     <div
       style={{
-        background: '#1a1a1a',
-        border: '1px solid #2d2d2d',
+        background: theme === 'light' ? '#fff' : '#1a1a1a',
+        border: theme === 'light' ? 'none' : '1px solid #2d2d2d',
         borderRadius: '8px',
-        padding: '16px',
-        marginBottom: '16px',
+        padding: theme === 'light' ? '0' : '16px',
+        marginBottom: theme === 'light' ? '0' : '16px',
       }}
     >
       {title && (
@@ -70,7 +85,7 @@ export const LiveChart: React.FC<LiveChartProps> = ({
             margin: '0 0 12px 0',
             fontSize: '14px',
             fontWeight: '600',
-            color: '#e0e0e0',
+            color: theme === 'light' ? '#334155' : '#e0e0e0',
           }}
         >
           {title}
@@ -81,30 +96,41 @@ export const LiveChart: React.FC<LiveChartProps> = ({
         <Chart data={chartData} margin={{ top: 5, right: 30, left: 0, bottom: 5 }}>
           <CartesianGrid
             strokeDasharray="3 3"
-            stroke="#2d2d2d"
+            stroke={theme === 'light' ? '#e2e8f0' : '#2d2d2d'}
             vertical={false}
           />
           <XAxis
             dataKey="time"
+            type={timeUnit ? 'number' : 'category'}
+            domain={sessionAxis?.domain ?? (timeUnit ? ['dataMin', 'dataMax'] : undefined)}
+            allowDataOverflow={!!windowSeconds}
+            ticks={sessionAxis?.ticks}
+            tickFormatter={sessionAxis?.format ?? (timeUnit ? (value) => Number(value).toFixed(1) : undefined)}
+            label={timeUnit ? { value: `Sim time (${timeUnit === 'minutes' ? 'min' : 's'})`, position: 'insideBottom', offset: -3, fill: '#52657a', fontSize: 11 } : undefined}
+            height={timeUnit ? 40 : 30}
             stroke="#6b7280"
             style={{ fontSize: '11px' }}
-            tick={{ fill: '#9ca3af' }}
+            tick={{ fill: theme === 'light' ? '#52657a' : '#9ca3af' }}
           />
           <YAxis
+            domain={domain}
+            label={axisLabel || unit ? { value: axisLabel || unit, angle: -90, position: 'insideLeft', fill: '#52657a', fontSize: 11 } : undefined}
             stroke="#6b7280"
             style={{ fontSize: '11px' }}
-            tick={{ fill: '#9ca3af' }}
+            tick={{ fill: theme === 'light' ? '#52657a' : '#9ca3af' }}
           />
           <Tooltip
+            labelFormatter={timeUnit ? (value) => `Sim ${Number(value).toFixed(2)} ${timeUnit === 'minutes' ? 'min' : 's'}` : undefined}
             contentStyle={{
-              background: '#262626',
+              background: theme === 'light' ? '#fff' : '#262626',
               border: '1px solid #404040',
               borderRadius: '4px',
               padding: '8px',
             }}
-            labelStyle={{ color: '#e0e0e0' }}
-            itemStyle={{ color: '#e0e0e0' }}
+            labelStyle={{ color: theme === 'light' ? '#334155' : '#e0e0e0' }}
+            itemStyle={{ color: theme === 'light' ? '#334155' : '#e0e0e0' }}
           />
+          {reference && <ReferenceLine y={reference.value} ifOverflow="extendDomain" stroke="#a16207" strokeDasharray="4 4" label={{ value: reference.label, position: 'insideTopRight', fill: '#854d0e', fontSize: 10 }} />}
           {showLegend && (
             <Legend
               iconType="line"
@@ -115,12 +141,12 @@ export const LiveChart: React.FC<LiveChartProps> = ({
           {metricKeys.map((key, index) => {
             const color = colors[index % colors.length];
             if (chartType === 'line') {
-              return <Line key={key} type="monotone" dataKey={key} stroke={color} dot={false} isAnimationActive={false} strokeWidth={2} />;
+              return <Line key={key} name={labels?.[key] ?? key} type="monotone" dataKey={key} stroke={color} dot={false} isAnimationActive={false} strokeWidth={2} />;
             }
             if (chartType === 'area') {
-              return <Area key={key} type="monotone" dataKey={key} stroke={color} fill={color} dot={false} isAnimationActive={false} strokeWidth={2} />;
+              return <Area key={key} name={labels?.[key] ?? key} type="monotone" dataKey={key} stroke={color} fill={color} dot={false} isAnimationActive={false} strokeWidth={2} />;
             }
-            return <Bar key={key} dataKey={key} fill={color} isAnimationActive={false} />;
+            return <Bar key={key} name={labels?.[key] ?? key} dataKey={key} fill={color} isAnimationActive={false} />;
           })}
         </Chart>
       </ResponsiveContainer>
@@ -133,6 +159,7 @@ export const LiveChart: React.FC<LiveChartProps> = ({
  */
 interface ThresholdChartProps {
   metricKey: string;
+  domain?: [number, number];
   title?: string;
   height?: number;
   normalMin: number;
@@ -142,6 +169,13 @@ interface ThresholdChartProps {
   criticalMin?: number;
   criticalMax?: number;
   unit?: string;
+  timeUnit?: 'minutes' | 'seconds';
+  warningThreshold?: number;
+  criticalThreshold?: number;
+  theme?: 'dark' | 'light';
+  sessionTime?: boolean;
+  windowSeconds?: number;
+  axisLabel?: string;
 }
 
 export const ThresholdChart: React.FC<ThresholdChartProps> = ({
@@ -155,12 +189,15 @@ export const ThresholdChart: React.FC<ThresholdChartProps> = ({
   criticalMin,
   criticalMax,
   unit,
+  theme = 'dark',
+  timeUnit, warningThreshold, criticalThreshold, sessionTime = false, windowSeconds, axisLabel, domain,
 }) => {
   const telemetry = useTelemetryStore((s) => s.telemetry);
+  const sessionAxis = sessionTime && timeUnit ? elapsedAxis(telemetry, timeUnit, windowSeconds) : undefined;
 
   const chartData = useMemo(() => {
-    return telemetry.map((point) => ({
-      time: formatTime(point.timestamp),
+    return visibleTelemetry(telemetry, windowSeconds).map((point) => ({
+      time: timeUnit ? (point.elapsedSimSeconds === undefined ? null : point.elapsedSimSeconds / (timeUnit === 'minutes' ? 60 : 1)) : formatTime(point.timestamp),
       value: point.metrics[metricKey] ?? null,
       normalMin,
       normalMax,
@@ -178,16 +215,18 @@ export const ThresholdChart: React.FC<ThresholdChartProps> = ({
     warningMax,
     criticalMin,
     criticalMax,
+    timeUnit,
+    windowSeconds,
   ]);
 
   return (
     <div
       style={{
-        background: '#1a1a1a',
-        border: '1px solid #2d2d2d',
+        background: theme === 'light' ? '#fff' : '#1a1a1a',
+        border: theme === 'light' ? 'none' : '1px solid #2d2d2d',
         borderRadius: '8px',
-        padding: '16px',
-        marginBottom: '16px',
+        padding: theme === 'light' ? '0' : '16px',
+        marginBottom: theme === 'light' ? '0' : '16px',
       }}
     >
       {title && (
@@ -196,7 +235,7 @@ export const ThresholdChart: React.FC<ThresholdChartProps> = ({
             margin: '0 0 12px 0',
             fontSize: '14px',
             fontWeight: '600',
-            color: '#e0e0e0',
+            color: theme === 'light' ? '#334155' : '#e0e0e0',
           }}
         >
           {title}
@@ -218,36 +257,49 @@ export const ThresholdChart: React.FC<ThresholdChartProps> = ({
 
           <CartesianGrid
             strokeDasharray="3 3"
-            stroke="#2d2d2d"
+            stroke={theme === 'light' ? '#e2e8f0' : '#2d2d2d'}
             vertical={false}
           />
           <XAxis
             dataKey="time"
+            type={timeUnit ? 'number' : 'category'}
+            domain={sessionAxis?.domain ?? (timeUnit ? ['dataMin', 'dataMax'] : undefined)}
+            allowDataOverflow={!!windowSeconds}
+            ticks={sessionAxis?.ticks}
+            tickFormatter={sessionAxis?.format ?? (timeUnit ? (value) => Number(value).toFixed(1) : undefined)}
+            label={timeUnit ? { value: `Sim time (${timeUnit === 'minutes' ? 'min' : 's'})`, position: 'insideBottom', offset: -3, fill: '#52657a', fontSize: 11 } : undefined}
+            height={timeUnit ? 40 : 30}
             stroke="#6b7280"
             style={{ fontSize: '11px' }}
-            tick={{ fill: '#9ca3af' }}
+            tick={{ fill: theme === 'light' ? '#52657a' : '#9ca3af' }}
           />
           <YAxis
+            domain={domain}
             stroke="#6b7280"
             style={{ fontSize: '11px' }}
-            tick={{ fill: '#9ca3af' }}
+            tick={{ fill: theme === 'light' ? '#52657a' : '#9ca3af' }}
             label={{
-              value: unit || '',
+              value: axisLabel || unit || '',
               angle: -90,
               position: 'insideLeft',
-              fill: '#9ca3af',
+              fill: theme === 'light' ? '#52657a' : '#9ca3af',
             }}
           />
           <Tooltip
+            labelFormatter={timeUnit ? (value) => `Sim ${Number(value).toFixed(2)} ${timeUnit === 'minutes' ? 'min' : 's'}` : undefined}
             contentStyle={{
-              background: '#262626',
+              background: theme === 'light' ? '#fff' : '#262626',
               border: '1px solid #404040',
               borderRadius: '4px',
             }}
-            labelStyle={{ color: '#e0e0e0' }}
-            itemStyle={{ color: '#e0e0e0' }}
+            labelStyle={{ color: theme === 'light' ? '#334155' : '#e0e0e0' }}
+            itemStyle={{ color: theme === 'light' ? '#334155' : '#e0e0e0' }}
           />
 
+          {theme === 'light' ? (
+            <ReferenceArea y1={normalMin} y2={normalMax} fill="#22c55e" fillOpacity={0.1}
+              strokeOpacity={0} ifOverflow="extendDomain" />
+          ) : <>
           {/* Normal band */}
           <Area
             type="monotone"
@@ -268,6 +320,10 @@ export const ThresholdChart: React.FC<ThresholdChartProps> = ({
             />
           )}
 
+          </>}
+
+          {warningThreshold !== undefined && <ReferenceLine ifOverflow="extendDomain" y={warningThreshold} stroke="#a16207" strokeDasharray="4 4" label={{ value: 'Demo warning', position: 'insideTopRight', fill: '#854d0e', fontSize: 10 }} />}
+          {criticalThreshold !== undefined && <ReferenceLine ifOverflow="extendDomain" y={criticalThreshold} stroke="#b91c1c" strokeDasharray="4 4" label={{ value: 'Demo critical', position: 'insideTopRight', fill: '#b91c1c', fontSize: 10 }} />}
           {/* Data line */}
           <Line
             type="monotone"
@@ -295,6 +351,7 @@ interface GaugeProps {
   thresholdWarning?: number;
   thresholdCritical?: number;
   size?: number;
+  theme?: 'dark' | 'light';
 }
 
 export const Gauge: React.FC<GaugeProps> = ({
@@ -306,6 +363,7 @@ export const Gauge: React.FC<GaugeProps> = ({
   thresholdWarning,
   thresholdCritical,
   size = 120,
+  theme = 'dark',
 }) => {
   const percentage = ((value - min) / (max - min)) * 100;
   const normalizedPercentage = Math.min(100, Math.max(0, percentage));
@@ -386,7 +444,7 @@ export const Gauge: React.FC<GaugeProps> = ({
         </div>
       </div>
 
-      <div style={{ fontSize: '12px', color: '#d0d0d0', textAlign: 'center' }}>
+      <div style={{ fontSize: '12px', color: theme === 'light' ? '#52657a' : '#d0d0d0', textAlign: 'center' }}>
         {label}
       </div>
     </div>
