@@ -419,3 +419,111 @@ PY
 
 - Khi dùng snapshot chart, kiểm tra biên độ thay đổi trên thang đo thực tế, không chỉ kiểm tra rằng giá trị có khác nhau về mặt số học.
 - Noise phải liên tục, deterministic và đủ rõ để demo quan sát được.
+
+
+## 18. StrictMode leaves duplicate WebSocket connections
+
+**Observed during Figma dashboard browser validation**
+
+With React StrictMode enabled, the bridge opened three sockets and closed only one.
+The first effect's socket closed after the next effect had reset the shared
+`disposedRef`, scheduling an extra reconnect. Each live socket then delivered the
+same telemetry and events to the stores.
+
+**Fix**
+
+Each effect now owns its disposal flag, socket and reconnect timer. Cleanup detaches
+handlers and cancels its timer. Initial connection is deferred one task so the
+StrictMode setup/cleanup probe cannot open a second socket. The WebSocket protocol
+and stores are unchanged.
+
+**Prevention / validation**
+
+Instrument real browser WebSocket open/close events under StrictMode. Require one
+active socket per mounted dashboard, one command per control action, and no
+reconnect after unmount. Verify both AquaSense and an existing dashboard.
+
+
+## 19. Speed changes retroactively rescaled scenario time
+
+The original clock recomputed elapsed time as total wall runtime multiplied by the
+latest speed. A speed change therefore jumped backward/forward through scenario
+keyframes. The new shared clock accumulates monotonic deltas at the speed active
+for each delta. Pause freezes advancement; resume starts a new clock interval.
+AquaSense, FactSafe and FireScout publish authoritative playback state, so their
+React dashboards no longer run their own elapsed-time intervals. Durations are
+seconds everywhere; minute-based AquaSense/FactSafe keyframes are converted once.
+
+Validation: deterministic clock tests for all nine new scenarios, real browser
+pause/resume/speed/reset tests, and VitalChain playback regression. Preserve
+canonical elapsed seconds when adding speed controls or projects.
+
+## 20. Selecting speed before switching simulator projects
+
+An active server serves one project at a time. Sending `set_speed` for an unopened
+project was correctly rejected, but its subsequent Start then used the default
+speed. Compact controls now label and retain a local **Speed for next run**
+preference while stopped/completed. Start sends that preference once; during
+running/paused playback speed is displayed from backend acknowledgments. Reset is
+disabled until that project's session is known. Browser checks cover switching
+from AquaSense to FactSafe/FireScout and starting all nine scenarios.
+
+## 21. Timeline animations shared a global name with alert animations
+
+Each timeline row inserted `@keyframes slideIn`, also used by AlertDisplay with a
+different transform. This made animation behavior depend on stylesheet order and
+produced unreliable visual captures. EventTimeline now defines one uniquely named
+`mfTimelineEventIn` animation per timeline and respects reduced-motion preferences.
+Desktop/mobile captures were repeated after layout and animation settling.
+
+
+## 22. Three-project cleanup entrypoint and defaults
+
+After the cleanup, only AquaSense, FactSafe and FireScout AI are active. The shared
+server moved from the removed project-named entrypoint to `simulator/server.py`.
+All current setup, Docker and launcher references use that path. Historical paths
+above remain records of prior bugs, not current startup instructions. The backend
+registry rejects unsupported projects; the UI falls back to supported environment
+selection or AquaSense. The settings selector navigates to a new document, clearing
+client state; active-stream switching tests also verify packet project filtering.
+See `documents/development/KEEP_THREE_PROJECTS.md` for the dependency audit and validation results.
+
+
+## 23. Connected FactSafe view with no active FactSafe session
+
+A fresh FactSafe page could connect to a server still serving AquaSense. The bridge
+correctly filtered that other project's packets, but hid which project was active,
+and Start lived inside a collapsed footer. Diagnosis confirmed that Start with
+`project: factsafe` immediately produced valid data; no missing model/registry was
+invented as a cause. The page now identifies the server target and opens the
+existing controls initially for AquaSense/FactSafe. Displaced sessions are cleared
+and become startable; socket state remains independent from playback state.
+
+## 24. Short traces after reconnect and sparse fast playback
+
+Previously register restored one cached sample, time axes used incoming min/max,
+and a 1Hz real-time emitter produced only ~13 points across a 120-minute 600x run.
+The rolling 1,000-point store also discarded early phases in long 1x sessions.
+AquaSense/FactSafe now use an adaptive cadence up to 10Hz, recorded session history,
+and origin-preserving ten-simulated-second buckets. Reconnect restores original
+packets/events and timestamps. Dynamic X tick precision avoids identical rounded
+labels. FireScout remains on its previous cadence/protocol. See the telemetry
+repair report for six-scenario browser results and regression checks.
+
+## 25. FireScout model selection and generated wind prose
+
+**Observed 2026-10-27.** In the first isolated browser run, model selection through
+an exact accessible label timed out even though a model was visible. The wrapping
+label included the select's option text. The model field now uses an explicit
+`htmlFor`/`id` pair; the final actual Ollama round trip selected the discovered
+model and completed. Preserve explicit accessible labels when option content can
+change independently of a field name.
+
+The first local 0.5B-model trial also called a recorded ~135° FROM wind “south.”
+This was probabilistic model prose, not simulator telemetry. Explicit exact-value
+wind facts and system guidance were added, with a separate server-recorded
+SIMULATED snapshot rendered outside the generated prose. The final trial quoted
+135.1° FROM (SE), 4.1 m/s correctly. This does not validate the model or eliminate
+hallucination; recorded telemetry takes precedence. Backend tests verify supplied
+facts/context boundaries, and UI tests ensure generated strings remain escaped
+text. See [FireScout validation and limits](../documents/development/FIRESCOUT_UAV_DELIVERY.md).

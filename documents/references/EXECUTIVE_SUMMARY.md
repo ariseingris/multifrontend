@@ -1,5 +1,8 @@
 # Executive Summary: IoT Demo Framework
 
+> Historical executive summary. Active projects are now only AquaSense, FactSafe
+> and FireScout AI; use [README.md](../../README.md) for the current implementation.
+
 ## What Was Built
 
 A **production-ready shared demo framework** for building impressive IoT dashboards for pitches and competitions. The framework supports 6 IoT dashboard projects plus 3 special-purpose UI projects.

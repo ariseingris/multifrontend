@@ -4,7 +4,6 @@ export function displayValue(value: number | undefined, precision = 1) {
   return value !== undefined && Number.isFinite(value) ? value.toFixed(precision) : '—';
 }
 
-/** Retain actual samples from every time bucket, including origin and latest. */
 export function appendTelemetry(points: TelemetryPoint[], point: TelemetryPoint): TelemetryPoint[] {
   const previous = points[points.length - 1];
   if (previous && (previous.project !== point.project || previous.sessionId !== point.sessionId)) return [point];
@@ -20,11 +19,9 @@ export function appendTelemetry(points: TelemetryPoint[], point: TelemetryPoint)
     return result.filter(p => (p.elapsedSimSeconds ?? 0) >= cutoff).slice(-(point.historyMaxPoints ?? 1000));
   }
   if (result.length <= 1000) return result;
-  // FireScout/older streams keep their existing rolling history behavior.
   return bucketSeconds ? [result[0], ...result.slice(1, -1).filter((_, i) => i % 2 === 0), point] : result.slice(-1000);
 }
 
-/** Equal simulation intervals; precision follows spacing so short runs never repeat labels. */
 export function elapsedAxis(points: TelemetryPoint[], unit: 'minutes' | 'seconds', windowSeconds?: number) {
   const divisor = unit === 'minutes' ? 60 : 1;
   const latest = points[points.length - 1]?.elapsedSimSeconds ?? 0;
@@ -36,7 +33,6 @@ export function elapsedAxis(points: TelemetryPoint[], unit: 'minutes' | 'seconds
     format: (value: number) => Number(value).toFixed(precision) };
 }
 
-/** Viewport only: older retained samples remain available for diagnostics. */
 export function visibleTelemetry(points: TelemetryPoint[], windowSeconds?: number) {
   if (!windowSeconds || !points.length) return points;
   const cutoff = (points[points.length - 1].elapsedSimSeconds ?? 0) - windowSeconds;

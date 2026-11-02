@@ -1,0 +1,256 @@
+[
+  {
+    "claim_id": "AQ-C01",
+    "project": "aquasense",
+    "proposed_marketing_claim": "Giới thiệu AquaSense là nguyên mẫu hướng tới theo dõi môi trường ao nuôi và nhận biết thay đổi.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "PROJECT_FACT_SHEET.md",
+      "../../../README.md"
+    ],
+    "evidence_type": "PROJECT_PROPOSAL",
+    "confidence": "MEDIUM",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Giữ rõ nguyên mẫu/hướng tới; không khẳng định đã cảnh báo sớm ngoài ao.",
+    "verification_status": "Đối chiếu nguồn/phạm vi; xem giới hạn và phê duyệt biên tập",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "AQ-C02",
+    "project": "aquasense",
+    "proposed_marketing_claim": "Demo minh họa DO, pH, ORP, độ mặn và nhiệt độ bằng dữ liệu tổng hợp.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "../../../frontend/src/projects/aquasense/config.ts",
+      "../../../simulator/scenario_models.py"
+    ],
+    "evidence_type": "PROJECT_VERIFIED",
+    "confidence": "HIGH",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Luôn kèm từ demo/mô phỏng.",
+    "verification_status": "Đã đối chiếu hiện vật demo, không kiểm thử lại runtime",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "AQ-C03",
+    "project": "aquasense",
+    "proposed_marketing_claim": "Có ba tình huống chu kỳ bình thường, oxy giảm gần sáng và suy giảm đầu dò.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "../../../frontend/src/projects/aquasense/config.ts",
+      "../../development/AQUASENSE_CONTINUOUS_SIMULATION.md"
+    ],
+    "evidence_type": "PROJECT_VERIFIED",
+    "confidence": "HIGH",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Mô tả tình huống mô phỏng, không phải sự kiện khách hàng.",
+    "verification_status": "Đã đối chiếu hiện vật demo, không kiểm thử lại runtime",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "AQ-C04",
+    "project": "aquasense",
+    "proposed_marketing_claim": "Demo phân biệt tình huống oxy ao thay đổi với chất lượng đầu dò suy giảm.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "../../development/AQUASENSE_CONTINUOUS_SIMULATION.md",
+      "../../../simulator/scenario_models.py"
+    ],
+    "evidence_type": "PROJECT_VERIFIED",
+    "confidence": "HIGH",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Không gọi là thuật toán chẩn đoán đầu dò thực địa đã xác thực.",
+    "verification_status": "Đã đối chiếu hiện vật demo, không kiểm thử lại runtime",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "AQ-C05",
+    "project": "aquasense",
+    "proposed_marketing_claim": "Chưa xác nhận sensor/actuation/offline triển khai thực; dữ liệu thiếu/cũ được thể hiện trong demo.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "../../../README.md",
+      "../../development/AQUASENSE_CONTINUOUS_SIMULATION.md"
+    ],
+    "evidence_type": "PROJECT_VERIFIED",
+    "confidence": "HIGH",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Giới hạn kết luận trong kho mã/hồ sơ đã kiểm tra.",
+    "verification_status": "Đã đối chiếu hiện vật demo, không kiểm thử lại runtime",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "AQ-C06",
+    "project": "aquasense",
+    "proposed_marketing_claim": "Chưa có bằng chứng AI dự báo/Kalman/LSTM được đánh giá độc lập.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "PROJECT_FACT_SHEET.md",
+      "../shared/2026-10-27_PROJECT_KNOWLEDGE_AUDIT.md"
+    ],
+    "evidence_type": "NEEDS_VERIFICATION",
+    "confidence": "MEDIUM",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Giữ AI ở trạng thái đề xuất; mô phỏng không chứng minh model accuracy.",
+    "verification_status": "Đối chiếu nguồn/phạm vi; xem giới hạn và phê duyệt biên tập",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "AQ-C07",
+    "project": "aquasense",
+    "proposed_marketing_claim": "Nhóm mục tiêu là chủ trại, hợp tác xã, doanh nghiệp, nhà phân phối và đối tác pilot.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "PROJECT_FACT_SHEET.md"
+    ],
+    "evidence_type": "PROJECT_PROPOSAL",
+    "confidence": "MEDIUM",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Đối tượng mong muốn, không phải khách hàng hiện có.",
+    "verification_status": "Đối chiếu nguồn/phạm vi; xem giới hạn và phê duyệt biên tập",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "AQ-C08",
+    "project": "aquasense",
+    "proposed_marketing_claim": "Thông tin theo thời gian và ngữ cảnh có thể hỗ trợ trao đổi vận hành; lợi ích cần pilot.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "MARKETING_STRATEGY.md",
+      "MARKET_EVIDENCE.md"
+    ],
+    "evidence_type": "PROJECT_ASSUMPTION",
+    "confidence": "MEDIUM",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Dùng mục tiêu/có thể/cần kiểm chứng; chưa có tỷ lệ hiệu quả.",
+    "verification_status": "Đối chiếu nguồn/phạm vi; xem giới hạn và phê duyệt biên tập",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "AQ-C09",
+    "project": "aquasense",
+    "proposed_marketing_claim": "Giá, mô hình thuê bao và ROI AquaSense chưa được xác nhận.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "PROJECT_FACT_SHEET.md",
+      "../shared/2026-10-27_PROJECT_KNOWLEDGE_AUDIT.md"
+    ],
+    "evidence_type": "NEEDS_VERIFICATION",
+    "confidence": "HIGH",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Không công bố giá hoặc thời gian hoàn vốn; giữ K01 chưa giải quyết.",
+    "verification_status": "Đối chiếu nguồn/phạm vi; xem giới hạn và phê duyệt biên tập",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "AQ-C10",
+    "project": "aquasense",
+    "proposed_marketing_claim": "FAO: 94,4 triệu tấn động vật thủy sản nuôi toàn cầu năm 2022.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "https://www.fao.org/newsroom/detail/fao-report-global-fisheries-and-aquaculture-production-reaches-a-new-record-high/en",
+      "MARKET_EVIDENCE.md"
+    ],
+    "evidence_type": "VERIFIED_OFFICIAL_SOURCE",
+    "confidence": "HIGH",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Giữ toàn cầu, 2022, động vật thủy sản; không là TAM IoT.",
+    "verification_status": "Đối chiếu nguồn/phạm vi; xem giới hạn và phê duyệt biên tập",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "AQ-C11",
+    "project": "aquasense",
+    "proposed_marketing_claim": "Theo VASEP, xuất khẩu tôm Việt Nam 2025 đạt 4,6 tỷ USD.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "https://vasep.com.vn/tieu-diem/vasep-to-chuc-le-tong-ket-xuat-khau-thuy-san-nam-2025-can-moc-11-3-ty-usd-thich-ung-doi-moi-huong-toi-phat-trien-ben-vung-35848.html",
+      "MARKET_EVIDENCE.md"
+    ],
+    "evidence_type": "VERIFIED_OFFICIAL_SOURCE",
+    "confidence": "HIGH",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Giá trị xuất khẩu; không là doanh thu trại hoặc cơ hội doanh thu AquaSense.",
+    "verification_status": "Đối chiếu nguồn/phạm vi; xem giới hạn và phê duyệt biên tập",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "AQ-C12",
+    "project": "aquasense",
+    "proposed_marketing_claim": "Thực nghiệm tôm thẻ cho thấy stress thiếu oxy cấp ảnh hưởng mô và miễn dịch.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2024.1476309/full",
+      "MARKET_EVIDENCE.md"
+    ],
+    "evidence_type": "PEER_REVIEWED_RESEARCH",
+    "confidence": "HIGH",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Nêu điều kiện nghiên cứu; không suy ra mọi ao hay hiệu quả sản phẩm.",
+    "verification_status": "Đối chiếu nguồn/phạm vi; xem giới hạn và phê duyệt biên tập",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "AQ-C13",
+    "project": "aquasense",
+    "proposed_marketing_claim": "Mời đề nghị xem demo, trao đổi nhu cầu/pilot hoặc hợp tác.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "MARKETING_STRATEGY.md",
+      "PROJECT_FACT_SHEET.md"
+    ],
+    "evidence_type": "PROJECT_ASSUMPTION",
+    "confidence": "MEDIUM",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "CTA đề xuất; chưa là dịch vụ/pilot đã nhận; dùng contact thật sau khi được cung cấp.",
+    "verification_status": "Đối chiếu nguồn/phạm vi; xem giới hạn và phê duyệt biên tập",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "AQ-C14",
+    "project": "aquasense",
+    "proposed_marketing_claim": "AquaSense bảo đảm tránh thiệt hại, tăng năng suất hoặc tiết kiệm theo tỷ lệ cố định.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "PROJECT_FACT_SHEET.md"
+    ],
+    "evidence_type": "NEEDS_VERIFICATION",
+    "confidence": "LOW",
+    "approved_for_publication": "NO",
+    "recommended_wording": "Không công bố; thay bằng mục tiêu theo dõi và kế hoạch đo lợi ích.",
+    "verification_status": "Không đủ bằng chứng; chặn công bố",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "AQ-C15",
+    "project": "aquasense",
+    "proposed_marketing_claim": "Ngưỡng, biểu đồ và score demo không xác nhận ao an toàn hay thay chuyên môn nuôi.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "../../../README.md",
+      "../../specifications/MULTIFRONTEND_SCENARIOS_CODEX_SPEC.md"
+    ],
+    "evidence_type": "PROJECT_VERIFIED",
+    "confidence": "HIGH",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Giữ nhãn mô phỏng và yêu cầu kiểm chứng threshold thực tế.",
+    "verification_status": "Đã đối chiếu hiện vật demo, không kiểm thử lại runtime",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "AQ-C16",
+    "project": "aquasense",
+    "proposed_marketing_claim": "Chưa có pilot outcomes, traction hoặc financial results AquaSense được xác minh trong bộ hồ sơ.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "PROJECT_FACT_SHEET.md",
+      "../shared/2026-10-27_PROJECT_KNOWLEDGE_AUDIT.md"
+    ],
+    "evidence_type": "NEEDS_VERIFICATION",
+    "confidence": "HIGH",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Giới hạn theo hồ sơ được rà soát, không khẳng định không có ở mọi nơi.",
+    "verification_status": "Đối chiếu nguồn/phạm vi; xem giới hạn và phê duyệt biên tập",
+    "reviewed_on": "2026-10-27"
+  }
+]

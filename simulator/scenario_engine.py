@@ -20,7 +20,7 @@ class ScenarioSimulator(ABC):
 
     @speed.setter
     def speed(self, value):
-        self.update()  # Account for time already spent at the previous speed.
+        self.update()
         self._speed = value
 
     def update(self):

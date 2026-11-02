@@ -71,10 +71,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
         color: '#e0e0e0',
       }}
     >
-      {/* Header */}
       <Header />
 
-      {/* Main Content */}
       <div
         style={{
           flex: 1,
@@ -84,7 +82,6 @@ export const Dashboard: React.FC<DashboardProps> = ({
         }}
       >
         <div style={{ padding: '20px 24px' }}>
-          {/* Scenario Control */}
           <ScenarioControl
             scenarios={projectConfig.scenarios.map((s) => ({
               id: s.id,
@@ -97,11 +94,9 @@ export const Dashboard: React.FC<DashboardProps> = ({
             onScenarioReset={onScenarioReset}
           />
 
-          {/* Custom Content */}
           <AlertDisplay projectId={projectConfig.id} />
           {children}
 
-          {/* Event Timeline */}
           <div
             style={{
               background: '#1a1a1a',

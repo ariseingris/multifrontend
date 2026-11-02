@@ -21,7 +21,6 @@ export const EventTimeline: React.FC<{ theme?: 'dark' | 'light'; limit?: number 
     );
   }
 
-  // Show last 10 events, most recent at top
   const displayEvents = [...events].reverse().slice(0, Math.min(200, limit));
 
   return (

@@ -1,0 +1,254 @@
+[
+  {
+    "claim_id": "FS-C01",
+    "project": "factsafe",
+    "proposed_marketing_claim": "FactSafe là nguyên mẫu hướng tới quan sát môi trường và nhận biết nguy cơ công nghiệp.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "PROJECT_FACT_SHEET.md",
+      "../../../README.md"
+    ],
+    "evidence_type": "PROJECT_PROPOSAL",
+    "confidence": "MEDIUM",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Nêu hướng tới; không trình bày là hệ thống được chứng nhận.",
+    "verification_status": "Đối chiếu nguồn/phạm vi; xem giới hạn và phê duyệt biên tập",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "FS-C02",
+    "project": "factsafe",
+    "proposed_marketing_claim": "Demo tổng hợp NH3, CO, H2S, CH4, PM2.5, PM10, nhiệt độ và độ ẩm.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "../../../frontend/src/projects/factsafe/config.ts",
+      "../../../simulator/scenario_models.py"
+    ],
+    "evidence_type": "PROJECT_VERIFIED",
+    "confidence": "HIGH",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Chỉ khả năng demo dữ liệu tổng hợp; sensor thật chưa xác nhận.",
+    "verification_status": "Đã đối chiếu hiện vật demo, không kiểm thử lại runtime",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "FS-C03",
+    "project": "factsafe",
+    "proposed_marketing_claim": "Có tình huống normal, ammonia leak và dust event theo vùng.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "../../../frontend/src/projects/factsafe/config.ts",
+      "../../../simulator/scenario_models.py"
+    ],
+    "evidence_type": "PROJECT_VERIFIED",
+    "confidence": "HIGH",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Tình huống mô phỏng, không phải sự cố nhà máy thật.",
+    "verification_status": "Đã đối chiếu hiện vật demo, không kiểm thử lại runtime",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "FS-C04",
+    "project": "factsafe",
+    "proposed_marketing_claim": "Risk score là phép tổng hợp demo, chưa hiệu chuẩn cho xác suất tai nạn hoặc phơi nhiễm.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "../../../simulator/scenario_models.py",
+      "../../development/AQUASENSE_FACTSAFE_TELEMETRY_FIX.md"
+    ],
+    "evidence_type": "PROJECT_VERIFIED",
+    "confidence": "HIGH",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Không gọi điểm an toàn hoặc chứng nhận.",
+    "verification_status": "Đã đối chiếu hiện vật demo, không kiểm thử lại runtime",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "FS-C05",
+    "project": "factsafe",
+    "proposed_marketing_claim": "Dashboard có diễn tiến, sự kiện và lịch sử/trạng thái dữ liệu của phiên demo.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "../../../README.md",
+      "../../development/AQUASENSE_FACTSAFE_TELEMETRY_FIX.md"
+    ],
+    "evidence_type": "PROJECT_VERIFIED",
+    "confidence": "HIGH",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Không hứa lưu trữ bền vững hoặc hồ sơ pháp lý đầy đủ.",
+    "verification_status": "Đã đối chiếu hiện vật demo, không kiểm thử lại runtime",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "FS-C06",
+    "project": "factsafe",
+    "proposed_marketing_claim": "Chưa xác nhận hardware thực, SMS/Zalo thật, universal integration hoặc kết quả commercial pilot.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "PROJECT_FACT_SHEET.md",
+      "../shared/2026-10-27_PROJECT_KNOWLEDGE_AUDIT.md"
+    ],
+    "evidence_type": "NEEDS_VERIFICATION",
+    "confidence": "HIGH",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Nêu giới hạn bộ hồ sơ hiện có; không gọi integration hoàn thiện.",
+    "verification_status": "Đối chiếu nguồn/phạm vi; xem giới hạn và phê duyệt biên tập",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "FS-C07",
+    "project": "factsafe",
+    "proposed_marketing_claim": "Thông tin chung có thể hỗ trợ phối hợp và giảm thao tác tổng hợp, cần đo trong pilot.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "MARKETING_STRATEGY.md",
+      "MARKET_EVIDENCE.md"
+    ],
+    "evidence_type": "PROJECT_ASSUMPTION",
+    "confidence": "MEDIUM",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Lợi ích mục tiêu; không dùng số tiết kiệm hoặc causal prevention.",
+    "verification_status": "Đối chiếu nguồn/phạm vi; xem giới hạn và phê duyệt biên tập",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "FS-C08",
+    "project": "factsafe",
+    "proposed_marketing_claim": "ILO công bố 2023 ước tính gần 3 triệu người chết mỗi năm vì tai nạn/bệnh liên quan công việc toàn cầu.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "https://www.ilo.org/resource/news/nearly-3-million-people-die-work-related-accidents-and-diseases",
+      "MARKET_EVIDENCE.md"
+    ],
+    "evidence_type": "VERIFIED_OFFICIAL_SOURCE",
+    "confidence": "HIGH",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Giữ năm công bố, phạm vi bệnh và tai nạn; không là gas-only hoặc 2026 observed.",
+    "verification_status": "Đối chiếu nguồn/phạm vi; xem giới hạn và phê duyệt biên tập",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "FS-C09",
+    "project": "factsafe",
+    "proposed_marketing_claim": "VOV/bản dẫn thông báo nêu Việt Nam 2024 có 8.286 vụ, 8.472 người bị nạn và 727 người chết.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "https://vov.gov.vn/gia-tang-so-vu-tai-nan-lao-dong-nhieu-noi-lam-tat-lam-thieu-quy-trinh-an-toan-dtnew-1082633",
+      "https://atld.vn/law/3586/content"
+    ],
+    "evidence_type": "THIRD_PARTY_REPORT",
+    "confidence": "MEDIUM",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Chưa đưa vào khối số liệu chính; cần signed original và scope 62/63 tỉnh/thành thời điểm đó.",
+    "verification_status": "Đối chiếu nguồn/phạm vi; xem giới hạn và phê duyệt biên tập",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "FS-C10",
+    "project": "factsafe",
+    "proposed_marketing_claim": "Chưa đủ bằng chứng xác nhận FactSafe đáp ứng QCVN hoặc có chứng nhận.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "MARKET_EVIDENCE.md",
+      "PROJECT_FACT_SHEET.md"
+    ],
+    "evidence_type": "NEEDS_VERIFICATION",
+    "confidence": "HIGH",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Không badge/đạt chuẩn; chỉ nêu cần rà soát phương pháp và văn bản hiện hành.",
+    "verification_status": "Đối chiếu nguồn/phạm vi; xem giới hạn và phê duyệt biên tập",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "FS-C11",
+    "project": "factsafe",
+    "proposed_marketing_claim": "Chưa có giá, thuê bao hoặc SLA FactSafe được xác nhận.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "PROJECT_FACT_SHEET.md"
+    ],
+    "evidence_type": "NEEDS_VERIFICATION",
+    "confidence": "HIGH",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Không dùng mức phí vendor làm quote sản phẩm.",
+    "verification_status": "Đối chiếu nguồn/phạm vi; xem giới hạn và phê duyệt biên tập",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "FS-C12",
+    "project": "factsafe",
+    "proposed_marketing_claim": "Demo bổ sung trao đổi, không thay EHS, thiết bị phù hợp hay quy trình ứng cứu.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "../../../README.md",
+      "MARKET_EVIDENCE.md"
+    ],
+    "evidence_type": "PROJECT_PROPOSAL",
+    "confidence": "HIGH",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Mọi ứng dụng thực phải được đánh giá theo hiện trường và trách nhiệm.",
+    "verification_status": "Đối chiếu nguồn/phạm vi; xem giới hạn và phê duyệt biên tập",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "FS-C13",
+    "project": "factsafe",
+    "proposed_marketing_claim": "Đề nghị demo/trao đổi pilot hoặc integration là CTA đề xuất.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "MARKETING_STRATEGY.md"
+    ],
+    "evidence_type": "PROJECT_ASSUMPTION",
+    "confidence": "MEDIUM",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Chưa là cam kết dịch vụ, chưa có contact endpoint thật.",
+    "verification_status": "Đối chiếu nguồn/phạm vi; xem giới hạn và phê duyệt biên tập",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "FS-C14",
+    "project": "factsafe",
+    "proposed_marketing_claim": "Buyer mục tiêu gồm factory/EHS/safety/IIoT, chưa xác nhận khách hàng.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "PROJECT_FACT_SHEET.md"
+    ],
+    "evidence_type": "PROJECT_PROPOSAL",
+    "confidence": "MEDIUM",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Vai trò mục tiêu, không gắn logo/customer/partnership chưa có phép.",
+    "verification_status": "Đối chiếu nguồn/phạm vi; xem giới hạn và phê duyệt biên tập",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "FS-C15",
+    "project": "factsafe",
+    "proposed_marketing_claim": "NIOSH nhấn mạnh response time, calibration, stability, interferences và reliability khi đánh giá direct-reading monitors.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "https://stacks.cdc.gov/view/cdc/11956",
+      "MARKET_EVIDENCE.md"
+    ],
+    "evidence_type": "VERIFIED_OFFICIAL_SOURCE",
+    "confidence": "HIGH",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Hướng dẫn kỹ thuật 2012; không là chứng nhận hoặc luật Việt Nam.",
+    "verification_status": "Đối chiếu nguồn/phạm vi; xem giới hạn và phê duyệt biên tập",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "FS-C16",
+    "project": "factsafe",
+    "proposed_marketing_claim": "FactSafe bảo đảm ngăn tai nạn và tự động đạt mọi chuẩn môi trường lao động.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "PROJECT_FACT_SHEET.md"
+    ],
+    "evidence_type": "NEEDS_VERIFICATION",
+    "confidence": "LOW",
+    "approved_for_publication": "NO",
+    "recommended_wording": "Không công bố; thay bằng nguyên mẫu hỗ trợ quan sát và kế hoạch đánh giá.",
+    "verification_status": "Không đủ bằng chứng; chặn công bố",
+    "reviewed_on": "2026-10-27"
+  }
+]

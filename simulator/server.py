@@ -8,11 +8,14 @@ import time
 from typing import Any, Dict, Optional
 
 import websockets
+from aiohttp import web
 
 try:
+    from .firescout_chat import create_chat_app
     from .telemetry_history import append_history, HISTORY_PROJECTS, HISTORY_BUCKET_SECONDS
     from .scenario_models import DemoScenario, AquaSenseSimulator, FactSafeSimulator, FireScoutSimulator
 except ImportError:
+    from firescout_chat import create_chat_app
     from telemetry_history import append_history, HISTORY_PROJECTS, HISTORY_BUCKET_SECONDS
     from scenario_models import DemoScenario, AquaSenseSimulator, FactSafeSimulator, FireScoutSimulator
 
@@ -57,7 +60,6 @@ class SimulatorServer:
                         'telemetry': self._history, 'events': self._history_events,
                     }}))
                 if simulator.last_packet:
-                    # Cached sample keeps its original timestamp; never synthesize a new reading.
                     await websocket.send(json.dumps({'type': 'telemetry', 'payload': simulator.last_packet}))
 
     async def unregister(self, websocket: Any):
@@ -71,7 +73,6 @@ class SimulatorServer:
             return
 
         msg_json = json.dumps(message)
-        # Use a list to avoid "set changed during iteration" error
         disconnected = set()
 
         for client in list(self.clients):
@@ -148,6 +149,8 @@ class SimulatorServer:
         elif cmd_type == 'reset':
             simulator.reset()
             self._completion_emitted = False
+        elif cmd_type == 'acknowledge' and simulator.project == 'firescout':
+            simulator.event('operator_acknowledged', 'Operator acknowledged SIMULATED mission indicators; no flight or rescue command', once=True)
         elif cmd_type == 'set_speed':
             simulator.speed = self.validate_speed(command.get('speed', 1.0))
         else:
@@ -175,7 +178,7 @@ class SimulatorServer:
             self._last_emission_wall = time.monotonic()
             if simulator.project in HISTORY_PROJECTS:
                 packet['historyBucketSeconds'] = simulator.config.get('history_bucket_seconds', HISTORY_BUCKET_SECONDS)
-                if simulator.project == 'aquasense':
+                if simulator.project in ('aquasense', 'firescout'):
                     packet['historyRetentionSeconds'] = simulator.config['retention_seconds']
                     packet['historyMaxPoints'] = simulator.config['history_max_points']
                 self._history = append_history(self._history, packet)
@@ -195,12 +198,12 @@ class SimulatorServer:
         async with self._simulation_lock:
             simulator = self.simulator
             simulator.update()
-            # Keep FireScout's existing cadence. Minute-based projects get denser
-            # samples at accelerated speeds, without oversampling a 1x stream.
             due = (simulator.project not in HISTORY_PROJECTS or simulator.last_telemetry_elapsed is None
                    or simulator.elapsed - simulator.last_telemetry_elapsed >= 1
                    or time.monotonic() - self._last_emission_wall >= 1)
-            if simulator.project == 'aquasense':
+            if simulator.project == 'firescout':
+                due = simulator.last_telemetry_elapsed is None or simulator.elapsed - simulator.last_telemetry_elapsed >= simulator.config['sample_interval']
+            if simulator.project in ('aquasense', 'firescout'):
                 due = due and time.monotonic() - self._last_emission_wall >= .2
             emitting = simulator.is_running and not simulator.is_paused and due
             if (simulator.project not in HISTORY_PROJECTS or emitting
@@ -213,7 +216,7 @@ class SimulatorServer:
             try:
                 if isinstance(self.simulator, DemoScenario):
                     await self.tick_demo()
-                await asyncio.sleep(.2 if self.current_project == 'aquasense' else .1 if self.current_project in HISTORY_PROJECTS else TELEMETRY_INTERVAL_SECONDS)
+                await asyncio.sleep(.2 if self.current_project in ('aquasense', 'firescout') else .1 if self.current_project in HISTORY_PROJECTS else TELEMETRY_INTERVAL_SECONDS)
 
             except Exception as e:
                 print(f'Update loop error: {e}')
@@ -225,25 +228,39 @@ class SimulatorServer:
             raise ValueError(f'Unsupported project: {project}')
         if project == 'aquasense':
             return model(scenario, speed, seed, continuous=continuous, **getattr(self, 'aqua_history_policy', {}))
+        if project == 'firescout':
+            return model(scenario, speed, seed, sample_interval=getattr(self, 'firescout_sample_interval', 1))
         return model(scenario, speed, seed)
 
     async def start(self):
         """Start the server"""
         self.update_task = asyncio.create_task(self.update_loop())
 
-        async with websockets.serve(self.handle_client, self.host, self.port):
-            print(f'Simulator server running on ws://{self.host}:{self.port}')
-            await asyncio.Future()  # Run forever
+        runner = web.AppRunner(create_chat_app(self))
+        await runner.setup()
+        try:
+            await web.TCPSite(runner, getattr(self,'api_host','127.0.0.1'), getattr(self,'api_port',8766)).start()
+            print(f'FireScout local API on http://{getattr(self,"api_host","127.0.0.1")}:{getattr(self,"api_port",8766)}')
+            async with websockets.serve(self.handle_client, self.host, self.port):
+                print(f'Simulator server running on ws://{self.host}:{self.port}')
+                await asyncio.Future()
+        finally:
+            self.update_task.cancel()
+            await runner.cleanup()
+
 
 
 def main():
     parser = argparse.ArgumentParser(description='IoT Demo Simulator')
     parser.add_argument('--host', default='localhost', help='WebSocket server host')
+    parser.add_argument('--api-host', default='127.0.0.1', help='Local chat API binding')
+    parser.add_argument('--api-port', type=int, default=8766, help='Local chat API port')
     parser.add_argument('--port', type=int, default=8765, help='WebSocket server port')
     parser.add_argument('--project', choices=tuple(SIMULATORS), default='aquasense', help='Project to simulate')
     parser.add_argument('--scenario', default=None, help='Scenario to run (project default when omitted)')
     parser.add_argument('--seed', type=int, default=1729, help='Deterministic demo seed')
     parser.add_argument('--autostart', action='store_true', help='Explicitly start new demo scenarios without frontend controls')
+    parser.add_argument('--firescout-sample-interval', type=float, default=1, help='FireScout simulated seconds between samples (max 5 real Hz)')
     parser.add_argument('--finite', action='store_true', help='Opt AquaSense out of continuous mode for a finite script')
     parser.add_argument('--history-hours', type=float, default=6, help='AquaSense diagnostic retention in simulated hours')
     parser.add_argument('--history-bucket-seconds', type=float, default=30, help='AquaSense archive sample bucket')
@@ -253,12 +270,13 @@ def main():
     args = parser.parse_args()
 
     server = SimulatorServer(args.host, args.port)
+    server.firescout_sample_interval = args.firescout_sample_interval
+    server.api_host, server.api_port = args.api_host, args.api_port
     server.aqua_continuous = not args.finite
     server.aqua_history_policy = {'retention_seconds': args.history_hours * 3600,
                                  'history_bucket_seconds': args.history_bucket_seconds,
                                  'history_max_points': args.history_max_points}
 
-    # Select a project without generating readings until Start or --autostart.
     server.current_project = args.project
     scenario = args.scenario or ('routine_recon' if args.project == 'firescout' else 'normal')
     server.current_scenario = scenario

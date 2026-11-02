@@ -2,7 +2,6 @@ import type { Alert, SimulationState, TimelineEvent } from '../types';
 
 type ActiveMessage = { message: string; severity: 'error' | 'warning' | 'success' | 'info' };
 
-/** Select existing event text without generating alerts on telemetry updates. */
 export function selectActiveAlert(
   project: string,
   alert: Alert | null,
@@ -11,8 +10,6 @@ export function selectActiveAlert(
 ): ActiveMessage | null {
   if (state && (state.project !== project || state.status === 'stopped')) return null;
 
-  // FireScout emits timeline events rather than threshold alert packets. The
-  // authoritative state determines which of those events still needs attention.
   if (project === 'firescout') {
     if (!state) return null;
     const type = state.phase === 'critical' ? 'link_lost'

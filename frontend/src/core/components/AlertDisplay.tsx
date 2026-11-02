@@ -2,7 +2,6 @@ import { useAlertStore, useSimulationStore, useTimelineStore } from '../store';
 import { selectActiveAlert } from '../utils/activeAlert';
 import { AlertMessage } from './AlertMessage';
 
-/** Store adapter shared by all project dashboards. */
 export function AlertDisplay({ projectId }: { projectId: string }) {
   const alert = useAlertStore((store) => store.currentAlert);
   const state = useSimulationStore((store) => store.state);

@@ -154,9 +154,6 @@ export const LiveChart: React.FC<LiveChartProps> = ({
   );
 };
 
-/**
- * Chart with threshold bands (warning and critical zones)
- */
 interface ThresholdChartProps {
   metricKey: string;
   domain?: [number, number];
@@ -300,7 +297,6 @@ export const ThresholdChart: React.FC<ThresholdChartProps> = ({
             <ReferenceArea y1={normalMin} y2={normalMax} fill="#22c55e" fillOpacity={0.1}
               strokeOpacity={0} ifOverflow="extendDomain" />
           ) : <>
-          {/* Normal band */}
           <Area
             type="monotone"
             dataKey="normalMax"
@@ -309,7 +305,6 @@ export const ThresholdChart: React.FC<ThresholdChartProps> = ({
             isAnimationActive={false}
           />
 
-          {/* Warning band */}
           {(warningMin || warningMax) && (
             <Area
               type="monotone"
@@ -324,7 +319,6 @@ export const ThresholdChart: React.FC<ThresholdChartProps> = ({
 
           {warningThreshold !== undefined && <ReferenceLine ifOverflow="extendDomain" y={warningThreshold} stroke="#a16207" strokeDasharray="4 4" label={{ value: 'Demo warning', position: 'insideTopRight', fill: '#854d0e', fontSize: 10 }} />}
           {criticalThreshold !== undefined && <ReferenceLine ifOverflow="extendDomain" y={criticalThreshold} stroke="#b91c1c" strokeDasharray="4 4" label={{ value: 'Demo critical', position: 'insideTopRight', fill: '#b91c1c', fontSize: 10 }} />}
-          {/* Data line */}
           <Line
             type="monotone"
             dataKey="value"
@@ -339,9 +333,6 @@ export const ThresholdChart: React.FC<ThresholdChartProps> = ({
   );
 };
 
-/**
- * Simple gauge chart for single values
- */
 interface GaugeProps {
   value: number;
   min: number;
@@ -368,7 +359,7 @@ export const Gauge: React.FC<GaugeProps> = ({
   const percentage = ((value - min) / (max - min)) * 100;
   const normalizedPercentage = Math.min(100, Math.max(0, percentage));
 
-  let color = '#4ade80'; // normal
+  let color = '#4ade80';
   if (thresholdCritical && value >= thresholdCritical) color = '#ef4444';
   else if (thresholdWarning && value >= thresholdWarning) color = '#f59e0b';
 
@@ -394,7 +385,6 @@ export const Gauge: React.FC<GaugeProps> = ({
           viewBox={`0 0 ${size} ${size}`}
           style={{ transform: 'rotate(-90deg)' }}
         >
-          {/* Background circle */}
           <circle
             cx={size / 2}
             cy={size / 2}
@@ -404,7 +394,6 @@ export const Gauge: React.FC<GaugeProps> = ({
             strokeWidth="6"
           />
 
-          {/* Progress circle */}
           <circle
             cx={size / 2}
             cy={size / 2}

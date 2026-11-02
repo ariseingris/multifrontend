@@ -1,578 +1,181 @@
-# Simulator README
+# MultiFrontend simulator
 
-Python WebSocket server for generating deterministic IoT telemetry data.
+The shared WebSocket server supports only `aquasense`, `factsafe`, and `firescout`.
+Default project: `aquasense`. Unknown project/scenario IDs are rejected without
+replacing a valid session.
 
-## Installation
+## Setup and run
 
-### Prerequisites
-
-- Python 3.8+
-- pip
-
-### Setup
+From the repository root:
 
 ```bash
-pip install websockets
+python3 -m venv .venv
+.venv/bin/python -m pip install -r simulator/requirements.txt
+.venv/bin/python simulator/server.py --project aquasense
 ```
 
-## Usage
-
-### Start Default Server
+The server listens at `ws://localhost:8765` and waits for Start. Either the UI or an
+explicit CLI flag starts playback:
 
 ```bash
-python vitalchain_simulator.py
+.venv/bin/python simulator/server.py --project firescout --scenario victim_hotspot --speed 10 --seed 1729 --autostart
 ```
 
-Server starts on `ws://localhost:8765`
+CLI options: `--host`, `--port`, `--project {aquasense,factsafe,firescout}`,
+`--scenario`, `--speed`, `--seed`, `--autostart`. AquaSense additionally supports
+`--finite`, `--history-hours` (default 6), `--history-bucket-seconds` (default 30),
+and `--history-max-points` (default 1000). `python -m simulator.server` also
+works from the repository root. Only one process should listen on port 8765.
 
-## Docker
+## Scenarios
 
-From the repository root, start the VitalChain frontend and simulator together:
+| Project | Scenario | Duration |
+| --- | --- | --- |
+| AquaSense | `normal`, `low_oxygen`, `sensor_fouling` | 120-minute script, then continuous monitoring |
+| FactSafe | `normal` | 60 simulated minutes |
+| FactSafe | `gas_leak`, `dust_event` | 100 simulated minutes each |
+| FireScout AI | `routine_recon`, `victim_hotspot`, `smoke_link_loss` | 120 simulated seconds each |
+
+`scenario_engine.py` owns the monotonic clock. All engine durations and canonical
+elapsed values are seconds. `scenario_models.py` converts minute-based keyframes
+once and retains deterministic seed-based generation, thresholds, hysteresis,
+quality indicators, alert rules and transition events. Existing scenario IDs,
+metric keys and durations are unchanged by the three-project cleanup.
+
+AquaSense probe fouling separates observed raw DO from synthetic pond ground
+truth. FactSafe centrally calculates zone risk as a demo score. FireScout uses
+synthetic candidate detections, persistent relative hotspot rules and link
+persistence/hysteresis. No real AI inference, sensor measurement, certified safety
+limit or hardware feedback is claimed.
+
+## WebSocket contract
+
+Commands remain:
+
+```json
+{"type":"start_scenario","project":"aquasense","scenario":"low_oxygen","speed":600}
+{"type":"pause","project":"aquasense"}
+{"type":"resume","project":"aquasense"}
+{"type":"set_speed","project":"aquasense","speed":60}
+{"type":"reset","project":"aquasense"}
+{"type":"get_state","project":"aquasense"}
+```
+
+A server serves one global project/session at a time. Start can switch projects;
+other project-tagged commands are rejected if they target a different active
+project. Speeds must be positive finite multipliers up to 600x, applied once to
+future time. Start creates a new seeded session; pause sends no new telemetry;
+resume continues the session; reset clears state and waits; completion emits once.
+
+Existing messages remain `telemetry`, `simulation_state`, `event`, `alert`, and
+`command_error`. AquaSense/FactSafe additionally send an optional `session_history`
+bootstrap containing recorded telemetry and events for the current session. Telemetry retains numeric `metrics`, `deviceId`, `timestamp`,
+`status`, `riskScore`, `scenario`, plus project/session IDs, elapsed simulation
+seconds/minutes, source, quality, metric/sensor status and separate ground truth.
+Missing values are omitted. FireScout keeps its one-real-second transport cadence. AquaSense/FactSafe poll
+at 0.1s, emit at most 10Hz when accelerated, and avoid oversampling 1x time
+(approximately one sample/second). Rules still evaluate each simulated second.
+
+The `simulation_state` channel has `source: simulator_state`, distinct from sensor
+telemetry. It continues expressly as synthetic state through FireScout's 78–90s
+blackout; no telemetry is sent then. Thermal/detection/count/background outputs are
+missing while frames are unavailable (70–94s), never manufactured as zeros.
+Reconnect can restore the last actual cached packet without refreshing its
+timestamp. Events carry simulation time and are transition-based, not per-packet.
+
+## Tests and Docker
 
 ```bash
-docker compose up --build vitalchain
+.venv/bin/python -m unittest discover -s simulator/tests -v
 ```
 
-The Compose service `vitalchain` depends on `vitalchain-simulator`.
+Tests cover all nine scenarios, seeded traces, keyframes/units, finite values,
+water-vs-probe faults, gas-vs-dust incidents, detections, blackout, controls,
+completion/reset, and exact registry/unsupported-project behavior.
 
-### Start with Specific Scenario
+The Docker image copies `server.py`, `scenario_engine.py`, `scenario_models.py`, `telemetry_history.py`
+and requirements. From the repository root, `docker compose up --build` starts
+`simulator` and `frontend`. See the [root README](../README.md) for browser URLs.
+
+
+## Repaired AquaSense / FactSafe profiles and risk
+
+The latest profiles are specified in `documents/specifications/CODEX_FIX_AQUASENSE_FACTSAFE_TELEMETRY.md`.
+AquaSense temperature, pH and true oxygen now use `pond_environment.py`: shared
+daily forcing, thermal inertia and slow seeded variability. Dawn Oxygen Drop keeps
+its scripted DO thresholds/recovery and then monitors indefinitely. Fouling noise
+ramps after minute 30 and remains a maintenance fault after the two-hour script. No synthetic
+filtered signal is presented as a computed Kalman filter. FactSafe normal, gas and
+dust profiles use the new independent keyframes and corrected secondary baselines.
+Gas/dust threshold entries are inclusive (>=30/50 ppm NH3, >=55/100 µg/m³ PM2.5),
+with recovery hysteresis. Oxygen entries remain strictly below 4.5/3.5 mg/L.
+
+FactSafe retains and exposes its configurable **DEMO-DEFAULT** normalization:
+
+```text
+local score = clamp(gain * max(NH3 / NH3 reference, PM2.5 / PM2.5 reference), 0, 100)
+reference defaults: 50 ppm NH3, 100 µg/m³ PM2.5; gain = 80
+background references: NH3 = 6 ppm, PM2.5 = 18 µg/m³
+```
+
+Zone B receives the affected score in normal/gas runs, Zone D in dust runs.
+Unaffected B/D use the synthetic background score; A/C use 0.85/0.8 of background.
+Overall risk is the maximum zone score. This is a transparent synthetic mapping,
+not independent measurements of all zones or an approved exposure index.
+`FactSafeSimulator(..., risk_defaults={...})` configures normalization parameters;
+effective values are included in `simulation_state.riskModel`. The existing metric
+keys and top-level `riskScore` remain; both scalar risk representations agree.
+
+`telemetry_history.py` buckets **actual generated packets**. FactSafe retains
+ten-second buckets and session origin/latest under 1,000 records. AquaSense uses
+30-second buckets, six simulated hours of rolling diagnostic retention and a
+1,000-point cap; the frontend displays only the latest 60 simulated minutes. The same
+policy is signaled with optional `historyBucketSeconds` metadata. Connection
+bootstrap restores those packets and up to 200 actual session events. Reset uses
+a new session ID and clears the archive. Cached compatibility telemetry retains
+its original timestamp. FireScout does not use this new history/cadence policy.
+
+
+## AquaSense continuous mode
+
+AquaSense defaults to continuous playback; `durationSeconds: 7200` describes the
+script, not an elapsed-time ceiling. `simulation_state.continuous` identifies it;
+`realElapsedSeconds` counts active real time, excluding pauses. Phase becomes
+`monitoring` after recovery, or `maintenance_required` for a degraded probe.
+Dawn critical events do not loop. Reset stops playback, changes the session ID,
+clears session archives and initializes a fresh environment/probe. No automatic
+physical repair, validated filter or real aerator actuation is claimed.
+
+Start commands can set `continuous: false` for finite AquaSense compatibility;
+`--finite` sets that server's default. FactSafe/FireScout clocks remain finite.
+The server validates retention options and propagates `historyBucketSeconds`,
+`historyRetentionSeconds`, `historyMaxPoints` on AquaSense telemetry so reconnect
+and frontend retention use the same policy. Runtime measurements retain UTC
+receipt timestamps alongside canonical simulated elapsed seconds.
 
 ```bash
-python vitalchain_simulator.py --scenario door_open --speed 2
+.venv/bin/python simulator/server.py --project aquasense --scenario low_oxygen --speed 600 --autostart --history-hours 12 --history-max-points 1500
 ```
 
-### Command-line Options
-
-```
---host HOST          WebSocket server host (default: localhost)
---port PORT          WebSocket server port (default: 8765)
---project PROJECT    Project to simulate (default: vitalchain)
---scenario SCENARIO  Scenario to run (default: normal)
---speed SPEED        Simulation speed multiplier (default: 1.0)
-```
-
-### Examples
-
-```bash
-# VitalChain door open scenario at 2x speed
-python vitalchain_simulator.py --scenario door_open --speed 2
-
-# PulseGuard landslide scenario at 5x speed
-python vitalchain_simulator.py --project pulseguard --scenario landslide --speed 5
-
-# FactSafe gas leak scenario at 1x speed (normal)
-python vitalchain_simulator.py --project factsafe --scenario gas_leak
-
-# Custom port
-python vitalchain_simulator.py --port 9000
-```
-
-## Architecture
-
-### ScenarioSimulator Base Class
-
-All simulators inherit from `ScenarioSimulator`:
-
-```python
-class MySimulator(ScenarioSimulator):
-    def get_metrics(self) -> Dict[str, float]:
-        """Generate metrics for current time"""
-        pass
-
-    def get_current_phase(self) -> str:
-        """Return current scenario phase"""
-        pass
-
-    def get_status(self) -> str:
-        """Return overall status (normal, warning, critical)"""
-        pass
-
-    def get_alerts(self) -> List[Alert]:
-        """Generate alerts if thresholds exceeded"""
-        pass
-```
-
-### VitalChainSimulator
-
-Example implementation:
-
-```python
-class VitalChainSimulator(ScenarioSimulator):
-    def __init__(self, scenario_id: str = 'normal', speed: float = 1.0):
-        # Define scenarios with steps
-        # Each step has:
-        # - name: Step name
-        # - phase: Scenario phase (normal, warning, critical, etc.)
-        # - startAt: Start time in seconds
-        # - endAt: End time in seconds
-        # - metrics: Dict of metric interpolations
-        pass
-
-    def get_metrics(self) -> Dict[str, float]:
-        # Find current step based on elapsed time
-        # Interpolate between start and end values
-        # Add small noise for realism
-        return interpolated_metrics
-```
-
-## Creating a New Simulator
-
-### 1. Define Scenarios
-
-```python
-config = {
-    'my_scenario': {
-        'duration': 120,  # Total duration in seconds
-        'steps': [
-            {
-                'name': 'Normal Operation',
-                'phase': 'normal',
-                'startAt': 0,
-                'endAt': 30,
-                'metrics': {
-                    'temperature': {'start': 20, 'end': 20},
-                    'humidity': {'start': 50, 'end': 50},
-                },
-            },
-            {
-                'name': 'Heating',
-                'phase': 'warning',
-                'startAt': 30,
-                'endAt': 60,
-                'metrics': {
-                    'temperature': {'start': 20, 'end': 25},
-                    'humidity': {'start': 50, 'end': 60},
-                },
-            },
-            # ... more steps
-        ],
-    },
-}
-```
-
-### 2. Create Simulator Class
-
-```python
-class MyProjectSimulator(ScenarioSimulator):
-    def __init__(self, scenario_id: str = 'normal', speed: float = 1.0):
-        config = { /* scenarios */ }
-        self.scenario_id = scenario_id
-        super().__init__(config.get(scenario_id, config['normal']), speed)
-        self.is_running = True
-
-    def _get_step_for_time(self) -> Optional[Dict]:
-        """Find step containing current elapsed time"""
-        for step in self.config['steps']:
-            if step['startAt'] <= self.elapsed < step['endAt']:
-                return step
-        return None
-
-    def _interpolate(self, start: float, end: float, t: float) -> float:
-        """Linear interpolation between values"""
-        return start + (end - start) * t
-
-    def get_metrics(self) -> Dict[str, float]:
-        """Generate metrics for current time"""
-        step = self._get_step_for_time()
-        if not step:
-            return {}
-
-        duration = step['endAt'] - step['startAt']
-        if duration <= 0:
-            return step['metrics']
-
-        # Calculate progress through step (0-1)
-        t = (self.elapsed - step['startAt']) / duration
-        t = max(0, min(1, t))  # Clamp to 0-1
-
-        metrics = {}
-        for key, value_range in step['metrics'].items():
-            start = value_range['start']
-            end = value_range['end']
-            # Interpolate with small noise
-            noise = (hash(f"{key}{int(self.elapsed)}") % 100 - 50) / 10000
-            metrics[key] = self._interpolate(start, end, t) + noise
-
-        return metrics
-
-    def get_current_phase(self) -> str:
-        """Get phase of current step"""
-        step = self._get_step_for_time()
-        return step['phase'] if step else 'normal'
-
-    def get_status(self) -> str:
-        """Determine status from metrics"""
-        metrics = self.get_metrics()
-        # Implement your status logic
-        return 'normal'
-
-    def get_alerts(self) -> List[Alert]:
-        """Generate alerts based on thresholds"""
-        alerts = []
-        metrics = self.get_metrics()
-        # Check thresholds and create alerts
-        return alerts
-```
-
-### 3. Register in SimulatorServer
-
-Update `handle_command` method:
-
-```python
-async def handle_command(self, command: Dict[str, Any]):
-    if command.get('type') == 'start_scenario':
-        project = command.get('project', 'vitalchain')
-        scenario_id = command.get('scenario', 'normal')
-        speed = command.get('speed', 1.0)
-
-        if project == 'myproject':
-            self.simulator = MyProjectSimulator(scenario_id, speed)
-        elif project == 'vitalchain':
-            self.simulator = VitalChainSimulator(scenario_id, speed)
-```
-
-## Data Models
-
-### TelemetryPoint
-
-Sent to frontend every 100ms:
-
-```python
-@dataclass
-class TelemetryPoint:
-    timestamp: str              # ISO 8601 timestamp
-    deviceId: str              # Unique device ID
-    metrics: Dict[str, float]  # Metric key -> value
-    status: str                # "normal" | "warning" | "critical"
-    riskScore: float           # 0-100 risk score
-    scenario: str              # Current scenario ID
-
-# Example:
-{
-    "timestamp": "2024-01-15T10:30:45.123Z",
-    "deviceId": "sensor-01",
-    "metrics": {
-        "temperature": 4.5,
-        "humidity": 52,
-        "battery": 85,
-        "signal": -65
-    },
-    "status": "normal",
-    "riskScore": 12.5,
-    "scenario": "door_open"
-}
-```
-
-### Alert
-
-Sent when threshold exceeded:
-
-```python
-@dataclass
-class Alert:
-    id: str                     # Unique alert ID
-    timestamp: str              # When alert occurred
-    type: str                   # "anomaly_detected" | "threshold_exceeded" | etc.
-    severity: str               # "info" | "warning" | "critical"
-    message: str                # Human-readable message
-    metric: Optional[str]       # Metric that triggered alert
-    value: Optional[float]      # Current metric value
-    threshold: Optional[float]  # Threshold that was exceeded
-    deviceId: Optional[str]     # Device ID
-
-# Example:
-{
-    "id": "alert-1234567890",
-    "timestamp": "2024-01-15T10:30:50.000Z",
-    "type": "threshold_exceeded",
-    "severity": "critical",
-    "message": "Temperature exceeded threshold",
-    "metric": "temperature",
-    "value": 10.2,
-    "threshold": 8,
-    "deviceId": "sensor-01"
-}
-```
-
-### TimelineEvent
-
-Sent for significant events:
-
-```python
-@dataclass
-class TimelineEvent:
-    timestamp: str              # When event occurred
-    type: str                   # Event type
-    message: str                # Event message
-    severity: str               # "info" | "warning" | "critical" | "success"
-    icon: str                   # Emoji or text icon
-```
-
-## WebSocket Protocol
-
-### Connection
-
-```javascript
-const ws = new WebSocket('ws://localhost:8765');
-
-ws.onopen = () => console.log('Connected');
-
-ws.onmessage = (event) => {
-    const data = JSON.parse(event.data);
-    if (data.type === 'telemetry') {
-        console.log('Telemetry:', data.payload);
-    } else if (data.type === 'alert') {
-        console.log('Alert:', data.payload);
-    } else if (data.type === 'event') {
-        console.log('Event:', data.payload);
-    }
-};
-
-ws.onerror = (error) => console.error('Error:', error);
-ws.onclose = () => console.log('Disconnected');
-```
-
-### Commands from Frontend
-
-#### Start Scenario
-
-```javascript
-ws.send(JSON.stringify({
-    type: 'start_scenario',
-    project: 'vitalchain',  // Optional, defaults to vitalchain
-    scenario: 'door_open',
-    speed: 2.0
-}));
-```
-
-#### Pause
-
-```javascript
-ws.send(JSON.stringify({ type: 'pause' }));
-```
-
-#### Resume
-
-```javascript
-ws.send(JSON.stringify({ type: 'resume' }));
-```
-
-#### Reset
-
-```javascript
-ws.send(JSON.stringify({ type: 'reset' }));
-```
-
-#### Set Speed
-
-```javascript
-ws.send(JSON.stringify({
-    type: 'set_speed',
-    speed: 5.0
-}));
-```
-
-## Scenario Types
-
-All scenarios follow the same phase progression:
-
-1. **NORMAL**: Baseline operation
-2. **EARLY_SIGNAL**: Initial subtle changes
-3. **WARNING**: Approached thresholds
-4. **CRITICAL**: Exceeded critical thresholds
-5. **ALERT**: System alert triggered
-6. **ACTION**: Corrective action taken
-7. **RECOVERY**: Returning to normal
-8. **NORMAL**: Back to baseline
-
-Scenarios don't need to include all phases, but should follow the progression.
-
-## Best Practices
-
-### Realistic Data
-
-- Use smooth interpolation, not random jumps
-- Add small noise to avoid perfectly linear progression
-- Use appropriate step durations (not too fast/slow)
-- Keep metric values within physical bounds
-
-### Scenario Design
-
-```python
-# ✓ Good: All phases required, realistic durations
-{
-    'normal': {
-        'duration': 60,
-        'steps': [
-            {'phase': 'normal', 'startAt': 0, 'endAt': 60, ...},
-        ],
-    },
-    'fault': {
-        'duration': 120,
-        'steps': [
-            {'phase': 'normal', 'startAt': 0, 'endAt': 15, ...},
-            {'phase': 'early_signal', 'startAt': 15, 'endAt': 30, ...},
-            {'phase': 'warning', 'startAt': 30, 'endAt': 50, ...},
-            {'phase': 'critical', 'startAt': 50, 'endAt': 70, ...},
-            {'phase': 'alert', 'startAt': 70, 'endAt': 85, ...},
-            {'phase': 'recovery', 'startAt': 85, 'endAt': 120, ...},
-        ],
-    },
-}
-
-# ✗ Bad: Random jumps, unrealistic durations
-{
-    'fault': {
-        'duration': 5,  # Too fast
-        'steps': [
-            {'metrics': {'temp': {'start': 10, 'end': 50}}},  # Huge jump
-        ],
-    },
-}
-```
-
-### Performance
-
-- Keep metrics updates at 10 Hz (100ms intervals)
-- Limit alert generation with cooldown periods
-- Use efficient interpolation
-
-### Debugging
-
-```python
-# Enable logging
-simulator = VitalChainSimulator('door_open', speed=2)
-simulator.is_running = True
-
-while simulator.elapsed < 60:
-    time.sleep(0.1)
-    simulator.update()
-    metrics = simulator.get_metrics()
-    print(f"T={simulator.elapsed:.1f}s: {metrics}")
-```
-
-## Adding Event Generation
-
-Generate events based on scenario progression:
-
-```python
-def get_events(self) -> List[TimelineEvent]:
-    events = []
-    phase = self.get_current_phase()
-    
-    # Trigger events based on phase transitions
-    if phase != self.last_phase:
-        events.append(TimelineEvent(
-            timestamp=datetime.now().isoformat(),
-            type='phase_change',
-            message=f'Phase changed to {phase}',
-            severity='info',
-            icon='→'
-        ))
-        self.last_phase = phase
-    
-    return events
-```
-
-## Testing Scenarios
-
-```bash
-# Test door_open scenario, record output
-python vitalchain_simulator.py --scenario door_open --speed 1 > output.log
-
-# Manually verify behavior:
-# - Metrics interpolate smoothly
-# - Alerts trigger at correct thresholds
-# - Phase changes at correct times
-# - Status matches current conditions
-```
-
-## Troubleshooting
-
-### "ModuleNotFoundError: No module named 'websockets'"
-
-```bash
-pip install websockets
-```
-
-### Server starts but frontend doesn't connect
-
-1. Check port: `ss -tlnp | grep 8765`
-2. Check firewall allows WebSocket
-3. Verify browser URL: `ws://localhost:8765` (not `http://`)
-4. Check browser console for connection errors
-
-### Telemetry not updating
-
-1. Ensure simulator is running
-2. Check that scenario was started
-3. Verify elapsed time is increasing
-4. Check that metrics are in correct range
-
-### Alerts not triggering
-
-1. Verify threshold logic in `get_alerts()`
-2. Check that metric values exceed thresholds
-3. Allow cooldown period between alerts
-4. Ensure alert generation doesn't throw errors
-
-## Extending the Simulator
-
-### Add Custom Metrics
-
-```python
-def get_metrics(self) -> Dict[str, float]:
-    metrics = super_get_metrics()
-    
-    # Add derived metrics
-    metrics['risk_score'] = self._calculate_risk(metrics)
-    metrics['ai_confidence'] = self._get_model_confidence()
-    
-    return metrics
-```
-
-### Add Machine Learning
-
-```python
-import numpy as np
-from sklearn.ensemble import IsolationForest
-
-class MLSimulator(VitalChainSimulator):
-    def __init__(self, scenario_id: str, speed: float):
-        super().__init__(scenario_id, speed)
-        self.model = IsolationForest()
-
-    def detect_anomaly(self, metrics: Dict) -> bool:
-        values = np.array(list(metrics.values())).reshape(1, -1)
-        return self.model.predict(values)[0] == -1
-```
-
-## Performance Tuning
-
-### Update Frequency
-
-```python
-# Less frequent updates (fewer messages)
-await asyncio.sleep(0.2)  # 5 Hz instead of 10 Hz
-
-# More frequent updates
-await asyncio.sleep(0.05)  # 20 Hz
-```
-
-### Metric Precision
-
-```python
-# Reduce precision to avoid floating point noise
-metrics[key] = round(value, 2)
-```
-
-### Telemetry Batching
-
-```python
-# Send multiple points at once
-points = [self.get_metrics() for _ in range(10)]
-await self.broadcast({
-    'type': 'telemetry_batch',
-    'payload': [asdict(p) for p in points]
-})
-```
+The event evaluator processes every simulated second independently of output
+sampling, preserving threshold transitions at 300x/600x. AquaSense broadcasts at
+most 5Hz (about 1Hz at 1x). Older chart points expire independently of session
+logs (200 entries) and frontend alerts (100 entries). These are bounded in-memory
+archives, not a durable recording service; export is not implemented.
+See [model details and validation](../documents/development/AQUASENSE_CONTINUOUS_SIMULATION.md).
+
+## FireScout geographic missions and Ollama API
+
+FireScout canonical IDs are now `routine_recon`, `hotspot_detection`, and
+`smoke_link_degradation`, with old victim/smoke IDs accepted as aliases. FireScout
+continues past its 120-second script, using a rolling 120-second display and bounded
+mission archive. All coordinates/wind/temperature/detections remain simulated.
+
+`server.py` also serves the local analyst API on 127.0.0.1:8766. Install the updated
+requirements (aiohttp), start local Ollama, then select an installed model in the
+Description chat. Configure `OLLAMA_BASE_URL`, optional `OLLAMA_MODEL`,
+`OLLAMA_ALLOWED_MODELS`, `OLLAMA_TIMEOUT_SECONDS` server-side. Vite/nginx proxy
+`/api/firescout/models` and `/api/firescout/chat`. No RAG or browser-supplied
+telemetry context is used. `--api-host`, `--api-port`, and
+`--firescout-sample-interval` provide local server/sampling options.
+Full contract and limitations: [FireScout delivery](../documents/development/FIRESCOUT_UAV_DELIVERY.md).

@@ -1,12 +1,17 @@
 # IoT Demo Framework - Final Delivery Summary
 
+> Historical planning/delivery reference preserved after the three-project cleanup.
+> Only AquaSense, FactSafe and FireScout AI are active. Commands and project lists
+> below describe an earlier repository state; use [the current README](../../README.md)
+> and [cleanup report](KEEP_THREE_PROJECTS.md) for current paths and behavior.
+
 **Status**: P0 Complete, Ready for Testing
 
 ## Quick Links
 
-- **Main Framework**: [../README.md](../README.md)
-- **Frontend Docs**: [../frontend/README.md](../frontend/README.md)
-- **Simulator Docs**: [../simulator/README.md](../simulator/README.md)
+- **Main Framework**: [../README.md](../../README.md)
+- **Frontend Docs**: [../frontend/README.md](../../frontend/README.md)
+- **Simulator Docs**: [../simulator/README.md](../../simulator/README.md)
 
 ---
 

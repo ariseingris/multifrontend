@@ -10,7 +10,6 @@ export function isProjectId(value: string | null | undefined): value is ProjectI
   return projects.some((project) => project.id === value);
 }
 
-/** Invalid/absent query values fall back to a supported environment default. */
 export function selectProject(search: string, environmentProject?: string): ProjectId {
   const requested = new URLSearchParams(search).get('project');
   if (isProjectId(requested)) return requested;

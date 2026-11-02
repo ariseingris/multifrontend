@@ -24,7 +24,6 @@
 @media (max-width:760px) { .fdb-metrics { gap:8px; } .fdb-grid { grid-template-columns:minmax(0,1fr); } }
 @media (max-width:480px) { .fdb { padding:14px 12px; } .fdb-metrics { grid-template-columns:minmax(0,1fr); } .fdb-footer { margin:14px -12px -14px; } }
 
-/* All app chrome styles are scoped to this opt-in shell. */
 .fdb-shell { min-height:100dvh; display:flex; flex-direction:column; background:#f3f3f7; color:#1b2530; font-family:Inter,system-ui,sans-serif; }
 .fdb-shell *, .fdb-shell *::before, .fdb-shell *::after { box-sizing:border-box; }
 .fdb-header { background:#6c8eaa; padding:10px 28px; display:flex; align-items:center; justify-content:space-between; gap:16px; }

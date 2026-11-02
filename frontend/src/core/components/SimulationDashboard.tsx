@@ -34,7 +34,6 @@ type Props = {
   details?: (context: SimulationContext) => ReactNode;
 };
 
-/** Shared presentation and command wiring. The simulator owns the clock and rules. */
 export function SimulationDashboard({ config, primary, insight, details }: Props) {
   const wsUrl = import.meta.env.VITE_WS_URL || 'ws://localhost:8765';
   const { send, isConnected } = useDataBridge(wsUrl, config.id);
@@ -46,7 +45,6 @@ export function SimulationDashboard({ config, primary, insight, details }: Props
   const latest = history[history.length - 1] ?? null;
   const [now, setNow] = useState(Date.now());
   useEffect(() => {
-    // This timer only detects a stale transport. It never advances simulation time.
     const timer = setInterval(() => setNow(Date.now()), 500);
     return () => clearInterval(timer);
   }, []);

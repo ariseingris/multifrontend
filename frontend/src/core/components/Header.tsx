@@ -20,7 +20,6 @@ export const Header: React.FC = () => {
         gap: '24px',
       }}
     >
-      {/* Left: Project Name */}
       <div style={{ flex: 1 }}>
         <h1
           style={{
@@ -34,7 +33,6 @@ export const Header: React.FC = () => {
         </h1>
       </div>
 
-      {/* Center: System Status */}
       <div
         style={{
           display: 'flex',
@@ -80,7 +78,6 @@ export const Header: React.FC = () => {
         )}
       </div>
 
-      {/* Right: Demo Mode Info */}
       {demoMode.enabled && demoMode.simulationActive && (
         <div
           style={{

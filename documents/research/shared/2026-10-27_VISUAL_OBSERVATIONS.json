@@ -1,0 +1,555 @@
+{
+  "access_date": "2026-10-27",
+  "scope": "Computed styles và metadata DOM, không sao chép media. Mẫu heading có thể thuộc navigation/overlay; không phải thông số brand.",
+  "observations": [
+    {
+      "url": "https://rynanaquaculture.com/",
+      "title": "Smart Shrimp Farming Technology | RYNAN Aquaculture",
+      "headingStyle": {
+        "font": "acumin-pro",
+        "size": "44.08px",
+        "color": "rgb(255, 255, 255)"
+      },
+      "background": "rgb(255, 255, 255)",
+      "linkColors": [
+        "rgb(66, 153, 226)",
+        "rgb(1, 25, 37)",
+        "rgb(255, 255, 255)"
+      ],
+      "sectionCount": 6,
+      "imageExamples": [
+        "RYNAN Aquaculture",
+        "RYNAN Aquaculture - vannamei shrimp"
+      ],
+      "formCount": 0,
+      "requested_url": "https://rynanaquaculture.com/",
+      "date_accessed": "2026-10-27",
+      "visual_status": "DOM_SAMPLE"
+    },
+    {
+      "url": "https://www.innovasea.com/",
+      "title": "Sustainable Aquaculture Technology | Innovasea",
+      "headingStyle": {
+        "font": "mozaic-geo-variable, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+        "size": "51.9988px",
+        "color": "rgb(255, 255, 255)"
+      },
+      "background": "rgb(255, 255, 255)",
+      "linkColors": [
+        "rgb(0, 0, 0)",
+        "rgb(0, 57, 63)",
+        "rgb(255, 255, 255)",
+        "rgb(0, 134, 165)"
+      ],
+      "sectionCount": 7,
+      "imageExamples": [
+        "Innovasea",
+        "Innovasea"
+      ],
+      "formCount": 3,
+      "requested_url": "https://www.innovasea.com/",
+      "date_accessed": "2026-10-27",
+      "visual_status": "DOM_SAMPLE"
+    },
+    {
+      "url": "https://www.akvagroup.com/",
+      "title": "AKVA group - Home",
+      "headingStyle": {
+        "font": "system-ui, -apple-system, Roboto, sans-serif",
+        "size": "20px",
+        "color": "rgb(32, 32, 32)"
+      },
+      "background": "rgb(249, 249, 245)",
+      "linkColors": [
+        "rgb(51, 51, 51)",
+        "rgb(255, 255, 255)",
+        "rgb(236, 237, 234)",
+        "rgb(0, 0, 0)"
+      ],
+      "sectionCount": 7,
+      "imageExamples": [
+        "AKVA group",
+        "AKVA group"
+      ],
+      "formCount": 2,
+      "requested_url": "https://www.akvagroup.com/",
+      "date_accessed": "2026-10-27",
+      "visual_status": "DOM_SAMPLE"
+    },
+    {
+      "url": "https://jala.tech/",
+      "title": "End to End Shrimp Industry Solution | JALA",
+      "headingStyle": {
+        "font": "Poppins, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+        "size": "36px",
+        "color": "rgb(255, 255, 255)"
+      },
+      "background": "rgba(0, 0, 0, 0)",
+      "linkColors": [
+        "rgb(18, 59, 90)",
+        "rgb(255, 255, 255)",
+        "rgb(0, 0, 0)",
+        "rgb(56, 82, 113)"
+      ],
+      "sectionCount": 4,
+      "imageExamples": [
+        "hero-homepage-2026.png",
+        "home-2026-our-journey-md.png"
+      ],
+      "formCount": 0,
+      "requested_url": "https://jala.tech/",
+      "date_accessed": "2026-10-27",
+      "visual_status": "DOM_SAMPLE"
+    },
+    {
+      "url": "https://farmext.com/en",
+      "title": "Farmext - Nền tảng quản lý trang trại & công nghệ nuôi tôm thông minh",
+      "headingStyle": {
+        "font": "Averta, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif",
+        "size": "48px",
+        "color": "oklch(0.21 0.034 264.665)"
+      },
+      "background": "rgb(250, 248, 255)",
+      "linkColors": [
+        "oklch(0.872 0.01 258.338)",
+        "oklch(0.21 0.034 264.665)",
+        "rgb(255, 255, 255)",
+        "oklch(0.373 0.034 259.733)"
+      ],
+      "sectionCount": 10,
+      "imageExamples": [
+        "Farmext Logo",
+        "Ứng dụng Farmext hiển thị kết quả xét nghiệm ao và báo cáo Tép AI"
+      ],
+      "formCount": 1,
+      "requested_url": "https://farmext.com/",
+      "date_accessed": "2026-10-27",
+      "visual_status": "DOM_SAMPLE"
+    },
+    {
+      "url": "https://oxyguard.dk/",
+      "title": "Equipment for fishfarms - Aquaculture equipment - Fish farming products",
+      "headingStyle": {
+        "font": "filson-pro, sans-serif",
+        "size": "40px",
+        "color": "rgb(255, 255, 255)"
+      },
+      "background": "rgb(255, 255, 255)",
+      "linkColors": [
+        "rgb(0, 147, 207)",
+        "rgb(255, 255, 255)",
+        "rgb(90, 90, 90)",
+        "rgb(0, 18, 48)"
+      ],
+      "sectionCount": 12,
+      "imageExamples": [],
+      "formCount": 0,
+      "requested_url": "https://oxyguard.dk/",
+      "date_accessed": "2026-10-27",
+      "visual_status": "DOM_SAMPLE"
+    },
+    {
+      "url": "https://www.cageeye.com/",
+      "title": "CageEye - Aquatech company based in Norway",
+      "headingStyle": {
+        "font": "roboto-bold, roboto, sans-serif",
+        "size": "55px",
+        "color": "rgb(47, 46, 46)"
+      },
+      "background": "rgba(0, 0, 0, 0)",
+      "linkColors": [
+        "rgb(0, 0, 238)",
+        "rgb(0, 0, 0)"
+      ],
+      "sectionCount": 5,
+      "imageExamples": [
+        "Screenshot 2025-06-24 at 12.13.41.png",
+        "Screenshot 2025-06-24 at 12.15.16.png"
+      ],
+      "formCount": 0,
+      "requested_url": "https://www.cageeye.com/",
+      "date_accessed": "2026-10-27",
+      "visual_status": "DOM_SAMPLE"
+    },
+    {
+      "url": "https://hannainst.com/",
+      "title": "Just a moment...",
+      "headingStyle": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+        "size": "40px",
+        "color": "rgb(49, 49, 49)"
+      },
+      "background": "rgba(0, 0, 0, 0)",
+      "linkColors": [
+        "rgb(0, 0, 238)"
+      ],
+      "sectionCount": 2,
+      "imageExamples": [],
+      "formCount": 0,
+      "requested_url": "https://www.hannainst.com/",
+      "date_accessed": "2026-10-27",
+      "visual_status": "LIMITED_OR_UNAVAILABLE"
+    },
+    {
+      "url": "https://www.blacklinesafety.com/",
+      "title": "Blackline Safety | Leader in Connected Gas Detection & Lone Worker Safety",
+      "headingStyle": {
+        "font": "Michroma, sans-serif",
+        "size": "110px",
+        "color": "rgb(0, 0, 0)"
+      },
+      "background": "rgba(0, 0, 0, 0)",
+      "linkColors": [
+        "rgb(255, 255, 255)",
+        "rgb(166, 25, 46)",
+        "rgb(175, 0, 59)",
+        "rgb(0, 145, 174)"
+      ],
+      "sectionCount": 8,
+      "imageExamples": [
+        "blacklinesafety_footer-logo",
+        "Logo_color"
+      ],
+      "formCount": 4,
+      "requested_url": "https://www.blacklinesafety.com/",
+      "date_accessed": "2026-10-27",
+      "visual_status": "DOM_SAMPLE"
+    },
+    {
+      "url": "https://www.draeger.com/en-us_us/Safety",
+      "title": "Access Denied",
+      "headingStyle": {
+        "font": "\"Times New Roman\"",
+        "size": "32px",
+        "color": "rgb(0, 0, 0)"
+      },
+      "background": "rgba(0, 0, 0, 0)",
+      "linkColors": [],
+      "sectionCount": 1,
+      "imageExamples": [],
+      "formCount": 0,
+      "requested_url": "https://www.draeger.com/en-us_us/Safety",
+      "date_accessed": "2026-10-27",
+      "visual_status": "LIMITED_OR_UNAVAILABLE"
+    },
+    {
+      "url": "chrome-error://chromewebdata/",
+      "title": "www.honeywell.com",
+      "headingStyle": {
+        "font": "sans, Arial, sans-serif",
+        "size": "22.5px",
+        "color": "rgb(32, 33, 36)"
+      },
+      "background": "rgb(255, 255, 255)",
+      "linkColors": [],
+      "sectionCount": 1,
+      "imageExamples": [],
+      "formCount": 0,
+      "requested_url": "https://www.honeywell.com/us/en/solutions/gas-detection",
+      "date_accessed": "2026-10-27",
+      "visual_status": "LIMITED_OR_UNAVAILABLE"
+    },
+    {
+      "url": "https://www.iot.daviteq.com/",
+      "title": "Home | Daviteq Technologies Inc",
+      "headingStyle": {
+        "font": "arial, \"ｍｓ ｐゴシック\", \"ms pgothic\", 돋움, dotum, helvetica, sans-serif",
+        "size": "80px",
+        "color": "rgb(255, 255, 255)"
+      },
+      "background": "rgba(0, 0, 0, 0)",
+      "linkColors": [
+        "rgb(255, 255, 255)",
+        "rgb(0, 0, 0)",
+        "rgb(0, 0, 238)",
+        "rgb(17, 109, 255)"
+      ],
+      "sectionCount": 7,
+      "imageExamples": [
+        "Daviteq Pressure Sensors installed in Gas Wellhead in Australia.j",
+        "TotalEnergies logo"
+      ],
+      "formCount": 0,
+      "requested_url": "https://www.iot.daviteq.com/",
+      "date_accessed": "2026-10-27",
+      "visual_status": "DOM_SAMPLE"
+    },
+    {
+      "url": "https://www.indsci.com/en",
+      "title": "Gas Monitors for a Smarter Safety Program | Industrial Scientific",
+      "headingStyle": {
+        "font": "\"Source Sans 3\", sans-serif",
+        "size": "50px",
+        "color": "rgb(255, 255, 255)"
+      },
+      "background": "rgb(255, 255, 255)",
+      "linkColors": [
+        "rgb(0, 93, 170)",
+        "rgb(255, 255, 255)",
+        "rgb(255, 99, 38)",
+        "rgb(68, 68, 68)"
+      ],
+      "sectionCount": 20,
+      "imageExamples": [
+        "Industrial Scientific ",
+        "Tango® TX1"
+      ],
+      "formCount": 3,
+      "requested_url": "https://www.indsci.com/",
+      "date_accessed": "2026-10-27",
+      "visual_status": "DOM_SAMPLE"
+    },
+    {
+      "url": "https://us.msasafety.com/",
+      "title": "",
+      "headingStyle": null,
+      "background": "rgba(0, 0, 0, 0)",
+      "linkColors": [],
+      "sectionCount": 0,
+      "imageExamples": [],
+      "formCount": 0,
+      "requested_url": "https://us.msasafety.com/",
+      "date_accessed": "2026-10-27",
+      "visual_status": "LIMITED_OR_UNAVAILABLE"
+    },
+    {
+      "url": "https://www.rkiinstruments.com/",
+      "title": "RKI Gas Detectors - Portable Gas Monitors - LEL, PID, H2S, CO, O2 Sensors",
+      "headingStyle": {
+        "font": "azo-sans-web",
+        "size": "55px",
+        "color": "rgb(255, 255, 255)"
+      },
+      "background": "rgb(255, 255, 255)",
+      "linkColors": [
+        "rgb(12, 13, 13)",
+        "rgb(255, 255, 255)",
+        "rgb(211, 11, 47)",
+        "rgb(0, 0, 238)"
+      ],
+      "sectionCount": 28,
+      "imageExamples": [
+        "RKI Instruments",
+        "RKI Instruments"
+      ],
+      "formCount": 2,
+      "requested_url": "https://www.rkiinstruments.com/",
+      "date_accessed": "2026-10-27",
+      "visual_status": "DOM_SAMPLE"
+    },
+    {
+      "url": "https://vietan-enviro.com/",
+      "title": "Thị phần số 1 về quan trắc môi trường và đo lường công nghiệp",
+      "headingStyle": {
+        "font": "Sarabun, ui-sans-serif, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+        "size": "36px",
+        "color": "rgb(2, 97, 61)"
+      },
+      "background": "rgb(255, 255, 255)",
+      "linkColors": [
+        "rgb(2, 97, 61)",
+        "rgb(64, 64, 64)",
+        "rgb(17, 24, 39)",
+        "rgb(0, 0, 0)"
+      ],
+      "sectionCount": 8,
+      "imageExamples": [
+        "15+ năm kinh nghiệm cung cấp giải pháp quan trắc môi trường & đo ",
+        "15 Year Anniversary Viet An Group_Cover Facebook"
+      ],
+      "formCount": 3,
+      "requested_url": "https://vietan-enviro.com/",
+      "date_accessed": "2026-10-27",
+      "visual_status": "DOM_SAMPLE"
+    },
+    {
+      "url": "https://enterprise.dji.com/",
+      "title": "DJI Enterprise - Drone Solutions for Your Business - DJI",
+      "headingStyle": {
+        "font": "\"Open Sans\", \"PingFang SC\", \"Microsoft YaHei\", \"Helvetica Neue\", \"Hiragino Sans GB\", \"WenQuanYi Micro Hei\", Arial, \"sans-serif\"",
+        "size": "40px",
+        "color": "rgb(59, 62, 64)"
+      },
+      "background": "rgb(255, 255, 255)",
+      "linkColors": [
+        "rgba(0, 0, 0, 0.85)",
+        "rgb(159, 163, 166)",
+        "rgb(255, 255, 255)",
+        "rgb(24, 144, 255)"
+      ],
+      "sectionCount": 11,
+      "imageExamples": [
+        "language gray icon",
+        "Map YourHeritage！"
+      ],
+      "formCount": 0,
+      "requested_url": "https://enterprise.dji.com/",
+      "date_accessed": "2026-10-27",
+      "visual_status": "DOM_SAMPLE"
+    },
+    {
+      "url": "https://www.flyability.com/",
+      "title": "Flyability Confined Space Inspection Drones | Safe, Fast, and Cost-Effective",
+      "headingStyle": {
+        "font": "proxima-nova, sans-serif",
+        "size": "53px",
+        "color": "rgb(0, 0, 0)"
+      },
+      "background": "rgba(0, 0, 0, 0)",
+      "linkColors": [
+        "rgb(246, 246, 246)",
+        "rgb(255, 255, 255)",
+        "rgb(129, 130, 133)",
+        "rgb(0, 0, 0)"
+      ],
+      "sectionCount": 10,
+      "imageExamples": [
+        "flyability_logo_horizontal_white_trimmed",
+        "danger-image_2"
+      ],
+      "formCount": 0,
+      "requested_url": "https://www.flyability.com/",
+      "date_accessed": "2026-10-27",
+      "visual_status": "DOM_SAMPLE"
+    },
+    {
+      "url": "https://ctuav.global/en/",
+      "title": "Explore - CT UAV",
+      "headingStyle": {
+        "font": "SVN-Apparat, sans-serif",
+        "size": "30.9228px",
+        "color": "rgb(0, 0, 0)"
+      },
+      "background": "rgb(255, 255, 255)",
+      "linkColors": [
+        "rgb(43, 43, 43)",
+        "rgb(255, 255, 255)",
+        "rgb(115, 115, 115)",
+        "rgb(251, 122, 57)"
+      ],
+      "sectionCount": 13,
+      "imageExamples": [
+        "Logo",
+        "English"
+      ],
+      "formCount": 3,
+      "requested_url": "https://ctuav.global/en/",
+      "date_accessed": "2026-10-27",
+      "visual_status": "DOM_SAMPLE"
+    },
+    {
+      "url": "https://oem.flir.com/products/siras/",
+      "title": "Just a moment...",
+      "headingStyle": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+        "size": "40px",
+        "color": "rgb(49, 49, 49)"
+      },
+      "background": "rgba(0, 0, 0, 0)",
+      "linkColors": [
+        "rgb(0, 0, 238)"
+      ],
+      "sectionCount": 2,
+      "imageExamples": [],
+      "formCount": 0,
+      "requested_url": "https://oem.flir.com/products/siras/",
+      "date_accessed": "2026-10-27",
+      "visual_status": "LIMITED_OR_UNAVAILABLE"
+    },
+    {
+      "url": "https://www.skydio.com/",
+      "title": "Skydio autonomous drones for DFR, inspection, national security | Skydio",
+      "headingStyle": {
+        "font": "Case, sans-serif",
+        "size": "16px",
+        "color": "rgb(102, 102, 102)"
+      },
+      "background": "rgba(0, 0, 0, 0)",
+      "linkColors": [
+        "rgb(34, 33, 31)",
+        "rgb(109, 108, 105)",
+        "rgb(255, 255, 255)",
+        "rgb(0, 0, 0)"
+      ],
+      "sectionCount": 29,
+      "imageExamples": [
+        "open Skydio Dock for X10 with Skydio X10 drone on a rooftop in a ",
+        "Skydio X10 drone flying over a transformer"
+      ],
+      "formCount": 2,
+      "requested_url": "https://www.skydio.com/",
+      "date_accessed": "2026-10-27",
+      "visual_status": "DOM_SAMPLE"
+    },
+    {
+      "url": "https://www.parrot.com/en",
+      "title": "Parrot | European leader in professional drones",
+      "headingStyle": {
+        "font": "NeueMontreal",
+        "size": "35px",
+        "color": "rgb(28, 28, 28)"
+      },
+      "background": "rgb(0, 0, 0)",
+      "linkColors": [
+        "rgb(255, 255, 255)",
+        "rgb(28, 28, 28)",
+        "rgb(0, 0, 0)",
+        "rgb(230, 230, 230)"
+      ],
+      "sectionCount": 1,
+      "imageExamples": [
+        "Parrot",
+        "Parrot.Cloud account"
+      ],
+      "formCount": 0,
+      "requested_url": "https://www.parrot.com/en",
+      "date_accessed": "2026-10-27",
+      "visual_status": "DOM_SAMPLE"
+    },
+    {
+      "url": "https://fotokite.com/",
+      "title": "Actively Tethered Drones for Emergency Response l Fotokite",
+      "headingStyle": null,
+      "background": "rgba(0, 0, 0, 0)",
+      "linkColors": [
+        "rgb(33, 110, 190)",
+        "rgb(255, 255, 255)",
+        "rgb(211, 210, 211)",
+        "rgb(47, 47, 47)"
+      ],
+      "sectionCount": 0,
+      "imageExamples": [
+        "Aerial image of a firetruck and Fotokite Sigma tethered drone in ",
+        "Fotokite with a building fire below."
+      ],
+      "formCount": 0,
+      "requested_url": "https://fotokite.com/",
+      "date_accessed": "2026-10-27",
+      "visual_status": "LIMITED_OR_UNAVAILABLE"
+    },
+    {
+      "url": "https://gremsy.com/",
+      "title": "Gremsy - Camera Payloads for Unmanned Systems",
+      "headingStyle": {
+        "font": "Speedy, Roboto, ui-sans-serif, sans-serif",
+        "size": "48px",
+        "color": "rgb(255, 255, 255)"
+      },
+      "background": "rgb(11, 15, 20)",
+      "linkColors": [
+        "rgb(203, 213, 225)",
+        "rgb(148, 163, 184)",
+        "rgb(255, 255, 255)"
+      ],
+      "sectionCount": 4,
+      "imageExamples": [
+        "Gremsy",
+        "ORUS L"
+      ],
+      "formCount": 4,
+      "requested_url": "https://gremsy.com/",
+      "date_accessed": "2026-10-27",
+      "visual_status": "DOM_SAMPLE"
+    }
+  ]
+}

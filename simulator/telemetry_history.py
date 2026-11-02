@@ -1,5 +1,5 @@
 """Bounded archive of actual emitted measurements, preserving session origin."""
-HISTORY_PROJECTS = frozenset({'aquasense', 'factsafe'})
+HISTORY_PROJECTS = frozenset({'aquasense', 'factsafe', 'firescout'})
 HISTORY_BUCKET_SECONDS = 10
 MAX_HISTORY = 1000
 

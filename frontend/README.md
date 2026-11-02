@@ -1,577 +1,110 @@
-# Frontend README
+# MultiFrontend frontend
 
-Modern React + TypeScript + Vite dashboard framework for IoT demos.
+React 18, TypeScript 5, Vite 5, Recharts and Zustand. Only AquaSense, FactSafe and
+FireScout AI are active. No new UI framework is required.
 
-## Quick Start
+## Setup
 
-### Prerequisites
-
-- Node.js 18+
-- npm or yarn
-
-### Setup
+From the repository root:
 
 ```bash
-# Install dependencies
-npm install
-
-# Start dev server
-npm run dev
-
-# Open browser at http://localhost:5173
+npm --prefix frontend ci
+npm --prefix frontend run dev
 ```
 
-## Development
+Start the simulator separately with `.venv/bin/python simulator/server.py`.
+The frontend defaults to http://localhost:5173 and `ws://localhost:8765`.
+`VITE_WS_URL` overrides the WebSocket address.
 
-### File Structure
+## Routing and selection
 
-```
-src/
-├── core/                          # Shared components and utilities
-│   ├── components/
-│   │   ├── Header.tsx            # Top header with system status
-│   │   ├── AlertDisplay.tsx       # Alert popup
-│   │   ├── EventTimeline.tsx      # Event feed
-│   │   ├── ScenarioControl.tsx    # Scenario selector and controls
-│   │   ├── Dashboard.tsx          # Main layout wrapper
-│   │   ├── Charts.tsx             # Chart components
-│   │   └── index.ts               # Component exports
-│   ├── hooks/
-│   │   └── useDataBridge.ts       # WebSocket connection
-│   ├── types/
-│   │   └── index.ts               # TypeScript interfaces
-│   ├── utils/
-│   │   └── formatting.ts          # Utility functions
-│   └── store.ts                   # Zustand stores
-├── projects/
-│   └── vitalchain/
-│       ├── config.ts              # Project configuration
-│       └── Dashboard.tsx          # Project dashboard
-├── special/                       # Non-dashboard projects
-├── App.tsx                        # Main app component
-└── main.tsx                       # Entry point
+- `http://localhost:5173/?project=aquasense`
+- `http://localhost:5173/?project=factsafe`
+- `http://localhost:5173/?project=firescout`
+
+`src/core/projects.ts` defines exactly:
+
+```ts
+type ProjectId = 'aquasense' | 'factsafe' | 'firescout';
 ```
 
-### Key Hooks to Use
-
-#### useDataBridge
-
-Connects to WebSocket simulator:
-
-```typescript
-import { useDataBridge } from '@/core/hooks/useDataBridge';
-
-function MyComponent() {
-  const { isConnected, send } = useDataBridge('ws://localhost:8765');
-
-  return <div>{isConnected ? 'Connected' : 'Disconnected'}</div>;
-}
-```
-
-#### useLocalTelemetrySimulation
-
-Generate fake data for testing without simulator:
-
-```typescript
-import { useLocalTelemetrySimulation } from '@/core/hooks/useDataBridge';
-
-function MyComponent() {
-  useLocalTelemetrySimulation(true, projectConfig);
-  // ...
-}
-```
-
-### Using Stores
-
-All state is managed with Zustand:
-
-```typescript
-import { useTelemetryStore, useAlertStore } from '@/core/store';
-
-function MyComponent() {
-  // Read state
-  const telemetry = useTelemetryStore((s) => s.telemetry);
-  const latest = useTelemetryStore((s) => s.getLatest());
-
-  // Update state
-  const addTelemetry = useTelemetryStore((s) => s.addTelemetry);
-  
-  return <div>{latest?.metrics.temperature}</div>;
-}
-```
-
-### Utility Functions
-
-Formatting and conversion helpers:
-
-```typescript
-import { 
-  formatMetric,
-  getMetricStatus,
-  formatElapsedTime,
-  formatTime,
-  getStatusColor,
-  easing
-} from '@/core/utils/formatting';
-
-// Format a number with unit
-const temp = formatMetric(4.5, temperatureConfig);  // "4.5 °C"
-
-// Get status based on thresholds
-const status = getMetricStatus(4.5, temperatureConfig);  // "normal"
-
-// Format elapsed time
-formatElapsedTime(125);  // "00:02:05"
-
-// Format ISO timestamp
-formatTime("2024-01-15T10:30:45.123Z");  // "10:30:45"
-
-// Get color for status
-const color = getStatusColor('critical');  // "#ef4444"
-```
-
-## Components
-
-### Header
-
-Shows project name, system status, and demo mode indicator.
-
-```typescript
-import { Header } from '@/core/components';
-
-<Header />
-```
-
-**Displays:**
-- Project name
-- System online/offline status
-- AI engine status
-- Active sensor count
-- Data stream status
-- Demo mode indicator (if active)
-
-### AlertDisplay
-
-Shows critical alerts with animations.
-
-```typescript
-import { AlertDisplay } from '@/core/components';
-
-<AlertDisplay />
-```
-
-**Features:**
-- Auto-dismiss after 5 seconds (unless critical)
-- Animated entrance
-- Color-coded severity
-- Metric details
-
-### EventTimeline
-
-Live event feed showing scenario progression.
-
-```typescript
-import { EventTimeline } from '@/core/components';
-
-<div style={{ maxHeight: '400px', overflowY: 'auto' }}>
-  <EventTimeline />
-</div>
-```
-
-**Shows:**
-- Timestamp
-- Event type and message
-- Severity badge
-- Icon
-
-### ScenarioControl
-
-Control panel for scenario selection and playback.
-
-```typescript
-import { ScenarioControl } from '@/core/components';
-
-<ScenarioControl
-  scenarios={[
-    { id: 'normal', name: 'Normal' },
-    { id: 'fault', name: 'Fault' },
-  ]}
-  onScenarioStart={(scenarioId, speed) => {
-    console.log(`Started ${scenarioId} at ${speed}x`);
-  }}
-  onScenarioPause={() => {
-    console.log('Paused');
-  }}
-  onScenarioReset={() => {
-    console.log('Reset');
-  }}
-/>
-```
-
-**Features:**
-- Scenario dropdown
-- Speed selector (1x, 2x, 5x, 10x)
-- Status display (phase, elapsed time)
-- Run/Pause/Resume buttons
-- Reset button
-
-### Dashboard
-
-Main layout wrapper that combines all components.
-
-```typescript
-import { Dashboard } from '@/core/components';
-import { myProjectConfig } from './config';
-
-<Dashboard
-  projectConfig={myProjectConfig}
-  onScenarioStart={(scenarioId) => { /* ... */ }}
->
-  {/* Custom content goes here */}
-</Dashboard>
-```
-
-### Charts
-
-#### LiveChart
-
-Generic chart for multiple metrics:
-
-```typescript
-import { LiveChart } from '@/core/components';
-
-<LiveChart
-  metricKeys={['temperature', 'humidity']}
-  title="Environmental Data"
-  height={300}
-  chartType="line"
-  colors={['#3b82f6', '#8b5cf6']}
-/>
-```
-
-#### ThresholdChart
-
-Line chart with threshold bands:
-
-```typescript
-import { ThresholdChart } from '@/core/components';
-
-<ThresholdChart
-  metricKey="temperature"
-  title="Temperature with Safety Bands"
-  height={300}
-  normalMin={2}
-  normalMax={8}
-  warningMin={0}
-  warningMax={10}
-  criticalMin={-5}
-  criticalMax={15}
-  unit="°C"
-/>
-```
-
-#### Gauge
-
-Circular gauge for single metrics:
-
-```typescript
-import { Gauge } from '@/core/components';
-
-<Gauge
-  value={4.5}
-  min={-20}
-  max={10}
-  label="Temperature"
-  unit="°C"
-  thresholdWarning={6}
-  thresholdCritical={10}
-  size={120}
-/>
-```
-
-## Creating a New Project
-
-### 1. Create Config File
-
-`src/projects/myproject/config.ts`:
-
-```typescript
-import { ProjectConfig } from '@/core/types';
-
-export const myprojectConfig: ProjectConfig = {
-  id: 'myproject',
-  name: 'My Project',
-  description: 'Project description',
-  
-  metrics: [
-    {
-      key: 'temperature',
-      name: 'Temperature',
-      unit: '°C',
-      min: -20,
-      max: 20,
-      normalMin: 18,
-      normalMax: 22,
-      warningMin: 15,
-      warningMax: 25,
-      criticalMin: 10,
-      criticalMax: 30,
-      precision: 1,
-    },
-    // ... more metrics
-  ],
-
-  scenarios: [
-    {
-      id: 'normal',
-      name: 'Normal Operation',
-      duration: 60,
-      steps: [
-        {
-          name: 'Stable',
-          phase: 'normal',
-          startAt: 0,
-          endAt: 60,
-          metrics: {
-            temperature: { start: 20, end: 20 },
-          },
-        },
-      ],
-    },
-  ],
-
-  devices: [
-    {
-      id: 'device-1',
-      name: 'Main Sensor',
-      type: 'temperature',
-      status: 'online',
-      location: 'Room A',
-      battery: 90,
-      signal: -55,
-    },
-  ],
-
-  aiEngine: true,
-  defaultScenario: 'normal',
-  defaultSpeed: 1,
-};
-```
-
-### 2. Create Dashboard Component
-
-`src/projects/myproject/Dashboard.tsx`:
-
-```typescript
-import React from 'react';
-import { Dashboard, LiveChart, ThresholdChart } from '@/core/components';
-import { myprojectConfig } from './config';
-
-export const MyProjectDashboard: React.FC = () => {
-  return (
-    <Dashboard projectConfig={myprojectConfig}>
-      <LiveChart
-        metricKeys={['temperature']}
-        title="Main Data"
-        chartType="line"
-      />
-    </Dashboard>
-  );
-};
-```
-
-### 3. Add to App.tsx
-
-```typescript
-import { MyProjectDashboard } from './projects/myproject/Dashboard';
-
-export const App: React.FC = () => {
-  const [selectedProject, setSelectedProject] = useState('myproject');
-
-  return selectedProject === 'myproject' ? <MyProjectDashboard /> : null;
-};
-```
-
-## Styling Guide
-
-### Colors
-
-Use the status color system:
-
-```typescript
-import { getStatusColor } from '@/core/utils/formatting';
-
-const normal = getStatusColor('normal');        // #4ade80 (green)
-const warning = getStatusColor('warning');      // #f59e0b (amber)
-const critical = getStatusColor('critical');    // #ef4444 (red)
-const recovered = getStatusColor('recovered');  // #3b82f6 (blue)
-const info = getStatusColor('info');            // #6b7280 (gray)
-```
-
-### Typography Hierarchy
-
-```typescript
-// Page title
-<h1 style={{ fontSize: '24px', fontWeight: '600' }}>Title</h1>
-
-// Section header
-<h3 style={{ fontSize: '13px', fontWeight: '600', textTransform: 'uppercase' }}>Section</h3>
-
-// Large values
-<div style={{ fontSize: '24px', fontWeight: '700', color: '#3b82f6' }}>
-  12.5
-</div>
-
-// Labels
-<label style={{ fontSize: '12px', fontWeight: '600', color: '#9ca3af' }}>
-  Label
-</label>
-```
-
-### Card Layout
-
-```typescript
-<div
-  style={{
-    background: '#1a1a1a',
-    border: '1px solid #2d2d2d',
-    borderRadius: '8px',
-    padding: '16px',
-  }}
->
-  {/* content */}
-</div>
-```
-
-## Build & Deploy
-
-### For Production
+A supported query value takes priority. An absent, empty or unsupported query falls
+back to a supported `VITE_PROJECT`; otherwise it renders AquaSense. For example:
 
 ```bash
+VITE_PROJECT=factsafe npm --prefix frontend run dev
+```
+
+The settings gear opens a dialog with only the three supported projects. A
+selection navigates to the project's URL, disposing the old socket and all page
+state. The bridge additionally filters project/session packets and clears stores
+on session changes. Selecting a dashboard does not automatically start a scenario.
+
+## Source structure
+
+- `src/projects/aquasense/`: DO, water temperature, pH; supporting pond diagnostics.
+- `src/projects/factsafe/`: NH3, PM2.5, derived zone risk; supporting gases/zones.
+- `src/projects/firescout/`: synthetic detection confidence, thermal estimate, link.
+- `src/core/components/SimulationDashboard.tsx`: shared composition and command wiring.
+- `src/core/components/FigmaDashboard/`: shared layout, cards, shell and scoped CSS.
+- `src/core/components/Charts.tsx`: LiveChart, ThresholdChart, Gauge.
+- `src/core/components/ScenarioControl.tsx`, `EventTimeline.tsx`, `AlertDisplay.tsx`:
+  playback, logs, alerts.
+- `src/core/hooks/useDataBridge.ts`, `store.ts`, `types/`, `utils/`: shared transport,
+  bounded stores, telemetry/alert/anomaly interfaces and formatting.
+
+The existing Dashboard and Header components and their shared APIs remain
+available. Metric names, units and project-specific presentation stay in project
+configuration; rules and the canonical simulation clock stay in the simulator.
+
+All scenario data is labeled SIMULATED. Unknown/non-finite measurements show `—`.
+FireScout missing frames are not replaced by zero. Raw values, derived risk,
+synthetic detections and ground truth are distinguished. There is no real model,
+video feed or hardware integration in these demos.
+
+## Controls
+
+Open **Scenarios** in the footer, select a scenario and next-run speed, then Run.
+Use 600x for fast AquaSense/FactSafe review or 10x for FireScout. Active speed,
+Pause, Resume, Reset and completion are driven by backend acknowledgments. Reset
+clears the current session's charts/alerts and records a reset event. Reconnection
+can restore the cached last measurement with its original timestamp.
+
+## Checks and production preview
+
+```bash
+npm --prefix frontend test
+cd frontend
+./node_modules/.bin/tsc --noEmit
 npm run build
+npm run preview
 ```
 
-Outputs to `dist/` directory.
+The Node test runner exercises the actual TypeScript routing module using the
+existing TypeScript dependency. Browser checks cover rendering and simulator
+interaction. `npm run lint` currently requires missing ESLint setup; no lint success
+is implied. Vite's bundle-size warning is non-fatal.
 
-### Environment Variables
+The production preview URL printed by Vite accepts all three `?project=` values.
+It still requires a separately running simulator. See [the cleanup report](../documents/development/KEEP_THREE_PROJECTS.md).
 
-- `VITE_PROJECT`: project dashboard to render (`vitalchain` by default; `pulseguard`, `factsafe`, `aquasense`, `datacool`, `hirdop`, and `pam` supported)
-- `VITE_WS_URL`: simulator WebSocket URL (`ws://localhost:8765` by default)
 
-Create `.env`:
+## Repaired telemetry behavior
 
-```
-VITE_WS_URL=ws://your-simulator-host:8765
-```
+AquaSense/FactSafe open Scenarios on arrival. If the simulator is connected but
+stopped, select a scenario and **Run scenario**. If another project owns the single
+server session, the page identifies it and offers the same explicit Start path.
+No readings are invented before a matching project/session packet arrives.
 
-Access in code:
+The bridge restores the optional `session_history` bootstrap and filters every
+sample/event by project and session. Stored history uses backend-provided sampling
+metadata to retain actual samples across the entire 60–120 minute run; reconnect
+preserves timestamps and events. Starting another project clears a displaced
+AquaSense/FactSafe view's stale session and offers Start again.
 
-```typescript
-const wsUrl = import.meta.env.VITE_WS_URL || 'ws://localhost:8765';
-```
-
-## Performance Optimization
-
-### Chart Rendering
-
-For real-time updates, disable animations:
-
-```typescript
-<Line
-  type="monotone"
-  dataKey="value"
-  isAnimationActive={false}
-  strokeWidth={2}
-/>
-```
-
-### Store Subscriptions
-
-Use selector functions to limit re-renders:
-
-```typescript
-// Good - only re-renders if these specific values change
-const latest = useTelemetryStore((s) => s.getLatest());
-
-// Avoid - re-renders on every store change
-const telemetry = useTelemetryStore((s) => s.telemetry);
-```
-
-### Telemetry History Limit
-
-Keep only last 1000 points to avoid memory issues:
-
-```typescript
-addTelemetry: (point) => set((state) => ({
-  telemetry: [...state.telemetry.slice(-999), point],
-}))
-```
-
-## Debugging
-
-### Chrome DevTools
-
-1. Open DevTools (F12)
-2. Check Console for errors
-3. Network tab shows WebSocket connections
-4. React DevTools extension for component inspection
-
-### Console Logs
-
-```typescript
-import { useTelemetryStore } from '@/core/store';
-
-function Debug() {
-  const state = useTelemetryStore();
-  console.log('Telemetry:', state.telemetry);
-  return null;
-}
-```
-
-### Local Storage
-
-Store keeps telemetry in memory only. To persist, add:
-
-```typescript
-addTelemetry: (point) => set((state) => {
-  const telemetry = [...state.telemetry.slice(-999), point];
-  localStorage.setItem('telemetry', JSON.stringify(telemetry));
-  return { telemetry };
-})
-```
-
-## Common Issues
-
-### "Cannot find module" errors
-
-- Ensure paths start with `@/`
-- Check that file extensions `.ts` or `.tsx` are correct
-- Verify files exist in correct directories
-
-### Charts not rendering
-
-- Check that metric keys exist in telemetry data
-- Verify telemetry store has data
-- Ensure chart component is not hidden by CSS
-- Check browser console for React errors
-
-### WebSocket connection fails
-
-- Ensure simulator is running: `python vitalchain_simulator.py`
-- Check host/port: `ws://localhost:8765`
-- Check browser Network tab for WebSocket connection
-- Verify firewall allows WebSocket connections
-
-### Styles not applying
-
-- Check that inline styles are using camelCase: `backgroundColor`
-- Verify CSS-in-JS is loaded
-- Use browser DevTools to inspect computed styles
-
-## Resources
-
-- [React Documentation](https://react.dev)
-- [TypeScript Handbook](https://www.typescriptlang.org/docs)
-- [Zustand Documentation](https://github.com/pmndrs/zustand)
-- [Recharts Documentation](https://recharts.org)
-- [Vite Documentation](https://vitejs.dev)
+X axes show elapsed simulation minutes from zero, with adaptive label precision
+that avoids repeated ticks on short runs. Y axes remain metric-specific: mg/L,
+°C, unitless pH, ppm, µg/m³, or Risk score (0–100). Risk cards use the emitted
+`metrics.risk_score`, which agrees with `riskScore`; integer precision and the
+semantic demo-score label do not imply a physical unit or calibrated safety index.
+See [repair evidence and launch instructions](../documents/development/AQUASENSE_FACTSAFE_TELEMETRY_FIX.md).

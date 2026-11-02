@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Usage: ./quickstart.sh [aquasense|factsafe|firescout]
 project_id=${1:-aquasense}
 case "$project_id" in
   aquasense|factsafe|firescout) ;;

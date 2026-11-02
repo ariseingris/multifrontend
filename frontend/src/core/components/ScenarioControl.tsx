@@ -148,7 +148,6 @@ export const ScenarioControl: React.FC<ScenarioControlProps> = ({
         Scenario Control
       </h3>
 
-      {/* Scenario Selection */}
       <div style={{ marginBottom: '16px' }}>
         <label
           style={{
@@ -193,7 +192,6 @@ export const ScenarioControl: React.FC<ScenarioControlProps> = ({
         </select>
       </div>
 
-      {/* Speed Control */}
       <div style={{ marginBottom: '16px' }}>
         <label
           style={{
@@ -238,7 +236,6 @@ export const ScenarioControl: React.FC<ScenarioControlProps> = ({
         </div>
       </div>
 
-      {/* Status Display */}
       <div
         style={{
           background: 'rgba(0,0,0,0.3)',
@@ -262,7 +259,6 @@ export const ScenarioControl: React.FC<ScenarioControlProps> = ({
         </div>
       </div>
 
-      {/* Control Buttons */}
       <div style={{ display: 'flex', gap: '8px' }}>
         {(scenario.status === 'stopped' || scenario.status === 'completed') ? (
           <button

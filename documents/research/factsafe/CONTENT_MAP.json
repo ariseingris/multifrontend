@@ -1,0 +1,293 @@
+{
+  "schema_version": "1.0",
+  "project": "factsafe",
+  "prepared_on": "2026-10-27",
+  "status": "CONTENT_HANDOFF_DRAFT",
+  "copy_source": "WEBSITE_CONTENT.md",
+  "claim_registry": "CLAIM_REGISTRY.json",
+  "scope": "Nghiên cứu và chuẩn bị nội dung; chưa triển khai frontend hoặc xuất bản.",
+  "buyer_persona": "EHS manager và quản lý vận hành nhà máy; đối tác IIoT tham gia đánh giá tích hợp.",
+  "primary_cta": {
+    "label": "Đề nghị xem demo",
+    "proposed_page_target": "#lien-he",
+    "external_destination": null,
+    "status": "CONTACT_CHANNEL_NOT_CONFIRMED"
+  },
+  "secondary_cta": {
+    "label": "Trao đổi bài toán nhà máy",
+    "proposed_page_target": "#lien-he",
+    "external_destination": null,
+    "status": "CONTACT_CHANNEL_NOT_CONFIRMED"
+  },
+  "demo": {
+    "required_label": "Dữ liệu và cảnh báo mô phỏng — không dùng để quyết định an toàn thực tế.",
+    "scenario_ids": [
+      "normal",
+      "gas_leak",
+      "dust_event"
+    ],
+    "existing_project_selector": "?project=factsafe",
+    "selector_source": "../../../frontend/src/core/projects.ts",
+    "public_demo_url": null,
+    "integration_status": "NOT_IMPLEMENTED"
+  },
+  "sections": [
+    {
+      "order": 1,
+      "section_id": "gioi-thieu",
+      "source_file": "WEBSITE_CONTENT.md",
+      "source_heading": "1. Hero",
+      "editorial_purpose": "Nêu nguyên mẫu và người đọc EHS/vận hành",
+      "claim_ids": [
+        "FS-C01",
+        "FS-C02",
+        "FS-C13",
+        "FS-C14"
+      ],
+      "supporting_sources": [
+        "PROJECT_FACT_SHEET.md",
+        "../../../README.md",
+        "../../../frontend/src/projects/factsafe/config.ts",
+        "../../../simulator/scenario_models.py",
+        "MARKETING_STRATEGY.md"
+      ],
+      "publication_status": "PENDING",
+      "layout_status": "PROPOSED",
+      "visible_as_page_section": true
+    },
+    {
+      "order": 2,
+      "section_id": "van-de",
+      "source_file": "WEBSITE_CONTENT.md",
+      "source_heading": "2. Vấn đề",
+      "editorial_purpose": "Đặt câu hỏi theo chất/vùng; bối cảnh ILO có năm và phạm vi",
+      "claim_ids": [
+        "FS-C07",
+        "FS-C08",
+        "FS-C12"
+      ],
+      "supporting_sources": [
+        "MARKETING_STRATEGY.md",
+        "MARKET_EVIDENCE.md",
+        "https://www.ilo.org/resource/news/nearly-3-million-people-die-work-related-accidents-and-diseases",
+        "../../../README.md"
+      ],
+      "publication_status": "PENDING",
+      "layout_status": "PROPOSED",
+      "visible_as_page_section": true
+    },
+    {
+      "order": 3,
+      "section_id": "giai-phap",
+      "source_file": "WEBSITE_CONTENT.md",
+      "source_heading": "3. Giải pháp",
+      "editorial_purpose": "Giới thiệu tín hiệu tổng hợp, tình huống và diễn tiến",
+      "claim_ids": [
+        "FS-C02",
+        "FS-C03",
+        "FS-C04",
+        "FS-C05"
+      ],
+      "supporting_sources": [
+        "../../../frontend/src/projects/factsafe/config.ts",
+        "../../../simulator/scenario_models.py",
+        "../../development/AQUASENSE_FACTSAFE_TELEMETRY_FIX.md",
+        "../../../README.md"
+      ],
+      "publication_status": "PENDING",
+      "layout_status": "PROPOSED",
+      "visible_as_page_section": true
+    },
+    {
+      "order": 4,
+      "section_id": "cach-tiep-can",
+      "source_file": "WEBSITE_CONTENT.md",
+      "source_heading": "4. Vì sao nên tìm hiểu FactSafe?",
+      "editorial_purpose": "Nêu cách trao đổi/phạm vi, tránh hiệu năng vượt trội",
+      "claim_ids": [
+        "FS-C04",
+        "FS-C07",
+        "FS-C12",
+        "FS-C14"
+      ],
+      "supporting_sources": [
+        "../../../simulator/scenario_models.py",
+        "../../development/AQUASENSE_FACTSAFE_TELEMETRY_FIX.md",
+        "MARKETING_STRATEGY.md",
+        "MARKET_EVIDENCE.md",
+        "../../../README.md",
+        "PROJECT_FACT_SHEET.md"
+      ],
+      "publication_status": "PENDING",
+      "layout_status": "PROPOSED",
+      "visible_as_page_section": true
+    },
+    {
+      "order": 5,
+      "section_id": "gia-tri",
+      "source_file": "WEBSITE_CONTENT.md",
+      "source_heading": "5. Business value",
+      "editorial_purpose": "Đề xuất đo công việc và lifecycle; không hứa tiết kiệm",
+      "claim_ids": [
+        "FS-C06",
+        "FS-C07",
+        "FS-C11",
+        "FS-C12"
+      ],
+      "supporting_sources": [
+        "PROJECT_FACT_SHEET.md",
+        "../shared/2026-10-27_PROJECT_KNOWLEDGE_AUDIT.md",
+        "MARKETING_STRATEGY.md",
+        "MARKET_EVIDENCE.md",
+        "../../../README.md"
+      ],
+      "publication_status": "PENDING",
+      "layout_status": "PROPOSED",
+      "visible_as_page_section": true
+    },
+    {
+      "order": 6,
+      "section_id": "bang-chung",
+      "source_file": "WEBSITE_CONTENT.md",
+      "source_heading": "6. Evidence và bối cảnh chuyên môn",
+      "editorial_purpose": "Nêu chất lượng phép đo; legal applicability vẫn cần đối chiếu",
+      "claim_ids": [
+        "FS-C09",
+        "FS-C10",
+        "FS-C12",
+        "FS-C15"
+      ],
+      "supporting_sources": [
+        "https://vov.gov.vn/gia-tang-so-vu-tai-nan-lao-dong-nhieu-noi-lam-tat-lam-thieu-quy-trinh-an-toan-dtnew-1082633",
+        "https://atld.vn/law/3586/content",
+        "MARKET_EVIDENCE.md",
+        "PROJECT_FACT_SHEET.md",
+        "../../../README.md",
+        "https://stacks.cdc.gov/view/cdc/11956"
+      ],
+      "publication_status": "PENDING",
+      "layout_status": "PROPOSED",
+      "visible_as_page_section": true
+    },
+    {
+      "order": 7,
+      "section_id": "demo",
+      "source_file": "WEBSITE_CONTENT.md",
+      "source_heading": "7. Product demo",
+      "editorial_purpose": "Minh họa khí và bụi theo vùng; giải thích giới hạn score",
+      "claim_ids": [
+        "FS-C03",
+        "FS-C04",
+        "FS-C05",
+        "FS-C06"
+      ],
+      "supporting_sources": [
+        "../../../frontend/src/projects/factsafe/config.ts",
+        "../../../simulator/scenario_models.py",
+        "../../development/AQUASENSE_FACTSAFE_TELEMETRY_FIX.md",
+        "../../../README.md",
+        "PROJECT_FACT_SHEET.md",
+        "../shared/2026-10-27_PROJECT_KNOWLEDGE_AUDIT.md"
+      ],
+      "publication_status": "PENDING",
+      "layout_status": "PROPOSED",
+      "visible_as_page_section": true
+    },
+    {
+      "order": 8,
+      "section_id": "cau-hoi",
+      "source_file": "WEBSITE_CONTENT.md",
+      "source_heading": "8. FAQ",
+      "editorial_purpose": "Giải đáp tám câu hỏi, nhất là QCVN và tích hợp",
+      "claim_ids": [
+        "FS-C01",
+        "FS-C02",
+        "FS-C04",
+        "FS-C06",
+        "FS-C10",
+        "FS-C11",
+        "FS-C12",
+        "FS-C13",
+        "FS-C14"
+      ],
+      "supporting_sources": [
+        "PROJECT_FACT_SHEET.md",
+        "../../../README.md",
+        "../../../frontend/src/projects/factsafe/config.ts",
+        "../../../simulator/scenario_models.py",
+        "../../development/AQUASENSE_FACTSAFE_TELEMETRY_FIX.md",
+        "../shared/2026-10-27_PROJECT_KNOWLEDGE_AUDIT.md",
+        "MARKET_EVIDENCE.md",
+        "MARKETING_STRATEGY.md"
+      ],
+      "publication_status": "PENDING",
+      "layout_status": "PROPOSED",
+      "visible_as_page_section": true
+    },
+    {
+      "order": 9,
+      "section_id": "lien-he",
+      "source_file": "WEBSITE_CONTENT.md",
+      "source_heading": "9. Contact / conversion",
+      "editorial_purpose": "Mời demo hoặc trao đổi yêu cầu thực tế",
+      "claim_ids": [
+        "FS-C13",
+        "FS-C14"
+      ],
+      "supporting_sources": [
+        "MARKETING_STRATEGY.md",
+        "PROJECT_FACT_SHEET.md"
+      ],
+      "publication_status": "PENDING",
+      "layout_status": "PROPOSED",
+      "visible_as_page_section": true
+    },
+    {
+      "order": 10,
+      "section_id": "seo",
+      "source_file": "WEBSITE_CONTENT.md",
+      "source_heading": "10. SEO",
+      "editorial_purpose": "Metadata và outline theo ngành; keywords là giả thuyết",
+      "claim_ids": [
+        "FS-C01",
+        "FS-C02",
+        "FS-C03",
+        "FS-C04",
+        "FS-C05",
+        "FS-C06",
+        "FS-C07",
+        "FS-C08",
+        "FS-C09",
+        "FS-C10",
+        "FS-C11",
+        "FS-C12",
+        "FS-C13",
+        "FS-C14",
+        "FS-C15"
+      ],
+      "supporting_sources": [
+        "PROJECT_FACT_SHEET.md",
+        "../../../README.md",
+        "../../../frontend/src/projects/factsafe/config.ts",
+        "../../../simulator/scenario_models.py",
+        "../../development/AQUASENSE_FACTSAFE_TELEMETRY_FIX.md",
+        "../shared/2026-10-27_PROJECT_KNOWLEDGE_AUDIT.md",
+        "MARKETING_STRATEGY.md",
+        "MARKET_EVIDENCE.md",
+        "https://www.ilo.org/resource/news/nearly-3-million-people-die-work-related-accidents-and-diseases",
+        "https://vov.gov.vn/gia-tang-so-vu-tai-nan-lao-dong-nhieu-noi-lam-tat-lam-thieu-quy-trinh-an-toan-dtnew-1082633",
+        "https://atld.vn/law/3586/content",
+        "https://stacks.cdc.gov/view/cdc/11956"
+      ],
+      "publication_status": "PENDING",
+      "layout_status": "PROPOSED",
+      "visible_as_page_section": false
+    }
+  ],
+  "exclusions": "Chưa tạo bảng đạt QCVN, huy hiệu chứng nhận, cam kết giảm tai nạn, ngưỡng pháp lý từ config, SMS/Zalo thương mại hoặc SLA.",
+  "review": {
+    "publication_approval": null,
+    "approved_by": null,
+    "approved_on": null
+  }
+}

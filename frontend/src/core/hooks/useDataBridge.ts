@@ -11,8 +11,6 @@ export function useDataBridge(wsUrl: string = 'ws://localhost:8765', projectId?:
   const hasLoggedConnectionErrorRef = useRef(false);
 
   useEffect(() => {
-    // Each effect owns its socket and retry timer. A closed StrictMode socket must
-    // never schedule retries into the next effect's connection.
     let disposed = false;
     let sessionId: string | undefined;
     if (projectId) {
@@ -51,10 +49,9 @@ export function useDataBridge(wsUrl: string = 'ws://localhost:8765', projectId?:
         ws.onmessage = (event) => {
           try {
             const data = JSON.parse(event.data);
-            if (data.type === 'simulation_state' && ['aquasense', 'factsafe'].includes(projectId ?? '')) {
+            if (data.type === 'simulation_state' && ['aquasense', 'factsafe', 'firescout'].includes(projectId ?? '')) {
               useSimulationStore.getState().setServerProject(data.payload.project);
               if (data.payload.project !== projectId && useSimulationStore.getState().state) {
-                // Another tab can replace the single server's active project.
                 useSimulationStore.setState({ state: null, receivedAt: 0 });
                 useScenarioStore.getState().resetScenario();
                 useTelemetryStore.getState().clearTelemetry();
@@ -66,7 +63,7 @@ export function useDataBridge(wsUrl: string = 'ws://localhost:8765', projectId?:
             }
             if (projectId && data.payload?.project !== projectId) return;
             if (projectId) acceptSession(data.payload?.sessionId);
-            if (data.type === 'session_history' && projectId && ['aquasense', 'factsafe'].includes(projectId)) {
+            if (data.type === 'session_history' && projectId && ['aquasense', 'factsafe', 'firescout'].includes(projectId)) {
               const points = data.payload.telemetry.filter((point: TelemetryPoint) => point.project === projectId && point.sessionId === data.payload.sessionId);
               useTelemetryStore.getState().setTelemetry(points);
               useTimelineStore.getState().setEvents(data.payload.events.filter((event: { project?: string; sessionId?: string }) => event.project === projectId && event.sessionId === data.payload.sessionId));
@@ -75,7 +72,6 @@ export function useDataBridge(wsUrl: string = 'ws://localhost:8765', projectId?:
             if (data.type === 'simulation_state' && projectId && data.payload) {
               useSimulationStore.getState().setSimulation(data.payload);
               if (projectId === 'aquasense') {
-                // Restore the actual active simulator alert after reconnect; no new detection.
                 const active = data.payload.activeAlert ?? null;
                 const alerts = useAlertStore.getState();
                 if (alerts.currentAlert?.id !== active?.id) alerts.setCurrentAlert(active);
@@ -100,8 +96,6 @@ export function useDataBridge(wsUrl: string = 'ws://localhost:8765', projectId?:
               addAlert(data.payload);
               const currentState = useSimulationStore.getState().state;
               if (projectId === 'aquasense' && currentState && 'activeAlert' in currentState) {
-                // Catch-up can deliver historical crossings after recovery. Keep
-                // them in history while the state owns the currently active banner.
                 useAlertStore.getState().setCurrentAlert(currentState.activeAlert ?? null);
               }
               if (!data.payload.sessionId) addEvent({
@@ -138,7 +132,6 @@ export function useDataBridge(wsUrl: string = 'ws://localhost:8765', projectId?:
         console.error('Failed to connect WebSocket:', err);
       }
     };
-    // Defer opening so StrictMode's setup/cleanup probe creates no extra socket.
     retryTimer = setTimeout(connect, 0);
     return () => {
       disposed = true;
@@ -169,9 +162,6 @@ export function useDataBridge(wsUrl: string = 'ws://localhost:8765', projectId?:
   };
 }
 
-/**
- * Hook for local telemetry generation (for testing/demo without backend)
- */
 export function useLocalTelemetrySimulation(
   enabled: boolean = false,
   project?: any

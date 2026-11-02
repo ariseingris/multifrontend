@@ -1,0 +1,291 @@
+{
+  "schema_version": "1.0",
+  "project": "aquasense",
+  "prepared_on": "2026-10-27",
+  "status": "CONTENT_HANDOFF_DRAFT",
+  "copy_source": "WEBSITE_CONTENT.md",
+  "claim_registry": "CLAIM_REGISTRY.json",
+  "scope": "Nghiên cứu và chuẩn bị nội dung; chưa triển khai frontend hoặc xuất bản.",
+  "buyer_persona": "Chủ trại tôm và người phụ trách vận hành; hợp tác xã và đối tác kỹ thuật là nhóm bổ sung.",
+  "primary_cta": {
+    "label": "Đề nghị xem demo",
+    "proposed_page_target": "#lien-he",
+    "external_destination": null,
+    "status": "CONTACT_CHANNEL_NOT_CONFIRMED"
+  },
+  "secondary_cta": {
+    "label": "Trao đổi về pilot ao nuôi",
+    "proposed_page_target": "#lien-he",
+    "external_destination": null,
+    "status": "CONTACT_CHANNEL_NOT_CONFIRMED"
+  },
+  "demo": {
+    "required_label": "Dữ liệu mô phỏng — không phải phép đo hoặc kết quả ngoài ao.",
+    "scenario_ids": [
+      "normal",
+      "low_oxygen",
+      "sensor_fouling"
+    ],
+    "existing_project_selector": "?project=aquasense",
+    "selector_source": "../../../frontend/src/core/projects.ts",
+    "public_demo_url": null,
+    "integration_status": "NOT_IMPLEMENTED"
+  },
+  "sections": [
+    {
+      "order": 1,
+      "section_id": "gioi-thieu",
+      "source_file": "WEBSITE_CONTENT.md",
+      "source_heading": "1. Hero",
+      "editorial_purpose": "Nêu bài toán theo dõi và giai đoạn nguyên mẫu",
+      "claim_ids": [
+        "AQ-C01",
+        "AQ-C03",
+        "AQ-C13"
+      ],
+      "supporting_sources": [
+        "PROJECT_FACT_SHEET.md",
+        "../../../README.md",
+        "../../../frontend/src/projects/aquasense/config.ts",
+        "../../development/AQUASENSE_CONTINUOUS_SIMULATION.md",
+        "MARKETING_STRATEGY.md"
+      ],
+      "publication_status": "PENDING",
+      "layout_status": "PROPOSED",
+      "visible_as_page_section": true
+    },
+    {
+      "order": 2,
+      "section_id": "van-de",
+      "source_file": "WEBSITE_CONTENT.md",
+      "source_heading": "2. Vấn đề",
+      "editorial_purpose": "Giải thích khoảng trống ngữ cảnh ao; giữ nguồn VASEP sát số liệu",
+      "claim_ids": [
+        "AQ-C04",
+        "AQ-C08",
+        "AQ-C11",
+        "AQ-C12"
+      ],
+      "supporting_sources": [
+        "../../development/AQUASENSE_CONTINUOUS_SIMULATION.md",
+        "../../../simulator/scenario_models.py",
+        "MARKETING_STRATEGY.md",
+        "MARKET_EVIDENCE.md",
+        "https://vasep.com.vn/tieu-diem/vasep-to-chuc-le-tong-ket-xuat-khau-thuy-san-nam-2025-can-moc-11-3-ty-usd-thich-ung-doi-moi-huong-toi-phat-trien-ben-vung-35848.html",
+        "https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2024.1476309/full"
+      ],
+      "publication_status": "PENDING",
+      "layout_status": "PROPOSED",
+      "visible_as_page_section": true
+    },
+    {
+      "order": 3,
+      "section_id": "giai-phap",
+      "source_file": "WEBSITE_CONTENT.md",
+      "source_heading": "3. Giải pháp",
+      "editorial_purpose": "Giải thích cách tiếp cận, thông số và tình huống demo",
+      "claim_ids": [
+        "AQ-C02",
+        "AQ-C03",
+        "AQ-C04",
+        "AQ-C05"
+      ],
+      "supporting_sources": [
+        "../../../frontend/src/projects/aquasense/config.ts",
+        "../../../simulator/scenario_models.py",
+        "../../development/AQUASENSE_CONTINUOUS_SIMULATION.md",
+        "../../../README.md"
+      ],
+      "publication_status": "PENDING",
+      "layout_status": "PROPOSED",
+      "visible_as_page_section": true
+    },
+    {
+      "order": 4,
+      "section_id": "cach-tiep-can",
+      "source_file": "WEBSITE_CONTENT.md",
+      "source_heading": "4. Vì sao nên trao đổi với AquaSense?",
+      "editorial_purpose": "Nêu hướng phát triển phù hợp trại, tránh ưu thế chưa đo",
+      "claim_ids": [
+        "AQ-C04",
+        "AQ-C07",
+        "AQ-C08",
+        "AQ-C13"
+      ],
+      "supporting_sources": [
+        "../../development/AQUASENSE_CONTINUOUS_SIMULATION.md",
+        "../../../simulator/scenario_models.py",
+        "PROJECT_FACT_SHEET.md",
+        "MARKETING_STRATEGY.md",
+        "MARKET_EVIDENCE.md"
+      ],
+      "publication_status": "PENDING",
+      "layout_status": "PROPOSED",
+      "visible_as_page_section": true
+    },
+    {
+      "order": 5,
+      "section_id": "gia-tri",
+      "source_file": "WEBSITE_CONTENT.md",
+      "source_heading": "5. Giá trị kinh doanh",
+      "editorial_purpose": "Mời xác lập baseline và phạm vi chi phí",
+      "claim_ids": [
+        "AQ-C08",
+        "AQ-C09",
+        "AQ-C16"
+      ],
+      "supporting_sources": [
+        "MARKETING_STRATEGY.md",
+        "MARKET_EVIDENCE.md",
+        "PROJECT_FACT_SHEET.md",
+        "../shared/2026-10-27_PROJECT_KNOWLEDGE_AUDIT.md"
+      ],
+      "publication_status": "PENDING",
+      "layout_status": "PROPOSED",
+      "visible_as_page_section": true
+    },
+    {
+      "order": 6,
+      "section_id": "bang-chung",
+      "source_file": "WEBSITE_CONTENT.md",
+      "source_heading": "6. Bằng chứng và hướng kiểm chứng",
+      "editorial_purpose": "Đặt FAO và nghiên cứu thiếu oxy trong đúng phạm vi",
+      "claim_ids": [
+        "AQ-C10",
+        "AQ-C12",
+        "AQ-C16"
+      ],
+      "supporting_sources": [
+        "https://www.fao.org/newsroom/detail/fao-report-global-fisheries-and-aquaculture-production-reaches-a-new-record-high/en",
+        "MARKET_EVIDENCE.md",
+        "https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2024.1476309/full",
+        "PROJECT_FACT_SHEET.md",
+        "../shared/2026-10-27_PROJECT_KNOWLEDGE_AUDIT.md"
+      ],
+      "publication_status": "PENDING",
+      "layout_status": "PROPOSED",
+      "visible_as_page_section": true
+    },
+    {
+      "order": 7,
+      "section_id": "demo",
+      "source_file": "WEBSITE_CONTENT.md",
+      "source_heading": "7. Product demo",
+      "editorial_purpose": "Giải thích ba tình huống có nhãn mô phỏng",
+      "claim_ids": [
+        "AQ-C02",
+        "AQ-C03",
+        "AQ-C05",
+        "AQ-C06",
+        "AQ-C15"
+      ],
+      "supporting_sources": [
+        "../../../frontend/src/projects/aquasense/config.ts",
+        "../../../simulator/scenario_models.py",
+        "../../development/AQUASENSE_CONTINUOUS_SIMULATION.md",
+        "../../../README.md",
+        "PROJECT_FACT_SHEET.md",
+        "../shared/2026-10-27_PROJECT_KNOWLEDGE_AUDIT.md",
+        "../../specifications/MULTIFRONTEND_SCENARIOS_CODEX_SPEC.md"
+      ],
+      "publication_status": "PENDING",
+      "layout_status": "PROPOSED",
+      "visible_as_page_section": true
+    },
+    {
+      "order": 8,
+      "section_id": "cau-hoi",
+      "source_file": "WEBSITE_CONTENT.md",
+      "source_heading": "8. FAQ",
+      "editorial_purpose": "Giải đáp tám câu hỏi, giữ nội dung về giới hạn",
+      "claim_ids": [
+        "AQ-C02",
+        "AQ-C04",
+        "AQ-C05",
+        "AQ-C06",
+        "AQ-C07",
+        "AQ-C09",
+        "AQ-C13",
+        "AQ-C15",
+        "AQ-C16"
+      ],
+      "supporting_sources": [
+        "../../../frontend/src/projects/aquasense/config.ts",
+        "../../../simulator/scenario_models.py",
+        "../../development/AQUASENSE_CONTINUOUS_SIMULATION.md",
+        "../../../README.md",
+        "PROJECT_FACT_SHEET.md",
+        "../shared/2026-10-27_PROJECT_KNOWLEDGE_AUDIT.md",
+        "MARKETING_STRATEGY.md",
+        "../../specifications/MULTIFRONTEND_SCENARIOS_CODEX_SPEC.md"
+      ],
+      "publication_status": "PENDING",
+      "layout_status": "PROPOSED",
+      "visible_as_page_section": true
+    },
+    {
+      "order": 9,
+      "section_id": "lien-he",
+      "source_file": "WEBSITE_CONTENT.md",
+      "source_heading": "9. Contact / conversion",
+      "editorial_purpose": "Mời trao đổi qua kênh thật khi có",
+      "claim_ids": [
+        "AQ-C13"
+      ],
+      "supporting_sources": [
+        "MARKETING_STRATEGY.md",
+        "PROJECT_FACT_SHEET.md"
+      ],
+      "publication_status": "PENDING",
+      "layout_status": "PROPOSED",
+      "visible_as_page_section": true
+    },
+    {
+      "order": 10,
+      "section_id": "seo",
+      "source_file": "WEBSITE_CONTENT.md",
+      "source_heading": "10. SEO và outline",
+      "editorial_purpose": "Metadata và cấu trúc heading; keywords là giả thuyết",
+      "claim_ids": [
+        "AQ-C01",
+        "AQ-C02",
+        "AQ-C03",
+        "AQ-C04",
+        "AQ-C05",
+        "AQ-C06",
+        "AQ-C07",
+        "AQ-C08",
+        "AQ-C09",
+        "AQ-C10",
+        "AQ-C11",
+        "AQ-C12",
+        "AQ-C13",
+        "AQ-C15",
+        "AQ-C16"
+      ],
+      "supporting_sources": [
+        "PROJECT_FACT_SHEET.md",
+        "../../../README.md",
+        "../../../frontend/src/projects/aquasense/config.ts",
+        "../../../simulator/scenario_models.py",
+        "../../development/AQUASENSE_CONTINUOUS_SIMULATION.md",
+        "../shared/2026-10-27_PROJECT_KNOWLEDGE_AUDIT.md",
+        "MARKETING_STRATEGY.md",
+        "MARKET_EVIDENCE.md",
+        "https://www.fao.org/newsroom/detail/fao-report-global-fisheries-and-aquaculture-production-reaches-a-new-record-high/en",
+        "https://vasep.com.vn/tieu-diem/vasep-to-chuc-le-tong-ket-xuat-khau-thuy-san-nam-2025-can-moc-11-3-ty-usd-thich-ung-doi-moi-huong-toi-phat-trien-ben-vung-35848.html",
+        "https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2024.1476309/full",
+        "../../specifications/MULTIFRONTEND_SCENARIOS_CODEX_SPEC.md"
+      ],
+      "publication_status": "PENDING",
+      "layout_status": "PROPOSED",
+      "visible_as_page_section": false
+    }
+  ],
+  "exclusions": "Chưa tạo pricing, bảng hoàn vốn, logo khách hàng, tỷ lệ tăng sống hoặc nhãn AI dự báo đã xác thực.",
+  "review": {
+    "publication_approval": null,
+    "approved_by": null,
+    "approved_on": null
+  }
+}

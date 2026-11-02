@@ -27,7 +27,6 @@ class PondEnvironment:
 
     def _step(self, minute, previous):
         seconds = minute * 60
-        # Start at 04:00; daily forcing with multi-hour non-periodic weather.
         daylight = math.sin(2 * math.pi * (seconds / 86400 + 4 / 24 - .25))
         weather = self.variation(1, seconds, 6 * 3600)
         ambient = 28.2 + 1.6 * daylight + .6 * weather

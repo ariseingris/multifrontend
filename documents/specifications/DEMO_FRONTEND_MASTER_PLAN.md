@@ -1,4 +1,9 @@
 # DEMO FRONTEND MASTER PLAN
+
+> Historical planning/delivery reference preserved after the three-project cleanup.
+> Only AquaSense, FactSafe and FireScout AI are active. Commands and project lists
+> below describe an earlier repository state; use [the current README](../../README.md)
+> and [cleanup report](../development/KEEP_THREE_PROJECTS.md) for current paths and behavior.
 ## USTH Innovation 2026 — Shared Demo Platform, Simulator, UI, Animation, QA & Bugbook
 
 > **Mục đích:** Đây là tài liệu giao việc/đặc tả kỹ thuật để một coding agent khác có thể đọc và triển khai toàn bộ hệ thống frontend demo cho các đề tài mà không cần tự suy đoán kiến trúc.

@@ -49,6 +49,8 @@ build/
 *.rar
 docs/
 *.[mM][dD]
+!/AGENTS.md
+!/DEVELOPMENT_LOG.md
 *.pdf
 *.doc
 *.docx
@@ -57,3 +59,18 @@ docs/
 /*.png
 /*.jpg
 /*.jpeg
+
+# FireScout delivery artifacts only; other local documentation stays ignored.
+!docs/
+docs/*
+!docs/FIRESCOUT_UAV_DELIVERY.md
+!docs/screenshots/
+docs/screenshots/*
+!docs/screenshots/firescout-desktop.png
+!docs/screenshots/firescout-mobile.png
+.playwright-mcp/
+
+!/assets/
+!/assets/**
+!/documents/
+!/documents/**

@@ -34,7 +34,6 @@ class PondTests(unittest.TestCase):
                 self.assertTrue(all(low < v < high for v in values))
                 self.assertLess(max(abs(b-a) for a,b in zip(values,values[1:])), max_step)
                 self.assertGreater(max(values)-min(values), min_range)
-                # Former generator repeated exactly every ~370 seconds. New series does not.
                 a = [model.metrics_at(t)[key] for t in range(0, 300, 10)]
                 b = [model.metrics_at(t+370)[key] for t in range(0, 300, 10)]
                 self.assertGreater(sum(abs(x-y) for x,y in zip(a,b)), .001)
@@ -48,7 +47,6 @@ class PondTests(unittest.TestCase):
         for scenario in ['normal', 'low_oxygen', 'sensor_fouling']:
             model = AquaSenseSimulator(scenario)
             model.start()
-            # One large jump must still evaluate every warning/critical/recovery transition.
             model.elapsed = 86400
             model.evaluate()
             events = model.drain_events()
@@ -142,13 +140,12 @@ class ContinuousTransportTests(unittest.IsolatedAsyncioTestCase):
                 clock.return_value=100+i/10
                 await server.tick_demo()
             samples=[p['payload'] for p in messages if p['type']=='telemetry']
-            self.assertLessEqual(len(samples),151)  # At most five emissions per real second.
+            self.assertLessEqual(len(samples),151)
             times=[p['elapsedSimSeconds'] for p in samples]
             self.assertEqual(times,sorted(set(times)))
             self.assertGreater(times[-1],7200)
             self.assertTrue(all(p['historyRetentionSeconds']==21600 for p in samples))
             self.assertEqual(m.playback_status,'running')
-            # Advance beyond the retention cutoff; events/alerts have their own lifetime.
             clock.return_value=200; await server.tick_demo()
             self.assertGreater(server._history[0]['elapsedSimSeconds'],0)
             self.assertIn('critical_entered',[e['code'] for e in server._history_events])

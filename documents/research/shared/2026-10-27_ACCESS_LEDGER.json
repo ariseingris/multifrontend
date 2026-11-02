@@ -1,0 +1,1077 @@
+{
+  "access_date": "2026-10-27",
+  "scope": "Các lần mở trang và lấy mẫu DOM trong deep research; search snippets không mặc định được coi là đã đọc trang gốc. Nguồn pilot giữ riêng trong JSON cũ.",
+  "observations": [
+    {
+      "url": "https://www.cageeye.com/",
+      "title": "CageEye - Aquatech company based in Norway",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "probe_web",
+      "limitation": null
+    },
+    {
+      "url": "https://hannainst.com/",
+      "title": "pH Meters, Photometers, Titrators, Controllers | Hanna Instruments",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "probe_web",
+      "limitation": null
+    },
+    {
+      "url": "https://www.indsci.com/en",
+      "title": "Gas Monitors for a Smarter Safety Program | Industrial Scientific",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "fact_home",
+      "limitation": null
+    },
+    {
+      "url": "https://us.msasafety.com/",
+      "title": "MSA Safety | United States",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "fact_home",
+      "limitation": null
+    },
+    {
+      "url": "https://www.rkiinstruments.com/",
+      "title": "RKI Gas Detectors - Portable Gas Monitors - LEL, PID, H2S, CO, O2 Sensors",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "fact_home",
+      "limitation": null
+    },
+    {
+      "url": "https://vietan-enviro.com/",
+      "title": "Thị phần số 1 về quan trắc môi trường và đo lường công nghiệp",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "fact_home",
+      "limitation": null
+    },
+    {
+      "url": "https://www.iot.daviteq.com/",
+      "title": "Home | Daviteq Technologies Inc",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "fact_home",
+      "limitation": null
+    },
+    {
+      "url": "https://www.skydio.com/",
+      "title": "Skydio autonomous drones for DFR, inspection, national security | Skydio",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "fire_home",
+      "limitation": null
+    },
+    {
+      "url": "https://www.parrot.com/en",
+      "title": "Parrot | European leader in professional drones",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "fire_home",
+      "limitation": null
+    },
+    {
+      "url": "https://fotokite.com/",
+      "title": "Actively Tethered Drones for Emergency Response l Fotokite",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "fire_home",
+      "limitation": null
+    },
+    {
+      "url": "https://gremsy.com/",
+      "title": "gremsy.com",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "fire_home",
+      "limitation": null
+    },
+    {
+      "url": "https://mst.gov.vn/tha-tom-giong-va-cach-cham-soc-quan-ly-moi-truong-ao-nuoi-197132462.htm",
+      "title": "Thả tôm giống và cách chăm sóc, quản lý môi trường ao nuôi - Cổng Thông tin điện tử Bộ Khoa học và Công nghệ",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "aqua_market_discovery",
+      "limitation": null
+    },
+    {
+      "url": "https://www.indsci.com/en/inet-exchange",
+      "title": "iNet® Exchange | Gas Monitor Maintenance & Repair Services | Industrial Scientific",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "fact_detail",
+      "limitation": null
+    },
+    {
+      "url": "https://www.indsci.com/en/education-library/explore-all?topic__in=9",
+      "title": "Gas Detection Resources | Industrial Scientific",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "fact_detail",
+      "limitation": null
+    },
+    {
+      "url": "https://www.indsci.com/en/contact",
+      "title": "Industrial Scientific | Contact Us",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "fact_detail",
+      "limitation": null
+    },
+    {
+      "url": "https://us.msasafety.com/Fixed-Gas-&-Flame-Detection/c/103?isLanding=true",
+      "title": "Fixed Gas & Flame Detection | MSA Safety | United States",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "fact_detail",
+      "limitation": null
+    },
+    {
+      "url": "https://www.rkiinstruments.com/24-7-vision/",
+      "title": "24/7 Vision | RKI Instruments",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "fact_detail",
+      "limitation": null
+    },
+    {
+      "url": "https://vietan-enviro.com/giai-phap-quan-trac-khi-xung-quanh-tu-dong-aqms-imisff-8101-aq/",
+      "title": "Giải pháp quan trắc khí xung quanh tự động iMisff8101",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "fact_detail",
+      "limitation": null
+    },
+    {
+      "url": "https://vietan-enviro.com/case-study/",
+      "title": "Lưu trữ Case Study - THỊ PHẦN SỐ 1 VIỆT NAM VỀ TRẠM QUAN TRẮC MÔI TRƯỜNG TỰ ĐỘNG - Việt An Enviro",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "fact_detail",
+      "limitation": null
+    },
+    {
+      "url": "https://www.iot.daviteq.com/us",
+      "title": "About Us | Daviteq Technologies Inc",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "fact_detail",
+      "limitation": null
+    },
+    {
+      "url": "https://hannainst.com.au/parameters/dissolved/",
+      "title": "DO Probes and Meters to Measure Dissolved Oxygen (DO) in Water: A Key Indicator of Water Quality -Hanna Instruments Australia",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "aqua_detail2",
+      "limitation": null
+    },
+    {
+      "url": "https://www.akvagroup.com/digital/",
+      "title": "Digital - AKVA group",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "aqua_detail2",
+      "limitation": null
+    },
+    {
+      "url": "https://rynanaquaculture.com/tomgoxy",
+      "title": "TOMGOXY Intensive Shrimp Farm — RYNAN Aquaculture",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "aqua_detail2",
+      "limitation": null
+    },
+    {
+      "url": "https://www.innovasea.com/about-us/",
+      "title": null,
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "UNAVAILABLE",
+      "batch": "aqua_detail2",
+      "limitation": "Failed to fetch https://www.innovasea.com/about-us/: (404) Not Found"
+    },
+    {
+      "url": "https://jala.tech/baruni",
+      "title": "Baruni Water Quality Monitoring Device | JALA",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "PARTIAL",
+      "batch": "aqua_detail2",
+      "limitation": "Chưa lấy được phần nội dung chính đầy đủ; không suy luận nội dung bị thiếu."
+    },
+    {
+      "url": "https://jala.tech/contact-us",
+      "title": "Contact Us | JALA",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "PARTIAL",
+      "batch": "aqua_detail2",
+      "limitation": "Chưa lấy được phần nội dung chính đầy đủ; không suy luận nội dung bị thiếu."
+    },
+    {
+      "url": "https://oxyguard.dk/projects/",
+      "title": "Projects Archive OxyGuard ®",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "aqua_detail2",
+      "limitation": null
+    },
+    {
+      "url": "https://oxyguard.dk/contact-us/",
+      "title": "Contact us OxyGuard ®",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "aqua_detail2",
+      "limitation": null
+    },
+    {
+      "url": "https://www.cageeye.com/about",
+      "title": "About us | CageEye",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "aqua_detail2",
+      "limitation": null
+    },
+    {
+      "url": "https://farmext.com/farmext-base",
+      "title": "Mô Hình Nuôi Tôm Công Nghệ Cao Farmext Base - Chuyển Giao Quy Trình Chuẩn",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "aqua_detail2",
+      "limitation": null
+    },
+    {
+      "url": "https://www.skydio.com/solutions/dfr/fire-service",
+      "title": "Skydio autonomous drone programs for fire departments | Skydio",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "fire_detail1",
+      "limitation": null
+    },
+    {
+      "url": "https://www.skydio.com/customer-stories",
+      "title": "Skydio Customer Success Stories | Skydio",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "fire_detail1",
+      "limitation": null
+    },
+    {
+      "url": "https://www.parrot.com/en/drones/anafi-usa",
+      "title": "Parrot ANAFI USA - Professional Drone made in USA.",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "fire_detail1",
+      "limitation": null
+    },
+    {
+      "url": "https://www.parrot.com/en/contacts",
+      "title": "Parrot Drones - Discover our international press contacts",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "fire_detail1",
+      "limitation": null
+    },
+    {
+      "url": "https://fotokite.com/",
+      "title": "Actively Tethered Drones for Emergency Response l Fotokite",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "fire_detail1",
+      "limitation": null
+    },
+    {
+      "url": "https://fotokite.com/public-safety-uas/",
+      "title": "Public Safety UAS & Emergency Applications l Fotokite",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "fire_detail1",
+      "limitation": null
+    },
+    {
+      "url": "https://fotokite.com/elevated-tethered-drones/",
+      "title": "Elevated Tethered Drone for First Responders l Fotokite",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "fire_detail1",
+      "limitation": null
+    },
+    {
+      "url": "https://fotokite.com/get-a-quote/",
+      "title": "Get a Quote | FOTOKITE",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "fire_detail1",
+      "limitation": null
+    },
+    {
+      "url": "https://gremsy.com/applications",
+      "title": "gremsy.com",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "fire_detail1",
+      "limitation": null
+    },
+    {
+      "url": "https://gremsy.com/products/vio",
+      "title": "gremsy.com",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "fire_detail1",
+      "limitation": null
+    },
+    {
+      "url": "https://www.fao.org/interactive/state-of-fisheries-aquaculture/en/",
+      "title": "The tide is turning",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "PARTIAL",
+      "batch": "market_primary",
+      "limitation": "Chưa lấy được phần nội dung chính đầy đủ; không suy luận nội dung bị thiếu."
+    },
+    {
+      "url": "https://vasep.com.vn/tieu-diem/vasep-to-chuc-le-tong-ket-xuat-khau-thuy-san-nam-2025-can-moc-11-3-ty-usd-thich-ung-doi-moi-huong-toi-phat-trien-ben-vung-35848.html",
+      "title": "VASEP tổ chức Lễ tổng kết xuất khẩu thủy sản năm 2025: Cán mốc 11,3 tỷ USD – thích ứng, đổi mới, hướng tới phát triển bền vững",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "market_primary",
+      "limitation": null
+    },
+    {
+      "url": "https://mst.gov.vn/tha-tom-giong-va-cach-cham-soc-quan-ly-moi-truong-ao-nuoi-197132462.htm",
+      "title": "Thả tôm giống và cách chăm sóc, quản lý môi trường ao nuôi - Cổng Thông tin điện tử Bộ Khoa học và Công nghệ",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "market_primary",
+      "limitation": null
+    },
+    {
+      "url": "https://www.bocongan.gov.vn/bai-viet/tinh-hinh-tai-nan-giao-thong-chay-no-va-xu-ly-hanh-chinh-ve-trat-tu-an-toan-giao-thong-nam-2025-1774612854",
+      "title": "Tình hình tai nạn giao thông, cháy, nổ và xử lý hành chính về trật tự, an toàn giao thông năm 2025",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "market_primary",
+      "limitation": null
+    },
+    {
+      "url": "https://vbpl.vn/boyte/Pages/vbpq-print.aspx?ItemID=137239",
+      "title": null,
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "UNAVAILABLE",
+      "batch": "market_primary",
+      "limitation": "Failed to fetch https://vbpl.vn/boyte/Pages/vbpq-print.aspx?ItemID=137239: (403) Forbidden"
+    },
+    {
+      "url": "https://xaydungchinhsach.chinhphu.vn/chinh-phu-quy-dinh-dieu-kien-dang-ky-phuong-tien-bay-khong-nguoi-lai-119251108125349673.htm",
+      "title": "Chính phủ quy định điều kiện đăng ký phương tiện bay không người lái",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "market_primary",
+      "limitation": null
+    },
+    {
+      "url": "https://datafiles.travinh.gov.vn/tvh/1/FileVanBanChiDao/2025/2/850638756435443740252.pdf",
+      "title": null,
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "UNAVAILABLE",
+      "batch": "market_verify",
+      "limitation": "Failed to fetch https://datafiles.travinh.gov.vn/tvh/1/FileVanBanChiDao/2025/2/850638756435443740252.pdf: (400) Timeout fetching"
+    },
+    {
+      "url": "https://datafiles.chinhphu.vn/cpp/files/vbpq/2025/11/288nd.signed.pdf",
+      "title": "2025-11-07 (1)",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "PARTIAL",
+      "batch": "market_verify",
+      "limitation": "Chưa lấy được phần nội dung chính đầy đủ; không suy luận nội dung bị thiếu."
+    },
+    {
+      "url": "https://www.fao.org/newsroom/detail/fao-report-global-fisheries-and-aquaculture-production-reaches-a-new-record-high/en",
+      "title": "FAO Report: Global fisheries and aquaculture production reaches a new record high",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "market_verify",
+      "limitation": null
+    },
+    {
+      "url": "https://vasep.com.vn/tieu-diem/vasep-to-chuc-le-tong-ket-xuat-khau-thuy-san-nam-2025-can-moc-11-3-ty-usd-thich-ung-doi-moi-huong-toi-phat-trien-ben-vung-35848.html",
+      "title": "VASEP tổ chức Lễ tổng kết xuất khẩu thủy sản năm 2025: Cán mốc 11,3 tỷ USD – thích ứng, đổi mới, hướng tới phát triển bền vững",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "market_verify",
+      "limitation": null
+    },
+    {
+      "url": "https://www.bocongan.gov.vn/bai-viet/tinh-hinh-tai-nan-giao-thong-chay-no-va-xu-ly-hanh-chinh-ve-trat-tu-an-toan-giao-thong-nam-2025-1774612854",
+      "title": "Tình hình tai nạn giao thông, cháy, nổ và xử lý hành chính về trật tự, an toàn giao thông năm 2025",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "market_verify",
+      "limitation": null
+    },
+    {
+      "url": "https://mst.gov.vn/tha-tom-giong-va-cach-cham-soc-quan-ly-moi-truong-ao-nuoi-197132462.htm",
+      "title": "Thả tôm giống và cách chăm sóc, quản lý môi trường ao nuôi - Cổng Thông tin điện tử Bộ Khoa học và Công nghệ",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "market_verify",
+      "limitation": null
+    },
+    {
+      "url": "https://jala.tech/about",
+      "title": "About Us | JALA",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "PARTIAL",
+      "batch": "content_fragments",
+      "limitation": "Chưa lấy được phần nội dung chính đầy đủ; không suy luận nội dung bị thiếu."
+    },
+    {
+      "url": "https://jala.tech/baruni",
+      "title": "Baruni Water Quality Monitoring Device | JALA",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "PARTIAL",
+      "batch": "content_fragments",
+      "limitation": "Chưa lấy được phần nội dung chính đầy đủ; không suy luận nội dung bị thiếu."
+    },
+    {
+      "url": "https://www.cageeye.com/about",
+      "title": "About us | CageEye",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "content_fragments",
+      "limitation": null
+    },
+    {
+      "url": "https://www.cageeye.com/solutions",
+      "title": "Solutions | CageEye",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "content_fragments",
+      "limitation": null
+    },
+    {
+      "url": "https://www.parrot.com/en/drones/anafi-usa",
+      "title": "Parrot ANAFI USA - Professional Drone made in USA.",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "content_fragments",
+      "limitation": null
+    },
+    {
+      "url": "https://fotokite.com/public-safety-uas/",
+      "title": "Public Safety UAS & Emergency Applications l Fotokite",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "content_fragments",
+      "limitation": null
+    },
+    {
+      "url": "https://www.iot.daviteq.com/us",
+      "title": "About Us | Daviteq Technologies Inc",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "content_fragments",
+      "limitation": null
+    },
+    {
+      "url": "https://vasep.com.vn/tieu-diem/vasep-to-chuc-le-tong-ket-xuat-khau-thuy-san-nam-2025-can-moc-11-3-ty-usd-thich-ung-doi-moi-huong-toi-phat-trien-ben-vung-35848.html",
+      "title": "VASEP tổ chức Lễ tổng kết xuất khẩu thủy sản năm 2025: Cán mốc 11,3 tỷ USD – thích ứng, đổi mới, hướng tới phát triển bền vững",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "content_fragments",
+      "limitation": null
+    },
+    {
+      "url": "https://moh.gov.vn/documents/20182/0/tt-2019-10-3%2B%281%29.pdf/975b3f40-4220-4656-bee8-81590c697831?download=true&version=1.0",
+      "title": null,
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "UNAVAILABLE",
+      "batch": "safety_legal",
+      "limitation": "Failed to fetch https://moh.gov.vn/documents/20182/0/tt-2019-10-3%2B%281%29.pdf/975b3f40-4220-4656-bee8-81590c697831?download=true&version=1.0: (400) Timeout fetching"
+    },
+    {
+      "url": "https://tieuchuanxaydung.vsqi.gov.vn/quychuan/view?sohieu=QCVN+03:2019/BYT",
+      "title": "Virtualmin",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "UNAVAILABLE",
+      "batch": "safety_legal",
+      "limitation": "#"
+    },
+    {
+      "url": "https://www.cheshire.police.uk/news/cheshire/news/articles/2025/12/constabularys-drone-unit-assist-in-rescuing-man-from-river-weaver/",
+      "title": "Constabulary's Drone Unit assist in rescuing man from River Weaver | Cheshire Constabulary",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "independent_detail",
+      "limitation": null
+    },
+    {
+      "url": "https://atld.vn/law/3586/content",
+      "title": "HSE Provider | Thông báo số 630/TB-BLĐTBXH Tình hình tai nạn lao động năm 2024",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "independent_detail",
+      "limitation": null
+    },
+    {
+      "url": "https://tieuchuanxaydung.vsqi.gov.vn/quychuan/view?sohieu=QCVN+02:2019/BYT",
+      "title": "Virtualmin",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "UNAVAILABLE",
+      "batch": "independent_detail",
+      "limitation": "#"
+    },
+    {
+      "url": "https://www.cageeye.com/news",
+      "title": null,
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "UNAVAILABLE",
+      "batch": "company_further",
+      "limitation": "URL https://www.cageeye.com/news is not accessible via this tool."
+    },
+    {
+      "url": "https://farmext.com/lien-he",
+      "title": null,
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "UNAVAILABLE",
+      "batch": "company_further",
+      "limitation": "Failed to fetch https://farmext.com/lien-he: Cache miss"
+    },
+    {
+      "url": "https://rynanaquaculture.com/about-us",
+      "title": null,
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "UNAVAILABLE",
+      "batch": "company_further",
+      "limitation": "URL https://rynanaquaculture.com/about-us is not accessible via this tool."
+    },
+    {
+      "url": "https://rynanaquaculture.com/tomgoxy",
+      "title": "TOMGOXY Intensive Shrimp Farm — RYNAN Aquaculture",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "company_further",
+      "limitation": null
+    },
+    {
+      "url": "https://www.skydio.com/x10",
+      "title": "Skydio X10 | Skydio",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "company_further",
+      "limitation": null
+    },
+    {
+      "url": "https://www.skydio.com/resources/all?industries=Public+Safety&pageNumber=1&topics=Customer+Story&useCases=Drone+as+First+Responder+(DFR)",
+      "title": "Resources | Skydio",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "company_further",
+      "limitation": null
+    },
+    {
+      "url": "https://gremsy.com/distributors",
+      "title": "gremsy.com",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "company_further",
+      "limitation": null
+    },
+    {
+      "url": "https://www.parrot.com/en/drones/anafi-usa",
+      "title": "Parrot ANAFI USA - Professional Drone made in USA.",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "company_further",
+      "limitation": null
+    },
+    {
+      "url": "https://oem.flir.com/products/siras/",
+      "title": "SIRAS - Professional drone with thermal and visible camera payload | Teledyne FLIR OEM",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "drone_limits",
+      "limitation": null
+    },
+    {
+      "url": "https://www.gov.uk/government/publications/aaib-record-only-uas-investigations-reviewed-december-2025-january-2026/aaib-record-only-uas-investigations-reviewed-december-2025-january-2026",
+      "title": "AAIB Record-only UAS investigations reviewed: December 2025 - January 2026 - GOV.UK",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "drone_limits",
+      "limitation": null
+    },
+    {
+      "url": "https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2024.1476309/full",
+      "title": "Frontiers | Acute hypoxia stress mediates HIF-1α-Yki-Cactus axis to facilitate the infection of Vibrio parahaemolyticus in Litopenaeus vannamei",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "science_primary",
+      "limitation": null
+    },
+    {
+      "url": "https://stacks.cdc.gov/view/cdc/11956",
+      "title": "NIOSH Technical Report: Components for Evaluation of Direct-Reading Monitors for Gases and Vapors",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "science_primary",
+      "limitation": null
+    },
+    {
+      "url": "https://www.nist.gov/el/fire-research-division-73300/firegov-fire-service/thermal-imaging",
+      "title": "Thermal Imaging | NIST",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "science_primary",
+      "limitation": null
+    },
+    {
+      "url": "https://www.bocongan.gov.vn/bai-viet/luc-luong-canh-sat-phong-chay-chua-chay-va-cuu-nan-cuu-ho-tong-ket-cong-tac-nam-2025-1765961546",
+      "title": "Lực lượng Cảnh sát phòng cháy, chữa cháy và cứu nạn, cứu hộ tổng kết công tác năm 2025",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "science_primary",
+      "limitation": null
+    },
+    {
+      "url": "https://vov.gov.vn/gia-tang-so-vu-tai-nan-lao-dong-nhieu-noi-lam-tat-lam-thieu-quy-trinh-an-toan-dtnew-1082633",
+      "title": "Gia tăng số vụ tai nạn lao động: Nhiều nơi làm tắt, làm thiếu quy trình an toàn",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "science_primary",
+      "limitation": null
+    },
+    {
+      "url": "https://us.msasafety.com/about",
+      "title": "Company Overview | MSA Safety | United States",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "last_company",
+      "limitation": null
+    },
+    {
+      "url": "https://us.msasafety.com/contact-us",
+      "title": "Contact MSA | MSA Safety | United States",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "last_company",
+      "limitation": null
+    },
+    {
+      "url": "https://us.msasafety.com/testimonials",
+      "title": "Testimonials | MSA Safety | United States",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "last_company",
+      "limitation": null
+    },
+    {
+      "url": "https://www.parrot.com/en/drones/anafi-usa/proven-and-trusted",
+      "title": "ANAFI USA | Trusted Drone & Proven Globally | Parrot",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "last_company",
+      "limitation": null
+    },
+    {
+      "url": "https://www.indsci.com/en/about",
+      "title": "About Industrial Scientific",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "last_company",
+      "limitation": null
+    },
+    {
+      "url": "https://www.indsci.com/en/gas-detection-by-industry",
+      "title": "Gas Detection Solutions by Industry | Industrial Scientific",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "last_company",
+      "limitation": null
+    },
+    {
+      "url": "https://www.faa.gov/data_research/aviation/aerospace_forecasts",
+      "title": "FAA Aerospace Forecasts | Federal Aviation Administration",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "drone_independent",
+      "limitation": null
+    },
+    {
+      "url": "https://www.gov.uk/government/news/2023-survey-of-law-enforcement-use-of-uncrewed-aerial-vehicles",
+      "title": "2023 survey of law enforcement use of uncrewed aerial vehicles - GOV.UK",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "drone_independent",
+      "limitation": null
+    },
+    {
+      "url": "https://hannainst.com.au/aquaculture-testing/",
+      "title": "Aquaculture Testing Tools: Solutions for Water Quality on aquatic system",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "contact_detail",
+      "limitation": null
+    },
+    {
+      "url": "https://www.iot.daviteq.com/hello",
+      "title": "Contact us | Daviteq Technologies Inc",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "contact_detail",
+      "limitation": null
+    },
+    {
+      "url": "https://www.iot.daviteq.com/services",
+      "title": "Our Services | IoT Solutions by Daviteq Technologies Inc",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "contact_detail",
+      "limitation": null
+    },
+    {
+      "url": "https://www.rkiinstruments.com/about-rki/",
+      "title": "About RKI | RKI Instruments",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "contact_detail",
+      "limitation": null
+    },
+    {
+      "url": "https://www.rkiinstruments.com/contact-us/",
+      "title": "Contact Us | RKI Instruments",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "contact_detail",
+      "limitation": null
+    },
+    {
+      "url": "https://vietan-enviro.com/viet-an-enviro/",
+      "title": "Việt An Enviro | Thị phần số 1 Việt Nam về trạm quan trắc",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "contact_detail",
+      "limitation": null
+    },
+    {
+      "url": "https://vietan-enviro.com/lien-he/",
+      "title": "Liên Hệ Việt An Enviro",
+      "date_accessed": "2026-10-27",
+      "method": "web open/click",
+      "status": "READABLE",
+      "batch": "contact_detail",
+      "limitation": null
+    },
+    {
+      "url": "https://rynanaquaculture.com/",
+      "title": "Smart Shrimp Farming Technology | RYNAN Aquaculture",
+      "date_accessed": "2026-10-27",
+      "method": "Playwright rendered DOM/style",
+      "status": "READABLE",
+      "batch": "visual_sample",
+      "limitation": "Mẫu viewport; không phải full visual audit."
+    },
+    {
+      "url": "https://www.innovasea.com/",
+      "title": "Sustainable Aquaculture Technology | Innovasea",
+      "date_accessed": "2026-10-27",
+      "method": "Playwright rendered DOM/style",
+      "status": "READABLE",
+      "batch": "visual_sample",
+      "limitation": "Mẫu viewport; không phải full visual audit."
+    },
+    {
+      "url": "https://www.akvagroup.com/",
+      "title": "AKVA group - Home",
+      "date_accessed": "2026-10-27",
+      "method": "Playwright rendered DOM/style",
+      "status": "READABLE",
+      "batch": "visual_sample",
+      "limitation": "Mẫu viewport; không phải full visual audit."
+    },
+    {
+      "url": "https://jala.tech/",
+      "title": "End to End Shrimp Industry Solution | JALA",
+      "date_accessed": "2026-10-27",
+      "method": "Playwright rendered DOM/style",
+      "status": "READABLE",
+      "batch": "visual_sample",
+      "limitation": "Mẫu viewport; không phải full visual audit."
+    },
+    {
+      "url": "https://farmext.com/",
+      "title": "Farmext - Nền tảng quản lý trang trại & công nghệ nuôi tôm thông minh",
+      "date_accessed": "2026-10-27",
+      "method": "Playwright rendered DOM/style",
+      "status": "READABLE",
+      "batch": "visual_sample",
+      "limitation": "Mẫu viewport; không phải full visual audit."
+    },
+    {
+      "url": "https://oxyguard.dk/",
+      "title": "Equipment for fishfarms - Aquaculture equipment - Fish farming products",
+      "date_accessed": "2026-10-27",
+      "method": "Playwright rendered DOM/style",
+      "status": "READABLE",
+      "batch": "visual_sample",
+      "limitation": "Mẫu viewport; không phải full visual audit."
+    },
+    {
+      "url": "https://www.cageeye.com/",
+      "title": "CageEye - Aquatech company based in Norway",
+      "date_accessed": "2026-10-27",
+      "method": "Playwright rendered DOM/style",
+      "status": "READABLE",
+      "batch": "visual_sample",
+      "limitation": "Mẫu viewport; không phải full visual audit."
+    },
+    {
+      "url": "https://www.hannainst.com/",
+      "title": "Just a moment...",
+      "date_accessed": "2026-10-27",
+      "method": "Playwright rendered DOM/style",
+      "status": "PARTIAL",
+      "batch": "visual_sample",
+      "limitation": "Không dùng style trang lỗi/challenge hoặc DOM thiếu làm brand evidence."
+    },
+    {
+      "url": "https://www.blacklinesafety.com/",
+      "title": "Blackline Safety | Leader in Connected Gas Detection & Lone Worker Safety",
+      "date_accessed": "2026-10-27",
+      "method": "Playwright rendered DOM/style",
+      "status": "READABLE",
+      "batch": "visual_sample",
+      "limitation": "Mẫu viewport; không phải full visual audit."
+    },
+    {
+      "url": "https://www.draeger.com/en-us_us/Safety",
+      "title": "Access Denied",
+      "date_accessed": "2026-10-27",
+      "method": "Playwright rendered DOM/style",
+      "status": "PARTIAL",
+      "batch": "visual_sample",
+      "limitation": "Không dùng style trang lỗi/challenge hoặc DOM thiếu làm brand evidence."
+    },
+    {
+      "url": "https://www.honeywell.com/us/en/solutions/gas-detection",
+      "title": "www.honeywell.com",
+      "date_accessed": "2026-10-27",
+      "method": "Playwright rendered DOM/style",
+      "status": "PARTIAL",
+      "batch": "visual_sample",
+      "limitation": "Không dùng style trang lỗi/challenge hoặc DOM thiếu làm brand evidence."
+    },
+    {
+      "url": "https://www.iot.daviteq.com/",
+      "title": "Home | Daviteq Technologies Inc",
+      "date_accessed": "2026-10-27",
+      "method": "Playwright rendered DOM/style",
+      "status": "READABLE",
+      "batch": "visual_sample",
+      "limitation": "Mẫu viewport; không phải full visual audit."
+    },
+    {
+      "url": "https://www.indsci.com/",
+      "title": "Gas Monitors for a Smarter Safety Program | Industrial Scientific",
+      "date_accessed": "2026-10-27",
+      "method": "Playwright rendered DOM/style",
+      "status": "READABLE",
+      "batch": "visual_sample",
+      "limitation": "Mẫu viewport; không phải full visual audit."
+    },
+    {
+      "url": "https://us.msasafety.com/",
+      "title": "",
+      "date_accessed": "2026-10-27",
+      "method": "Playwright rendered DOM/style",
+      "status": "PARTIAL",
+      "batch": "visual_sample",
+      "limitation": "Không dùng style trang lỗi/challenge hoặc DOM thiếu làm brand evidence."
+    },
+    {
+      "url": "https://www.rkiinstruments.com/",
+      "title": "RKI Gas Detectors - Portable Gas Monitors - LEL, PID, H2S, CO, O2 Sensors",
+      "date_accessed": "2026-10-27",
+      "method": "Playwright rendered DOM/style",
+      "status": "READABLE",
+      "batch": "visual_sample",
+      "limitation": "Mẫu viewport; không phải full visual audit."
+    },
+    {
+      "url": "https://vietan-enviro.com/",
+      "title": "Thị phần số 1 về quan trắc môi trường và đo lường công nghiệp",
+      "date_accessed": "2026-10-27",
+      "method": "Playwright rendered DOM/style",
+      "status": "READABLE",
+      "batch": "visual_sample",
+      "limitation": "Mẫu viewport; không phải full visual audit."
+    },
+    {
+      "url": "https://enterprise.dji.com/",
+      "title": "DJI Enterprise - Drone Solutions for Your Business - DJI",
+      "date_accessed": "2026-10-27",
+      "method": "Playwright rendered DOM/style",
+      "status": "READABLE",
+      "batch": "visual_sample",
+      "limitation": "Mẫu viewport; không phải full visual audit."
+    },
+    {
+      "url": "https://www.flyability.com/",
+      "title": "Flyability Confined Space Inspection Drones | Safe, Fast, and Cost-Effective",
+      "date_accessed": "2026-10-27",
+      "method": "Playwright rendered DOM/style",
+      "status": "READABLE",
+      "batch": "visual_sample",
+      "limitation": "Mẫu viewport; không phải full visual audit."
+    },
+    {
+      "url": "https://ctuav.global/en/",
+      "title": "Explore - CT UAV",
+      "date_accessed": "2026-10-27",
+      "method": "Playwright rendered DOM/style",
+      "status": "READABLE",
+      "batch": "visual_sample",
+      "limitation": "Mẫu viewport; không phải full visual audit."
+    },
+    {
+      "url": "https://oem.flir.com/products/siras/",
+      "title": "Just a moment...",
+      "date_accessed": "2026-10-27",
+      "method": "Playwright rendered DOM/style",
+      "status": "PARTIAL",
+      "batch": "visual_sample",
+      "limitation": "Không dùng style trang lỗi/challenge hoặc DOM thiếu làm brand evidence."
+    },
+    {
+      "url": "https://www.skydio.com/",
+      "title": "Skydio autonomous drones for DFR, inspection, national security | Skydio",
+      "date_accessed": "2026-10-27",
+      "method": "Playwright rendered DOM/style",
+      "status": "READABLE",
+      "batch": "visual_sample",
+      "limitation": "Mẫu viewport; không phải full visual audit."
+    },
+    {
+      "url": "https://www.parrot.com/en",
+      "title": "Parrot | European leader in professional drones",
+      "date_accessed": "2026-10-27",
+      "method": "Playwright rendered DOM/style",
+      "status": "READABLE",
+      "batch": "visual_sample",
+      "limitation": "Mẫu viewport; không phải full visual audit."
+    },
+    {
+      "url": "https://fotokite.com/",
+      "title": "Actively Tethered Drones for Emergency Response l Fotokite",
+      "date_accessed": "2026-10-27",
+      "method": "Playwright rendered DOM/style",
+      "status": "PARTIAL",
+      "batch": "visual_sample",
+      "limitation": "Không dùng style trang lỗi/challenge hoặc DOM thiếu làm brand evidence."
+    },
+    {
+      "url": "https://gremsy.com/",
+      "title": "Gremsy - Camera Payloads for Unmanned Systems",
+      "date_accessed": "2026-10-27",
+      "method": "Playwright rendered DOM/style",
+      "status": "READABLE",
+      "batch": "visual_sample",
+      "limitation": "Mẫu viewport; không phải full visual audit."
+    }
+  ]
+}

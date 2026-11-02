@@ -14,7 +14,6 @@ const colors = {
   info: { background: '#CBE4FA', borderColor: '#2878AD' },
 } satisfies Record<NonNullable<AlertMessageProps['severity']>, CSSProperties>;
 
-/** Presentation only: callers own detection, lifetime, and event history. */
 export function AlertMessage({ message, severity = 'error', visible = true, className }: AlertMessageProps) {
   if (!visible || !message.trim()) return null;
 

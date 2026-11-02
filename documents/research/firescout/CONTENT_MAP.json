@@ -1,0 +1,297 @@
+{
+  "schema_version": "1.0",
+  "project": "firescout",
+  "prepared_on": "2026-10-27",
+  "status": "CONTENT_HANDOFF_DRAFT",
+  "copy_source": "WEBSITE_CONTENT.md",
+  "claim_registry": "CLAIM_REGISTRY.json",
+  "scope": "Nghiên cứu và chuẩn bị nội dung; chưa triển khai frontend hoặc xuất bản.",
+  "buyer_persona": "Đội PCCC công nghiệp, quản lý ứng cứu nhà máy và khu công nghiệp; đối tác UAV/payload là nhóm bổ sung.",
+  "primary_cta": {
+    "label": "Đề nghị xem demo nhiệm vụ",
+    "proposed_page_target": "#lien-he",
+    "external_destination": null,
+    "status": "CONTACT_CHANNEL_NOT_CONFIRMED"
+  },
+  "secondary_cta": {
+    "label": "Trao đổi kịch bản pilot",
+    "proposed_page_target": "#lien-he",
+    "external_destination": null,
+    "status": "CONTACT_CHANNEL_NOT_CONFIRMED"
+  },
+  "demo": {
+    "required_label": "Nhiệm vụ và dữ liệu mô phỏng — không phải chuyến bay hoặc kết quả nhận diện thực địa.",
+    "scenario_ids": [
+      "routine_recon",
+      "hotspot_detection",
+      "smoke_link_degradation"
+    ],
+    "existing_project_selector": "?project=firescout",
+    "selector_source": "../../../frontend/src/core/projects.ts",
+    "public_demo_url": null,
+    "integration_status": "NOT_IMPLEMENTED"
+  },
+  "sections": [
+    {
+      "order": 1,
+      "section_id": "gioi-thieu",
+      "source_file": "WEBSITE_CONTENT.md",
+      "source_heading": "1. Hero",
+      "editorial_purpose": "Nêu định hướng trinh sát và giai đoạn software prototype",
+      "claim_ids": [
+        "FC-C01",
+        "FC-C02",
+        "FC-C06",
+        "FC-C13"
+      ],
+      "supporting_sources": [
+        "PROJECT_FACT_SHEET.md",
+        "../../../README.md",
+        "../../development/FIRESCOUT_UAV_DELIVERY.md",
+        "../../../frontend/src/projects/firescout/config.ts",
+        "../../../simulator/firescout_chat.py",
+        "MARKETING_STRATEGY.md"
+      ],
+      "publication_status": "PENDING",
+      "layout_status": "PROPOSED",
+      "visible_as_page_section": true
+    },
+    {
+      "order": 2,
+      "section_id": "van-de",
+      "source_file": "WEBSITE_CONTENT.md",
+      "source_heading": "2. Vấn đề",
+      "editorial_purpose": "Giải thích nhu cầu thông tin; giữ reporting window của Bộ Công an",
+      "claim_ids": [
+        "FC-C05",
+        "FC-C07",
+        "FC-C15"
+      ],
+      "supporting_sources": [
+        "../../development/FIRESCOUT_UAV_DELIVERY.md",
+        "../../../frontend/src/projects/firescout/config.ts",
+        "https://www.bocongan.gov.vn/bai-viet/tinh-hinh-tai-nan-giao-thong-chay-no-va-xu-ly-hanh-chinh-ve-trat-tu-an-toan-giao-thong-nam-2025-1774612854",
+        "MARKET_EVIDENCE.md",
+        "MARKETING_STRATEGY.md"
+      ],
+      "publication_status": "PENDING",
+      "layout_status": "PROPOSED",
+      "visible_as_page_section": true
+    },
+    {
+      "order": 3,
+      "section_id": "giai-phap",
+      "source_file": "WEBSITE_CONTENT.md",
+      "source_heading": "3. Giải pháp",
+      "editorial_purpose": "Giải thích bản đồ, nhiệt, candidate và liên lạc tổng hợp",
+      "claim_ids": [
+        "FC-C02",
+        "FC-C04",
+        "FC-C05"
+      ],
+      "supporting_sources": [
+        "../../development/FIRESCOUT_UAV_DELIVERY.md",
+        "../../../frontend/src/projects/firescout/config.ts",
+        "../../../README.md"
+      ],
+      "publication_status": "PENDING",
+      "layout_status": "PROPOSED",
+      "visible_as_page_section": true
+    },
+    {
+      "order": 4,
+      "section_id": "cach-tiep-can",
+      "source_file": "WEBSITE_CONTENT.md",
+      "source_heading": "4. Vì sao nên trao đổi với FireScout AI?",
+      "editorial_purpose": "Nêu minh bạch tín hiệu và cách kiểm chứng theo nhiệm vụ",
+      "claim_ids": [
+        "FC-C05",
+        "FC-C06",
+        "FC-C12",
+        "FC-C15"
+      ],
+      "supporting_sources": [
+        "../../development/FIRESCOUT_UAV_DELIVERY.md",
+        "../../../frontend/src/projects/firescout/config.ts",
+        "../../../simulator/firescout_chat.py",
+        "PROJECT_FACT_SHEET.md",
+        "MARKETING_STRATEGY.md",
+        "MARKET_EVIDENCE.md"
+      ],
+      "publication_status": "PENDING",
+      "layout_status": "PROPOSED",
+      "visible_as_page_section": true
+    },
+    {
+      "order": 5,
+      "section_id": "gia-tri",
+      "source_file": "WEBSITE_CONTENT.md",
+      "source_heading": "5. Business value",
+      "editorial_purpose": "Đề xuất đánh giá giá trị nhiệm vụ, không hứa ROI",
+      "claim_ids": [
+        "FC-C11",
+        "FC-C13",
+        "FC-C15",
+        "FC-C16"
+      ],
+      "supporting_sources": [
+        "PROJECT_FACT_SHEET.md",
+        "../shared/2026-10-27_PROJECT_KNOWLEDGE_AUDIT.md",
+        "MARKETING_STRATEGY.md",
+        "MARKET_EVIDENCE.md",
+        "../../../README.md"
+      ],
+      "publication_status": "PENDING",
+      "layout_status": "PROPOSED",
+      "visible_as_page_section": true
+    },
+    {
+      "order": 6,
+      "section_id": "bang-chung",
+      "source_file": "WEBSITE_CONTENT.md",
+      "source_heading": "6. Evidence và giới hạn",
+      "editorial_purpose": "Nguồn cứu hộ độc lập, giới hạn nhiệt và bối cảnh UAV Việt Nam",
+      "claim_ids": [
+        "FC-C08",
+        "FC-C09",
+        "FC-C10",
+        "FC-C16"
+      ],
+      "supporting_sources": [
+        "https://www.cheshire.police.uk/news/cheshire/news/articles/2025/12/constabularys-drone-unit-assist-in-rescuing-man-from-river-weaver/",
+        "MARKET_EVIDENCE.md",
+        "https://www.nist.gov/el/fire-research-division-73300/firegov-fire-service/thermal-imaging",
+        "https://xaydungchinhsach.chinhphu.vn/chinh-phu-quy-dinh-dieu-kien-dang-ky-phuong-tien-bay-khong-nguoi-lai-119251108125349673.htm",
+        "PROJECT_FACT_SHEET.md",
+        "../../../README.md"
+      ],
+      "publication_status": "PENDING",
+      "layout_status": "PROPOSED",
+      "visible_as_page_section": true
+    },
+    {
+      "order": 7,
+      "section_id": "demo",
+      "source_file": "WEBSITE_CONTENT.md",
+      "source_heading": "7. Product demo",
+      "editorial_purpose": "Minh họa ba tình huống; LLM tùy chọn và có giới hạn",
+      "claim_ids": [
+        "FC-C02",
+        "FC-C03",
+        "FC-C04",
+        "FC-C06"
+      ],
+      "supporting_sources": [
+        "../../development/FIRESCOUT_UAV_DELIVERY.md",
+        "../../../frontend/src/projects/firescout/config.ts",
+        "../../../simulator/firescout_chat.py",
+        "../../../README.md"
+      ],
+      "publication_status": "PENDING",
+      "layout_status": "PROPOSED",
+      "visible_as_page_section": true
+    },
+    {
+      "order": 8,
+      "section_id": "cau-hoi",
+      "source_file": "WEBSITE_CONTENT.md",
+      "source_heading": "8. FAQ",
+      "editorial_purpose": "Giải đáp tám câu hỏi, nhất là phần cứng, AI và điều kiện bay",
+      "claim_ids": [
+        "FC-C02",
+        "FC-C03",
+        "FC-C04",
+        "FC-C05",
+        "FC-C06",
+        "FC-C09",
+        "FC-C10",
+        "FC-C11",
+        "FC-C12",
+        "FC-C13",
+        "FC-C16"
+      ],
+      "supporting_sources": [
+        "../../development/FIRESCOUT_UAV_DELIVERY.md",
+        "../../../frontend/src/projects/firescout/config.ts",
+        "../../../simulator/firescout_chat.py",
+        "../../../README.md",
+        "https://www.nist.gov/el/fire-research-division-73300/firegov-fire-service/thermal-imaging",
+        "MARKET_EVIDENCE.md",
+        "https://xaydungchinhsach.chinhphu.vn/chinh-phu-quy-dinh-dieu-kien-dang-ky-phuong-tien-bay-khong-nguoi-lai-119251108125349673.htm",
+        "PROJECT_FACT_SHEET.md",
+        "../shared/2026-10-27_PROJECT_KNOWLEDGE_AUDIT.md",
+        "MARKETING_STRATEGY.md"
+      ],
+      "publication_status": "PENDING",
+      "layout_status": "PROPOSED",
+      "visible_as_page_section": true
+    },
+    {
+      "order": 9,
+      "section_id": "lien-he",
+      "source_file": "WEBSITE_CONTENT.md",
+      "source_heading": "9. Contact / conversion",
+      "editorial_purpose": "Mời trao đổi nhiệm vụ/pilot qua kênh thật",
+      "claim_ids": [
+        "FC-C12",
+        "FC-C13",
+        "FC-C16"
+      ],
+      "supporting_sources": [
+        "PROJECT_FACT_SHEET.md",
+        "MARKETING_STRATEGY.md",
+        "../../../README.md"
+      ],
+      "publication_status": "PENDING",
+      "layout_status": "PROPOSED",
+      "visible_as_page_section": true
+    },
+    {
+      "order": 10,
+      "section_id": "seo",
+      "source_file": "WEBSITE_CONTENT.md",
+      "source_heading": "10. SEO",
+      "editorial_purpose": "Metadata và outline; keywords là giả thuyết",
+      "claim_ids": [
+        "FC-C01",
+        "FC-C02",
+        "FC-C03",
+        "FC-C04",
+        "FC-C05",
+        "FC-C06",
+        "FC-C07",
+        "FC-C08",
+        "FC-C09",
+        "FC-C10",
+        "FC-C11",
+        "FC-C12",
+        "FC-C13",
+        "FC-C15",
+        "FC-C16"
+      ],
+      "supporting_sources": [
+        "PROJECT_FACT_SHEET.md",
+        "../../../README.md",
+        "../../development/FIRESCOUT_UAV_DELIVERY.md",
+        "../../../frontend/src/projects/firescout/config.ts",
+        "../../../simulator/firescout_chat.py",
+        "https://www.bocongan.gov.vn/bai-viet/tinh-hinh-tai-nan-giao-thong-chay-no-va-xu-ly-hanh-chinh-ve-trat-tu-an-toan-giao-thong-nam-2025-1774612854",
+        "MARKET_EVIDENCE.md",
+        "https://www.cheshire.police.uk/news/cheshire/news/articles/2025/12/constabularys-drone-unit-assist-in-rescuing-man-from-river-weaver/",
+        "https://www.nist.gov/el/fire-research-division-73300/firegov-fire-service/thermal-imaging",
+        "https://xaydungchinhsach.chinhphu.vn/chinh-phu-quy-dinh-dieu-kien-dang-ky-phuong-tien-bay-khong-nguoi-lai-119251108125349673.htm",
+        "../shared/2026-10-27_PROJECT_KNOWLEDGE_AUDIT.md",
+        "MARKETING_STRATEGY.md"
+      ],
+      "publication_status": "PENDING",
+      "layout_status": "PROPOSED",
+      "visible_as_page_section": false
+    }
+  ],
+  "exclusions": "Chưa tạo dịch vụ bay đặt ngay, bản đồ tác chiến thật, nhận diện nạn nhân đã xác thực, thông số độ chính xác AI hoặc chứng nhận/giấy phép dự án.",
+  "review": {
+    "publication_approval": null,
+    "approved_by": null,
+    "approved_on": null
+  }
+}

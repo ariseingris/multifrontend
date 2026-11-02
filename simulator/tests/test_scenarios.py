@@ -12,7 +12,7 @@ from scenario_models import AquaSenseSimulator, FactSafeSimulator, FireScoutSimu
 from server import SimulatorServer, SIMULATORS
 
 MODELS = {'aquasense': AquaSenseSimulator, 'factsafe': FactSafeSimulator, 'firescout': FireScoutSimulator}
-PRIMARY = {'aquasense': ['do_mg_l','water_temperature_c','ph'], 'factsafe': ['nh3_ppm','pm25_ug_m3','risk_score'], 'firescout': ['detection_confidence','hotspot_temp_c','link_quality_percent']}
+PRIMARY = {'aquasense': ['do_mg_l','water_temperature_c','ph'], 'factsafe': ['nh3_ppm','pm25_ug_m3','risk_score'], 'firescout': ['uav_latitude_deg','wind_speed_m_s','link_quality_percent']}
 
 
 def run_trace(model):
@@ -40,9 +40,9 @@ class ScenarioTests(unittest.TestCase):
                     count += 1
                     self.assertTrue(frames)
                     self.assertEqual(frames[-1]['elapsedSimSeconds'], duration)
-                    self.assertEqual(model.playback_status, 'running' if project == 'aquasense' else 'completed')
-                    self.assertEqual(sum(e['code'] == 'completed' for e in events), 0 if project == 'aquasense' else 1)
-                    if project == 'aquasense':
+                    self.assertEqual(model.playback_status, 'running' if project in ('aquasense','firescout') else 'completed')
+                    self.assertEqual(sum(e['code'] == 'completed' for e in events), 0 if project in ('aquasense','firescout') else 1)
+                    if project in ('aquasense','firescout'):
                         self.assertEqual(sum(e['code'] == 'monitoring_started' for e in events), 1)
                     self.assertLess(len(events), 20, 'Transition logs must not spam per packet')
                     self.assertEqual([e['elapsedSimSeconds'] for e in events], sorted(e['elapsedSimSeconds'] for e in events))
@@ -51,7 +51,6 @@ class ScenarioTests(unittest.TestCase):
                     self.assertTrue(all(f['project'] == project and f['source'] == 'simulator' and f['scenario'] == scenario for f in frames))
                     self.assertTrue(all(math.isfinite(v) for f in frames for v in f['metrics'].values()))
                     self.assertTrue(all(key in frames[0]['metrics'] for key in PRIMARY[project]))
-                    # Repeat the same trajectory; compare every primary series (no UUID/wall timestamps).
                     other_frames, other_events = run_trace(MODELS[project](scenario, seed=1729))
                     self.assertEqual([f['metrics'] for f in frames], [f['metrics'] for f in other_frames])
                     self.assertEqual([e['code'] for e in events], [e['code'] for e in other_events])
@@ -72,7 +71,6 @@ class ScenarioTests(unittest.TestCase):
             for t, value in points:
                 with self.subTest(scenario=scenario,t=t):
                     self.assertAlmostEqual(model.metrics_at(t*scale)[key], value, delta=tolerance)
-                    # Both sides of a keyframe remain continuous.
                     before=model.metrics_at(max(0,t*scale-.01))[key]
                     after=model.metrics_at(min(model.config['duration'],t*scale+.01))[key]
                     self.assertLess(abs(after-before), .02)
@@ -149,7 +147,8 @@ class ScenarioTests(unittest.TestCase):
         start=candidates[0]['elapsedSimSeconds']
         self.assertTrue(all(model.metrics_at(t)['detection_confidence']>=80 for t in range(start-2,start+1)))
         self.assertIn('hotspot_detected',[e['code'] for e in events])
-        self.assertIn('track_lost',[e['code'] for e in events])
+        self.assertNotIn('track_lost',[e['code'] for e in events])
+        self.assertTrue(frames[-1]['mission']['detection_track_id'].startswith('FS-H'))
         active = FireScoutSimulator('victim_hotspot')
         active.start(); active.elapsed = 70; active.evaluate()
         self.assertEqual(active.get_current_phase(), 'early_signal')
@@ -263,10 +262,10 @@ class TransportTests(unittest.IsolatedAsyncioTestCase):
                     m.elapsed=m.config['duration']
                     await self.server.publish_demo(emit_telemetry=True)
                     count=sum(msg['type']=='telemetry' for msg in self.messages)
-                    m.elapsed += 60 if project == 'aquasense' else 0
+                    m.elapsed += 60 if project in ('aquasense','firescout') else 0
                     await self.server.publish_demo(emit_telemetry=True)
-                    self.assertEqual(sum(msg['type']=='telemetry' for msg in self.messages),count + (1 if project == 'aquasense' else 0))
-                    self.assertEqual(sum(msg['type']=='event' and msg['payload']['type']=='completed' for msg in self.messages),0 if project == 'aquasense' else 1)
+                    self.assertEqual(sum(msg['type']=='telemetry' for msg in self.messages),count + (1 if project in ('aquasense','firescout') else 0))
+                    self.assertEqual(sum(msg['type']=='event' and msg['payload']['type']=='completed' for msg in self.messages),0 if project in ('aquasense','firescout') else 1)
                     await self.server.handle_command({'type':'reset','project':project})
                     self.assertEqual(m.playback_status,'stopped')
                     self.assertEqual(self.messages[-1]['payload']['type'],'reset')

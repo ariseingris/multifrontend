@@ -1,8 +1,5 @@
 import { TelemetryPoint, MetricConfig, ScenarioPhase } from '../types';
 
-/**
- * Format a number with specified precision and unit
- */
 export function formatMetric(
   value: number,
   config: MetricConfig
@@ -12,9 +9,6 @@ export function formatMetric(
   return `${formatted}${config.unit ? ' ' + config.unit : ''}`;
 }
 
-/**
- * Determine status of a metric based on thresholds
- */
 export function getMetricStatus(
   value: number,
   config: MetricConfig
@@ -43,9 +37,6 @@ export function getMetricStatus(
   return 'normal';
 }
 
-/**
- * Get overall system status from telemetry
- */
 export function getOverallStatus(
   telemetry: TelemetryPoint | null
 ): 'normal' | 'warning' | 'critical' {
@@ -53,9 +44,6 @@ export function getOverallStatus(
   return telemetry.status;
 }
 
-/**
- * Format elapsed time as HH:MM:SS
- */
 export function formatElapsedTime(seconds: number): string {
   const hours = Math.floor(seconds / 3600);
   const minutes = Math.floor((seconds % 3600) / 60);
@@ -64,9 +52,6 @@ export function formatElapsedTime(seconds: number): string {
   return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
 }
 
-/**
- * Format ISO timestamp to HH:MM:SS
- */
 export function formatTime(isoString: string): string {
   const date = new Date(isoString);
   return date.toLocaleTimeString('en-US', {
@@ -77,9 +62,6 @@ export function formatTime(isoString: string): string {
   });
 }
 
-/**
- * Parse scenario phase to human-readable label
- */
 export function getPhaseName(phase: ScenarioPhase): string {
   const names: Record<ScenarioPhase, string> = {
     normal: 'Normal',
@@ -96,9 +78,6 @@ export function getPhaseName(phase: ScenarioPhase): string {
   return names[phase];
 }
 
-/**
- * Get color for status
- */
 export function getStatusColor(
   status: 'normal' | 'warning' | 'critical' | 'recovered' | 'info'
 ): string {
@@ -112,23 +91,14 @@ export function getStatusColor(
   return colors[status] || colors.normal;
 }
 
-/**
- * Check if value is in normal range
- */
 export function isInNormalRange(value: number, config: MetricConfig): boolean {
   return value >= config.normalMin && value <= config.normalMax;
 }
 
-/**
- * Linear interpolation between two values
- */
 export function lerp(a: number, b: number, t: number): number {
   return a + (b - a) * Math.max(0, Math.min(1, t));
 }
 
-/**
- * Easing functions for smooth animations
- */
 export const easing = {
   linear: (t: number) => t,
   easeInQuad: (t: number) => t * t,

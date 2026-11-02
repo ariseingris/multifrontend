@@ -1,0 +1,380 @@
+[
+  {
+    "id": "S01",
+    "project": "firescout",
+    "company_name": "DJI Enterprise",
+    "country": null,
+    "industry": "UAV, thermal inspection and emergency response",
+    "official_website_url": "https://enterprise.dji.com/",
+    "source_page_url": "https://enterprise.dji.com/",
+    "page_title": "DJI Enterprise - Drone Solutions for Your Business - DJI",
+    "page_category": "homepage",
+    "date_accessed": "2026-10-27",
+    "publication_date": null,
+    "product_or_solution": "Enterprise UAV ecosystem",
+    "target_customers": [
+      "Public safety commanders",
+      "Inspection teams"
+    ],
+    "value_proposition": "Aerial situational awareness",
+    "website_sections": [
+      "Industry navigation",
+      "Product heroes",
+      "Updates",
+      "Case-study videos",
+      "Industries",
+      "Support"
+    ],
+    "marketing_claims": [
+      "Timely aerial intelligence"
+    ],
+    "calls_to_action": [
+      "Learn More",
+      "Watch Video",
+      "Contact Us",
+      "Store"
+    ],
+    "pricing_or_business_model": null,
+    "quantitative_figures": [],
+    "original_source_context": "Public-safety routes cover firefighting, emergency response and search/rescue; video outcomes not independently evaluated.",
+    "evidence_classification": "COMPANY_CLAIM",
+    "confidence_level": "MEDIUM",
+    "notes_and_limitations": [
+      "Country and publication date not established unless separately populated; vendor benefits are not independently verified."
+    ],
+    "access_status": "READABLE",
+    "extraction_method": "Codex web open; analyst normalization"
+  },
+  {
+    "id": "S02",
+    "project": "firescout",
+    "company_name": "DJI Enterprise",
+    "country": null,
+    "industry": "UAV, thermal inspection and emergency response",
+    "official_website_url": "https://enterprise.dji.com/",
+    "source_page_url": "https://enterprise.dji.com/public-safety/urban-fires",
+    "page_title": "Urban Fires - Firefighting - DJI Enterprise",
+    "page_category": "solution",
+    "date_accessed": "2026-10-27",
+    "publication_date": null,
+    "product_or_solution": "Urban fire thermal reconnaissance",
+    "target_customers": [
+      "Fire commanders",
+      "Public safety procurement"
+    ],
+    "value_proposition": "Incident assessment and team coordination",
+    "website_sections": [
+      "Painpoints",
+      "Advantages",
+      "Solutions",
+      "Platforms",
+      "Contact"
+    ],
+    "marketing_claims": [
+      "Thermal readings support hotspot localization"
+    ],
+    "calls_to_action": [
+      "Contact Us",
+      "Learn more"
+    ],
+    "pricing_or_business_model": null,
+    "quantitative_figures": [],
+    "original_source_context": "Page maps operational problems to reconnaissance capabilities. Not evidence that a drone extinguishes fires.",
+    "evidence_classification": "COMPANY_CLAIM",
+    "confidence_level": "MEDIUM",
+    "notes_and_limitations": [
+      "Country and publication date not established unless separately populated; vendor benefits are not independently verified."
+    ],
+    "access_status": "READABLE",
+    "extraction_method": "Codex web open; analyst normalization"
+  },
+  {
+    "id": "S03",
+    "project": "firescout",
+    "company_name": "DJI Enterprise",
+    "country": null,
+    "industry": "UAV, thermal inspection and emergency response",
+    "official_website_url": "https://enterprise.dji.com/",
+    "source_page_url": "https://enterprise.dji.com/mavic-3-enterprise/specs",
+    "page_title": "Specs - DJI Mavic 3 Enterprise - DJI Enterprise",
+    "page_category": "specification",
+    "date_accessed": "2026-10-27",
+    "publication_date": null,
+    "product_or_solution": "Mavic 3 Enterprise Series",
+    "target_customers": [
+      "UAV technical buyers"
+    ],
+    "value_proposition": "Published aircraft and camera capabilities",
+    "website_sections": [
+      "Aircraft",
+      "Cameras",
+      "Sensing",
+      "Transmission",
+      "Controller"
+    ],
+    "marketing_claims": [
+      "Model-specific sensor capabilities"
+    ],
+    "calls_to_action": [
+      "Buy now",
+      "Contact Us"
+    ],
+    "pricing_or_business_model": null,
+    "quantitative_figures": [
+      {
+        "claim": "Thermal still image dimensions",
+        "value": "640 × 512",
+        "unit": "pixels",
+        "currency": null,
+        "time_period": "Product specification snapshot",
+        "scope": "DJI Mavic 3T/3TA thermal still image",
+        "source_context": "Thermal Camera > Still Photography Modes",
+        "evidence_classification": "COMPANY_CLAIM",
+        "confidence_level": "MEDIUM",
+        "limitations": "Image dimensions are not human detection accuracy, AI accuracy or field rescue performance."
+      }
+    ],
+    "original_source_context": "Thermal-camera section distinguishes thermal from visual sensors.",
+    "evidence_classification": "COMPANY_CLAIM",
+    "confidence_level": "MEDIUM",
+    "notes_and_limitations": [
+      "Country and publication date not established unless separately populated; vendor benefits are not independently verified."
+    ],
+    "access_status": "READABLE",
+    "extraction_method": "Codex web open; analyst normalization"
+  },
+  {
+    "id": "S04",
+    "project": "firescout",
+    "company_name": "Flyability",
+    "country": null,
+    "industry": "UAV, thermal inspection and emergency response",
+    "official_website_url": "https://www.flyability.com/",
+    "source_page_url": "https://www.flyability.com/",
+    "page_title": "Flyability Confined Space Inspection Drones | Safe, Fast, and Cost-Effective",
+    "page_category": "homepage",
+    "date_accessed": "2026-10-27",
+    "publication_date": null,
+    "product_or_solution": "Confined-space inspection drones",
+    "target_customers": [
+      "Asset owners",
+      "Inspection managers"
+    ],
+    "value_proposition": "Reduced entry risk, downtime and cost",
+    "website_sections": [
+      "Product highlights",
+      "Problem",
+      "Benefits",
+      "Customer logos",
+      "Resources"
+    ],
+    "marketing_claims": [
+      "Lower inspection cost"
+    ],
+    "calls_to_action": [
+      "Learn more"
+    ],
+    "pricing_or_business_model": null,
+    "quantitative_figures": [
+      {
+        "claim": "Advertised maximum inspection cost reduction",
+        "value": "up to 90",
+        "unit": "percent reduction",
+        "currency": null,
+        "time_period": "Comparison period unavailable",
+        "scope": "Internal inspections; baseline unspecified",
+        "source_context": "Lower Cost section",
+        "evidence_classification": "COMPANY_CLAIM",
+        "confidence_level": "MEDIUM",
+        "limitations": "Marketing upper bound; not independently verified, guaranteed, or transferable to FireScout."
+      }
+    ],
+    "original_source_context": "Homepage focuses on inspection rather than suppression or frontline rescue.",
+    "evidence_classification": "COMPANY_CLAIM",
+    "confidence_level": "MEDIUM",
+    "notes_and_limitations": [
+      "Animated scale counters returned 0+ placeholders; discarded. Cost claim lacks a generalizable baseline."
+    ],
+    "access_status": "READABLE",
+    "extraction_method": "Codex web open; analyst normalization"
+  },
+  {
+    "id": "S05",
+    "project": "firescout",
+    "company_name": "Flyability",
+    "country": null,
+    "industry": "UAV, thermal inspection and emergency response",
+    "official_website_url": "https://www.flyability.com/",
+    "source_page_url": "https://www.flyability.com/elios-3",
+    "page_title": "Elios 3 - Digitizing the inaccessible",
+    "page_category": "product",
+    "date_accessed": "2026-10-27",
+    "publication_date": null,
+    "product_or_solution": "Elios 3",
+    "target_customers": [
+      "Confined-space inspection teams"
+    ],
+    "value_proposition": "Inspection in GPS-denied interiors",
+    "website_sections": [
+      "Payloads",
+      "Inspection capabilities",
+      "Software",
+      "FAQ"
+    ],
+    "marketing_claims": [
+      "Thermal and visual inspection; GPS-denied navigation"
+    ],
+    "calls_to_action": [
+      "Learn more"
+    ],
+    "pricing_or_business_model": null,
+    "quantitative_figures": [],
+    "original_source_context": "Product page describes thermal payload and navigation. Exact purchase price not recorded.",
+    "evidence_classification": "COMPANY_CLAIM",
+    "confidence_level": "MEDIUM",
+    "notes_and_limitations": [
+      "Country and publication date not established unless separately populated; vendor benefits are not independently verified."
+    ],
+    "access_status": "READABLE",
+    "extraction_method": "Codex web open; analyst normalization"
+  },
+  {
+    "id": "S06",
+    "project": "firescout",
+    "company_name": "CT UAV",
+    "country": "Vietnam (listed office and plant)",
+    "industry": "UAV, thermal inspection and emergency response",
+    "official_website_url": "https://ctuav.global/",
+    "source_page_url": "https://ctuav.global/en/",
+    "page_title": "Explore - CT UAV",
+    "page_category": "homepage",
+    "date_accessed": "2026-10-27",
+    "publication_date": null,
+    "product_or_solution": "UAV product families",
+    "target_customers": [
+      "Emergency services",
+      "Government and enterprise buyers"
+    ],
+    "value_proposition": "Application-specific UAV positioning",
+    "website_sections": [
+      "Product lines",
+      "Core technologies",
+      "Production",
+      "Solutions",
+      "News",
+      "Certifications",
+      "Cooperation"
+    ],
+    "marketing_claims": [
+      "Fire monitoring/support and emergency delivery"
+    ],
+    "calls_to_action": [
+      "See details",
+      "Contact for cooperation"
+    ],
+    "pricing_or_business_model": null,
+    "quantitative_figures": [],
+    "original_source_context": "Vietnam office and factory addresses visible; product families distinguish rescue delivery from firefighting.",
+    "evidence_classification": "COMPANY_CLAIM",
+    "confidence_level": "MEDIUM",
+    "notes_and_limitations": [
+      "Certification badges and technology/scale assertions not independently verified; ambiguous counters and export-order claims omitted."
+    ],
+    "access_status": "READABLE",
+    "extraction_method": "Codex web open; analyst normalization"
+  },
+  {
+    "id": "S07",
+    "project": "firescout",
+    "company_name": "FLIR",
+    "country": null,
+    "industry": "UAV, thermal inspection and emergency response",
+    "official_website_url": "https://www.flir.com/",
+    "source_page_url": "https://www.flir.com/browse/first-responders/firefighting-cameras/",
+    "page_title": "Firefighting Cameras | FLIR Public Safety | Flir",
+    "page_category": "category",
+    "date_accessed": "2026-10-27",
+    "publication_date": null,
+    "product_or_solution": "Firefighting thermal cameras",
+    "target_customers": [
+      "Fire-service equipment buyers"
+    ],
+    "value_proposition": "Thermal imaging equipment discovery",
+    "website_sections": [
+      "Product navigation",
+      "Firefighting camera category"
+    ],
+    "marketing_claims": [
+      "Firefighting thermal imaging"
+    ],
+    "calls_to_action": [],
+    "pricing_or_business_model": null,
+    "quantitative_figures": [],
+    "original_source_context": "Accessible category page; the legacy flir.ca UAS firefighting URL returned 404.",
+    "evidence_classification": "COMPANY_CLAIM",
+    "confidence_level": "MEDIUM",
+    "notes_and_limitations": [
+      "Adjacent thermal-equipment benchmark; this category is not evidence of a current FLIR UAV offering. Newer ownership/product status not inferred."
+    ],
+    "access_status": "READABLE",
+    "extraction_method": "Codex web open; analyst normalization"
+  },
+  {
+    "id": "S08",
+    "project": "firescout",
+    "company_name": "National Interagency Fire Center",
+    "country": null,
+    "industry": "UAV, thermal inspection and emergency response",
+    "official_website_url": "https://www.nifc.gov/",
+    "source_page_url": "https://www.nifc.gov/fire-information/statistics/wildfires",
+    "page_title": "Wildfires and Acres",
+    "page_category": "industry_report",
+    "date_accessed": "2026-10-27",
+    "publication_date": null,
+    "product_or_solution": "US wildfire statistics",
+    "target_customers": [
+      "Public safety planners"
+    ],
+    "value_proposition": "Historical incident context",
+    "website_sections": [
+      "Annual fires and acres table"
+    ],
+    "marketing_claims": [],
+    "calls_to_action": [],
+    "pricing_or_business_model": null,
+    "quantitative_figures": [
+      {
+        "claim": "Reported US wildland fires",
+        "value": "77,850",
+        "unit": "fires",
+        "currency": null,
+        "time_period": "Calendar year 2025",
+        "scope": "United States wildland fires",
+        "source_context": "2025 table row, Fires column",
+        "evidence_classification": "VERIFIED_OFFICIAL_SOURCE",
+        "confidence_level": "HIGH",
+        "limitations": "Not worldwide incidents or drone-addressable market; not 2026 year-to-date."
+      },
+      {
+        "claim": "Reported US wildland area burned",
+        "value": "5,131,474",
+        "unit": "acres",
+        "currency": null,
+        "time_period": "Calendar year 2025",
+        "scope": "United States wildland fires",
+        "source_context": "Same 2025 row, Acres column",
+        "evidence_classification": "VERIFIED_OFFICIAL_SOURCE",
+        "confidence_level": "HIGH",
+        "limitations": "Preserve acres; no currency loss or procurement inference."
+      }
+    ],
+    "original_source_context": "NIFC table identifies NICC as source; use complete annual rows.",
+    "evidence_classification": "VERIFIED_OFFICIAL_SOURCE",
+    "confidence_level": "HIGH",
+    "notes_and_limitations": [
+      "Country and publication date not established unless separately populated; vendor benefits are not independently verified."
+    ],
+    "access_status": "READABLE",
+    "extraction_method": "Codex web open; analyst normalization"
+  }
+]

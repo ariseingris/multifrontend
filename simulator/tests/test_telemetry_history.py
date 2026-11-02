@@ -46,7 +46,7 @@ class BootstrapTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual([e['type'] for e in history2['events']],['reset'])
         self.assertNotEqual(history['sessionId'],history2['sessionId'])
 
-    async def test_fire_keeps_cached_packet_protocol_without_history_messages(self):
+    async def test_fire_reconnect_restores_history_and_original_cached_packet(self):
         server=SimulatorServer()
         async def broadcast(_):pass
         server.broadcast=broadcast
@@ -57,5 +57,6 @@ class BootstrapTests(unittest.IsolatedAsyncioTestCase):
                 import json
                 self.messages.append(json.loads(text))
         client=Client();await server.register(client)
-        self.assertEqual([p['type'] for p in client.messages],['simulation_state','telemetry'])
-        self.assertNotIn('historyBucketSeconds',client.messages[-1]['payload'])
+        self.assertEqual([p['type'] for p in client.messages],['simulation_state','session_history','telemetry'])
+        self.assertEqual(client.messages[-1]['payload']['historyBucketSeconds'],1)
+        self.assertEqual(client.messages[1]['payload']['telemetry'][-1]['timestamp'],client.messages[-1]['payload']['timestamp'])

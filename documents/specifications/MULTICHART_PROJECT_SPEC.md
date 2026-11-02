@@ -1,4 +1,9 @@
 # MULTICHART SPEC — DEMO FRONTEND / SIMULATOR
+
+> Historical planning/delivery reference preserved after the three-project cleanup.
+> Only AquaSense, FactSafe and FireScout AI are active. Commands and project lists
+> below describe an earlier repository state; use [the current README](../../README.md)
+> and [cleanup report](../development/KEEP_THREE_PROJECTS.md) for current paths and behavior.
 ## Bản đặc tả tập trung vào chart, dữ liệu mô phỏng, random range, scenario và tính ổn định
 
 > **Mục tiêu chính**

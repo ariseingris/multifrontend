@@ -1,6 +1,6 @@
-/**
- * Shared Data Models for Demo IoT Framework
- */
+
+
+
 
 export interface TelemetryPoint {
   timestamp: string;
@@ -16,6 +16,7 @@ export interface TelemetryPoint {
   historyBucketSeconds?: number;
   historyRetentionSeconds?: number;
   historyMaxPoints?: number;
+  mission?: FireScoutMission;
   source?: 'simulator' | 'sensor';
   quality?: Record<string, 'valid' | 'degraded' | 'missing' | 'simulated'>;
   sensorStatus?: 'valid' | 'degraded' | 'missing';
@@ -67,6 +68,7 @@ export interface SimulationState {
   continuous?: boolean;
   activeAlert?: Alert | null;
   realElapsedSeconds?: number;
+  highestObservedHotspotC?: number | null;
   source: 'simulator_state';
   timestamp: string;
   seed: number;
@@ -126,7 +128,7 @@ export interface Scenario {
 export interface ScenarioStep {
   name: string;
   phase: ScenarioPhase;
-  startAt: number; // seconds
+  startAt: number;
   endAt: number;
   metrics: Record<string, { start: number; end: number; ease?: string }>;
 }
@@ -182,4 +184,18 @@ export interface DemoModeState {
   simulationActive: boolean;
   scenario?: string;
   elapsed?: string;
+}
+
+
+export interface FireScoutMission {
+  telemetry_source: 'simulated' | 'hardware';
+  positionSource: string;
+  altitudeReference: string;
+  home: [number, number];
+  incident: [number, number];
+  detection_type: 'person' | 'hotspot' | 'none';
+  detection_track_id: string | null;
+  hotspot_id: string;
+  samplingIntervalSeconds: number;
+  confidenceUncalibrated: boolean;
 }

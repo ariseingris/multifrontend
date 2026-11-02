@@ -3,7 +3,6 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import ts from 'typescript';
 
-// Exercise the actual routing module without introducing a test framework.
 const source = await readFile(new URL('../src/core/projects.ts', import.meta.url), 'utf8');
 const { outputText } = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.ESNext } });
 const { projects, isProjectId, selectProject } = await import(`data:text/javascript;base64,${Buffer.from(outputText).toString('base64')}`);

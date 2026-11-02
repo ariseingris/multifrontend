@@ -15,6 +15,7 @@ type ChartSlot = { id: string; title: string; children: ReactNode };
 type Props = {
   metrics: StatusMetric[];
   charts: [ChartSlot, ChartSlot, ChartSlot];
+  extraCharts?: ChartSlot[];
   insightTitle?: string;
   insight: ReactNode;
   logs?: ReactNode;
@@ -23,9 +24,9 @@ type Props = {
   accent?: string;
 };
 
-/** Content-only dashboard. Keep existing core <Dashboard> responsible for app chrome and scenarios. */
+
 export function FigmaDashboardContent({
-  metrics, charts, insight, logs, footer, title = 'Status',
+  metrics, charts, extraCharts, insight, logs, footer, title = 'Status',
   insightTitle = 'Description', accent = '#6c8eaa',
 }: Props) {
   return (
@@ -38,8 +39,8 @@ export function FigmaDashboardContent({
       </section>
       <div className="fdb-grid">
         {charts.slice(0, 2).map((chart) => <ChartCard key={chart.id} {...chart} />)}
-        <ChartCard {...charts[2]} />
-        <section className="fdb-insight" aria-label={insightTitle}>
+        {[charts[2], ...(extraCharts ?? [])].map(chart => <ChartCard key={chart.id} {...chart} />)}
+        <section className="fdb-insight" aria-label={insightTitle} style={extraCharts?.length ? { gridColumn: '1 / -1' } : undefined}>
           <h2 className="fdb-heading">{insightTitle}</h2>
           <div className="fdb-panel fdb-insight__body">{insight}</div>
         </section>

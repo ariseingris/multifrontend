@@ -1,0 +1,90 @@
+{
+  "accessed_on": "2026-10-27",
+  "scope": "Bổ sung sau bộ deep research; không thay ledger lịch sử, không thêm doanh nghiệp hoặc claim.",
+  "sources": [
+    {
+      "source_id": "FOLLOWUP-FS-01",
+      "url": "https://tulieuvankien.dangcongsan.vn/upload/3000006/20251024/de85485a901732c0b7fbadd6842bf64dTT-10-BYT.pdf",
+      "source_organization": "Bộ Y tế; bản lưu trên Tư liệu Văn kiện Đảng",
+      "method": "web open PDF text; page 5 screenshot result returned; page 1 screenshot error",
+      "access_status": "READABLE_TEXT",
+      "document_date": "2019-06-10",
+      "publication_date": null,
+      "locator": "PDF 36 trang; trang PDF 1 Điều 1–2; trang PDF 5 phạm vi; không trích ngưỡng",
+      "finding": "Đối chiếu được văn bản gốc Thông tư 10 và QCVN 03 kèm theo.",
+      "evidence_classification": "VERIFIED_OFFICIAL_SOURCE",
+      "confidence": "HIGH",
+      "limitation": "Xác minh danh tính/phạm vi bản ban hành; chưa kết luận tình trạng sửa đổi/hiệu lực hiện hành hoặc compliance dự án. Không dùng screenshot lỗi làm bằng chứng."
+    },
+    {
+      "source_id": "FOLLOWUP-FS-02",
+      "url": "https://vbpl.vn/boyte/Pages/vbpq-print.aspx?ItemID=137239",
+      "source_organization": "Cơ sở dữ liệu quốc gia về văn bản pháp luật",
+      "method": "web search and open",
+      "access_status": "SEARCH_ONLY_OPEN_403",
+      "document_date": "2019-06-10",
+      "publication_date": null,
+      "locator": "Search index; direct open 403",
+      "finding": "Không cải thiện truy xuất trực tiếp so với đợt trước.",
+      "evidence_classification": "UNVERIFIED",
+      "confidence": "LOW",
+      "limitation": "Không dùng index để xác nhận toàn văn hoặc hiệu lực hiện hành."
+    },
+    {
+      "source_id": "FOLLOWUP-FS-03",
+      "url": "https://tulieuvankien.dangcongsan.vn/he-thong-van-ban/van-ban-quy-pham-phap-luat/thong-tu-so-022019tt-byt-ngay-2132019-cua-bo-y-te-ban-hanh-quy-chuan-ky-thuat-quoc-gia-ve-bui-gia-tri-gioi-han-5376",
+      "source_organization": "Tư liệu Văn kiện Đảng; cơ quan ban hành được ghi là Bộ Y tế",
+      "method": "web open HTML metadata",
+      "access_status": "READABLE_METADATA",
+      "document_date": "2019-03-21",
+      "publication_date": null,
+      "locator": "Khối thuộc tính số hiệu/ngày ban hành/ngày hiệu lực/file đính kèm",
+      "finding": "Có metadata và đường dẫn attachment Thông tư 02.",
+      "evidence_classification": "VERIFIED_OFFICIAL_SOURCE",
+      "confidence": "HIGH",
+      "limitation": "Metadata không đủ để kiểm tra toàn văn và các sửa đổi sau đó."
+    },
+    {
+      "source_id": "FOLLOWUP-FS-04",
+      "url": "https://tulieuvankien.dangcongsan.vn/upload/3000006/20251024/c8a620fc1a993574f7b2cc7a1285a704TT-02-BYT.pdf",
+      "source_organization": "Tư liệu Văn kiện Đảng",
+      "method": "web click official attachment",
+      "access_status": "UNAVAILABLE_TIMEOUT",
+      "document_date": null,
+      "publication_date": null,
+      "locator": "Attachment của FOLLOWUP-FS-03",
+      "finding": "Chưa đọc được PDF.",
+      "evidence_classification": "UNVERIFIED",
+      "confidence": "LOW",
+      "limitation": "Không trích ngưỡng hoặc xác nhận nội dung attachment."
+    },
+    {
+      "source_id": "FOLLOWUP-FS-05",
+      "url": "https://soyte.tuyenquang.gov.vn/van-ban/02-2019-tt-byt.doc",
+      "source_organization": "Sở Y tế Tuyên Quang",
+      "method": "web open HTML; tên URL .doc nhưng content type text/html",
+      "access_status": "READABLE_METADATA",
+      "document_date": null,
+      "publication_date": "2019-03-29",
+      "locator": "Ngày CB và trích yếu; chưa mở tải xuống",
+      "finding": "Đối chiếu được mục công bố Thông tư 02.",
+      "evidence_classification": "VERIFIED_OFFICIAL_SOURCE",
+      "confidence": "HIGH",
+      "limitation": "Không gọi trang metadata là toàn văn DOC; Ngày CB không phải ngày ban hành."
+    },
+    {
+      "source_id": "FOLLOWUP-FS-06",
+      "url": "https://nghiahanh.quangngai.gov.vn/upload/2006784/20250306/BL%C4%90TBXH.pdf",
+      "source_organization": "Cổng thông tin Nghĩa Hành, Quảng Ngãi; tên cơ quan trong search index là Bộ LĐ-TB&XH",
+      "method": "web search and open",
+      "access_status": "SEARCH_ONLY_OPEN_TOO_LARGE",
+      "document_date": null,
+      "publication_date": null,
+      "locator": "Search index; open báo content length 20.632.092 bytes",
+      "finding": "Phát hiện thêm URL ứng viên cho Thông báo 630; index ghi năm 2024 trong dòng ngày, khác các bản dẫn năm 2025.",
+      "evidence_classification": "UNVERIFIED",
+      "confidence": "LOW",
+      "limitation": "Chưa nhìn bản ký; chưa biết sai khác từ OCR hay bản văn. Không sửa ngày hoặc nâng nguồn thống kê thành verified."
+    }
+  ]
+}

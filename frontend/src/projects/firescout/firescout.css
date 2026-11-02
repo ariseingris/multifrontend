@@ -1,0 +1,20 @@
+.fs-dashboard { color:#23374a; }
+.fs-dashboard p { font-size:13px; line-height:1.5; }
+.fs-dashboard .fs-source { font-size:11px; font-weight:650; letter-spacing:.035em; color:#52657a; }
+.fs-dashboard .fs-map { height:320px; width:100%; position:relative; z-index:0; border-radius:5px; }
+.fs-dashboard .fs-toolbar { display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:10px 0; }
+.fs-dashboard button { padding:8px 12px; border:1px solid #45637b; border-radius:5px; color:#23374a; background:#d8eaf8; cursor:pointer; font:inherit; }
+.fs-dashboard button:disabled { opacity:.55; cursor:default; }
+.fs-dashboard small { font-size:11px; line-height:1.5; }
+.fs-dashboard .fs-wind-readout { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; align-items:center; min-height:190px; }
+.fs-dashboard .fs-wind-readout text { font-size:11px; fill:#385268; }
+.fs-dashboard .fs-chip { display:inline-block; padding:6px 10px; background:#e5eff7; border-radius:6px; }
+.fs-dashboard .fs-notice { background:#fff1cc; padding:10px; border-left:3px solid #98600d; }
+.fs-dashboard .fs-chat { border-top:1px solid #cbd5e1; padding-top:12px; margin-top:12px; }
+.fs-dashboard .fs-chat-toggle { font-weight:650; background:#c1ddf6; }
+.fs-dashboard .fs-chat section { margin-top:12px; }
+.fs-dashboard .fs-chat label { display:grid; gap:6px; font-size:13px; }
+.fs-dashboard .fs-chat select,.fs-dashboard .fs-chat textarea { width:100%; min-width:0; padding:10px; border:1px solid #94a3b8; border-radius:5px; font:inherit; background:#fff; color:#23374a; }
+.fs-dashboard .fs-chat-log { max-height:330px; overflow:auto; white-space:pre-wrap; overflow-wrap:anywhere; }
+.fs-dashboard .fs-chat-log p { padding:12px; background:#edf4fa; border-radius:5px; }
+@media(max-width:480px) { .fs-dashboard .fs-map { height:300px; } }

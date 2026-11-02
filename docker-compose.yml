@@ -8,15 +8,23 @@ services:
       - server.py
       - --host
       - 0.0.0.0
+      - --api-host
+      - 0.0.0.0
       - --project
       - ${SIMULATOR_PROJECT:-aquasense}
+    environment:
+      OLLAMA_BASE_URL: http://host.docker.internal:11434
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-}
+      OLLAMA_ALLOWED_MODELS: ${OLLAMA_ALLOWED_MODELS:-}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports:
       - "8765:8765"
 
   frontend:
     build:
-      context: ./frontend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: frontend/Dockerfile
       args:
         VITE_WS_URL: ${VITE_WS_URL:-ws://localhost:8765}
     depends_on:

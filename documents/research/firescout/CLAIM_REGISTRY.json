@@ -1,0 +1,255 @@
+[
+  {
+    "claim_id": "FC-C01",
+    "project": "firescout",
+    "proposed_marketing_claim": "FireScout hướng tới hỗ trợ trinh sát bằng UAV, thermal sensing và AI-assisted detection.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "PROJECT_FACT_SHEET.md",
+      "../../../README.md"
+    ],
+    "evidence_type": "PROJECT_PROPOSAL",
+    "confidence": "MEDIUM",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Nêu hướng tới; current deliverable là software demonstrator.",
+    "verification_status": "Đối chiếu nguồn/phạm vi; xem giới hạn và phê duyệt biên tập",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "FC-C02",
+    "project": "firescout",
+    "proposed_marketing_claim": "Demo có bản đồ/vị trí, gió, nhiệt độ ROI, candidate và link-degradation tổng hợp.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "../../development/FIRESCOUT_UAV_DELIVERY.md",
+      "../../../frontend/src/projects/firescout/config.ts"
+    ],
+    "evidence_type": "PROJECT_VERIFIED",
+    "confidence": "HIGH",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Giữ mô phỏng; không gọi live mission, camera hoặc weather thực.",
+    "verification_status": "Đã đối chiếu hiện vật demo, không kiểm thử lại runtime",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "FC-C03",
+    "project": "firescout",
+    "proposed_marketing_claim": "Local LLM giải thích telemetry có điều kiện model; có thể sai, không là vision detector.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "../../../simulator/firescout_chat.py",
+      "../../development/FIRESCOUT_UAV_DELIVERY.md"
+    ],
+    "evidence_type": "PROJECT_VERIFIED",
+    "confidence": "HIGH",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Không gọi chat là AI phát hiện nạn nhân.",
+    "verification_status": "Đã đối chiếu hiện vật demo, không kiểm thử lại runtime",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "FC-C04",
+    "project": "firescout",
+    "proposed_marketing_claim": "Chưa xác nhận hardware, video/radiometric stream hoặc vision inference field-tested.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "../../../README.md",
+      "../../development/FIRESCOUT_UAV_DELIVERY.md"
+    ],
+    "evidence_type": "PROJECT_VERIFIED",
+    "confidence": "HIGH",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Nêu phạm vi bộ hồ sơ và giới hạn demo.",
+    "verification_status": "Đã đối chiếu hiện vật demo, không kiểm thử lại runtime",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "FC-C05",
+    "project": "firescout",
+    "proposed_marketing_claim": "Candidate score chưa hiệu chuẩn, không xác nhận nạn nhân hoặc xác suất rescue.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "../../development/FIRESCOUT_UAV_DELIVERY.md",
+      "../../../frontend/src/projects/firescout/config.ts"
+    ],
+    "evidence_type": "PROJECT_VERIFIED",
+    "confidence": "HIGH",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Giữ candidate/uncalibrated và quyền xác minh con người.",
+    "verification_status": "Đã đối chiếu hiện vật demo, không kiểm thử lại runtime",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "FC-C06",
+    "project": "firescout",
+    "proposed_marketing_claim": "Demo/chat/acknowledgment không phát lệnh UAV hoặc cứu hộ.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "../../development/FIRESCOUT_UAV_DELIVERY.md",
+      "../../../simulator/firescout_chat.py"
+    ],
+    "evidence_type": "PROJECT_VERIFIED",
+    "confidence": "HIGH",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Con người đánh giá; không quảng cáo autonomous mission control.",
+    "verification_status": "Đã đối chiếu hiện vật demo, không kiểm thử lại runtime",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "FC-C07",
+    "project": "firescout",
+    "proposed_marketing_claim": "Bộ Công an: 3.151 vụ cháy, tài sản sơ bộ ước tính 912,39 tỷ đồng cho kỳ 15/12/2024–14/12/2025.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "https://www.bocongan.gov.vn/bai-viet/tinh-hinh-tai-nan-giao-thong-chay-no-va-xu-ly-hanh-chinh-ve-trat-tu-an-toan-giao-thong-nam-2025-1774612854",
+      "MARKET_EVIDENCE.md"
+    ],
+    "evidence_type": "VERIFIED_OFFICIAL_SOURCE",
+    "confidence": "HIGH",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Giữ kỳ, toàn Việt Nam, sơ bộ; không riêng công nghiệp hay mức UAV tránh được.",
+    "verification_status": "Đối chiếu nguồn/phạm vi; xem giới hạn và phê duyệt biên tập",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "FC-C08",
+    "project": "firescout",
+    "proposed_marketing_claim": "Cảnh sát Cheshire công bố camera nhiệt UAV hỗ trợ định vị để lực lượng mặt đất cứu người.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "https://www.cheshire.police.uk/news/cheshire/news/articles/2025/12/constabularys-drone-unit-assist-in-rescuing-man-from-river-weaver/",
+      "MARKET_EVIDENCE.md"
+    ],
+    "evidence_type": "VERIFIED_OFFICIAL_SOURCE",
+    "confidence": "HIGH",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Ca Anh tháng 12/2025; không của FireScout và không chứng minh AI tự động.",
+    "verification_status": "Đối chiếu nguồn/phạm vi; xem giới hạn và phê duyệt biên tập",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "FC-C09",
+    "project": "firescout",
+    "proposed_marketing_claim": "Camera nhiệt có giới hạn phụ thuộc điều kiện và nhiệm vụ; không hứa xuyên mọi khói/vật cản.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "https://www.nist.gov/el/fire-research-division-73300/firegov-fire-service/thermal-imaging",
+      "MARKET_EVIDENCE.md"
+    ],
+    "evidence_type": "VERIFIED_OFFICIAL_SOURCE",
+    "confidence": "HIGH",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Dựa NIST cập nhật 2025; model/mission FireScout phải thử riêng.",
+    "verification_status": "Đối chiếu nguồn/phạm vi; xem giới hạn và phê duyệt biên tập",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "FC-C10",
+    "project": "firescout",
+    "proposed_marketing_claim": "Pilot UAV Việt Nam cần rà soát điều kiện phương tiện, người điều khiển, địa điểm và hoạt động.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "https://xaydungchinhsach.chinhphu.vn/chinh-phu-quy-dinh-dieu-kien-dang-ky-phuong-tien-bay-khong-nguoi-lai-119251108125349673.htm",
+      "MARKET_EVIDENCE.md"
+    ],
+    "evidence_type": "PROJECT_PROPOSAL",
+    "confidence": "MEDIUM",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Bối cảnh 288/2025 theo Báo Chính phủ; chưa kết luận đầy đủ luật hiện hành hoặc đã được cấp phép.",
+    "verification_status": "Đối chiếu nguồn/phạm vi; xem giới hạn và phê duyệt biên tập",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "FC-C11",
+    "project": "firescout",
+    "proposed_marketing_claim": "Chưa có giá/gói dịch vụ/thuê bao/ROI FireScout được xác nhận.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "PROJECT_FACT_SHEET.md",
+      "../shared/2026-10-27_PROJECT_KNOWLEDGE_AUDIT.md"
+    ],
+    "evidence_type": "NEEDS_VERIFICATION",
+    "confidence": "HIGH",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Không giải quyết chi phí nguyên mẫu K02 bằng suy đoán.",
+    "verification_status": "Đối chiếu nguồn/phạm vi; xem giới hạn và phê duyệt biên tập",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "FC-C12",
+    "project": "firescout",
+    "proposed_marketing_claim": "Mục tiêu là PCCC công nghiệp, ứng cứu nhà máy, khu công nghiệp và đối tác.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "PROJECT_FACT_SHEET.md"
+    ],
+    "evidence_type": "PROJECT_PROPOSAL",
+    "confidence": "MEDIUM",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Không biến vai trò mục tiêu thành khách hàng/endorsement.",
+    "verification_status": "Đối chiếu nguồn/phạm vi; xem giới hạn và phê duyệt biên tập",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "FC-C13",
+    "project": "firescout",
+    "proposed_marketing_claim": "CTA demo/pilot/integration và tiêu chí thử nghiệm là đề xuất thảo luận.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "MARKETING_STRATEGY.md"
+    ],
+    "evidence_type": "PROJECT_ASSUMPTION",
+    "confidence": "MEDIUM",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Không cam kết dịch vụ bay hoặc pilot đã nhận; cần kênh liên hệ thật.",
+    "verification_status": "Đối chiếu nguồn/phạm vi; xem giới hạn và phê duyệt biên tập",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "FC-C14",
+    "project": "firescout",
+    "proposed_marketing_claim": "FireScout đã cứu người, phát hiện nạn nhân xuyên mọi khói hoặc đạt AI accuracy bảo đảm.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "PROJECT_FACT_SHEET.md"
+    ],
+    "evidence_type": "NEEDS_VERIFICATION",
+    "confidence": "LOW",
+    "approved_for_publication": "NO",
+    "recommended_wording": "Không công bố; thay bằng định hướng và demo mô phỏng.",
+    "verification_status": "Không đủ bằng chứng; chặn công bố",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "FC-C15",
+    "project": "firescout",
+    "proposed_marketing_claim": "Ngữ cảnh nhiệm vụ có thể hỗ trợ trao đổi; giá trị thời gian/nguồn lực cần pilot.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "MARKETING_STRATEGY.md",
+      "MARKET_EVIDENCE.md"
+    ],
+    "evidence_type": "PROJECT_ASSUMPTION",
+    "confidence": "MEDIUM",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Không nói đã nhanh hơn hoặc tiết kiệm theo tỷ lệ.",
+    "verification_status": "Đối chiếu nguồn/phạm vi; xem giới hạn và phê duyệt biên tập",
+    "reviewed_on": "2026-10-27"
+  },
+  {
+    "claim_id": "FC-C16",
+    "project": "firescout",
+    "proposed_marketing_claim": "Chưa xác nhận thiết bị/giấy phép/điều kiện khai thác và kết quả pilot trong hồ sơ hiện có.",
+    "supporting_source": "Các nguồn/đường dẫn dưới đây hỗ trợ wording hoặc ghi nhận giới hạn; không phải bằng chứng cho claim bị cấm.",
+    "source_url": [
+      "PROJECT_FACT_SHEET.md",
+      "../../../README.md"
+    ],
+    "evidence_type": "NEEDS_VERIFICATION",
+    "confidence": "HIGH",
+    "approved_for_publication": "PENDING",
+    "recommended_wording": "Giới hạn theo hồ sơ; không suy ra flight readiness từ software.",
+    "verification_status": "Đối chiếu nguồn/phạm vi; xem giới hạn và phê duyệt biên tập",
+    "reviewed_on": "2026-10-27"
+  }
+]

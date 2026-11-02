@@ -1,7 +1,6 @@
 import { useRef, type ReactNode } from 'react';
 import type { ProjectConfig } from '../../types';
 import { projects } from '../../projects';
-import logo from '../../../assets/dashboard-logo.png';
 import './figma-dashboard.css';
 
 type Props = {
@@ -12,13 +11,12 @@ type Props = {
   children: ReactNode;
 };
 
-/** Opt-in app chrome; scenario callbacks remain owned by Dashboard. */
 export function FigmaDashboardShell({ projectConfig, connected, wsUrl, controls, children }: Props) {
   const settings = useRef<HTMLDialogElement>(null);
   return (
     <div className="fdb-shell">
       <header className="fdb-header">
-        <div className="fdb-brand"><img src={logo} alt="" /><h1>{projectConfig.name}</h1></div>
+        <div className="fdb-brand"><img src={`${import.meta.env.BASE_URL}shared/logos/dashboard-logo.png`} alt="" /><h1>{projectConfig.name}</h1></div>
         <button className="fdb-settings" aria-label="Dashboard settings" onClick={() => settings.current?.showModal()}>
           <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
             <path d="m9 3-.7 2.2-2 .9-2.1-.4-1.6 2.8 1.4 1.7v2.4l-1.4 1.7 1.6 2.8 2.1-.4 2 .9L9 20h3l.7-2.1 2-.9 2.1.4 1.6-2.8-1.4-1.7v-2.4l1.4-1.7-1.6-2.8-2.1.4-2-.9L12 3Z" /><circle cx="10.5" cy="11.5" r="3" />
@@ -33,7 +31,6 @@ export function FigmaDashboardShell({ projectConfig, connected, wsUrl, controls,
         <select id="dashboard-project" value={projectConfig.id} onChange={(event) => {
           const url = new URL(window.location.href);
           url.searchParams.set('project', event.target.value);
-          // A document navigation disposes the old socket and all in-memory stores.
           window.location.assign(url.toString());
         }}>
           {projects.map((project) => <option key={project.id} value={project.id}>{project.name}</option>)}

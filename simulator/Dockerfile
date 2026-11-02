@@ -5,7 +5,7 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY server.py scenario_engine.py scenario_models.py telemetry_history.py pond_environment.py ./
+COPY server.py scenario_engine.py scenario_models.py telemetry_history.py pond_environment.py firescout_chat.py ./
 
 EXPOSE 8765
 

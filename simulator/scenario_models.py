@@ -20,7 +20,7 @@ except ImportError:
 SCENARIOS = {
     'aquasense': {'normal': 7200, 'low_oxygen': 7200, 'sensor_fouling': 7200},
     'factsafe': {'normal': 3600, 'gas_leak': 6000, 'dust_event': 6000},
-    'firescout': {'routine_recon': 120, 'victim_hotspot': 120, 'smoke_link_loss': 120},
+    'firescout': {'routine_recon': 120, 'hotspot_detection': 120, 'smoke_link_degradation': 120},
 }
 DEVICES = {'aquasense': 'aquasense-pond-a', 'factsafe': 'factsafe-zone-b', 'firescout': 'firescout-uav-01'}
 
@@ -260,7 +260,6 @@ class AquaSenseSimulator(DemoScenario):
                     self._post_event_offset = 6 - self.environment.at(7200)['do_mg_l']
                 do = environment['do_mg_l'] + self._post_event_offset * math.exp(-(seconds - 7200) / 3600) + noise
         else:
-            # Persistent bias/irregular drift is a sensor fault, not pond oxygen.
             instability = curve(t, [(30, 0), (60, 1)])
             do = curve(t, self.FOULED) + noise + .24 * instability * self.environment.variation(6, seconds, 240)
         do = max(0, min(10, do))
@@ -327,7 +326,6 @@ class FactSafeSimulator(DemoScenario):
     GAS = [(0,8),(20,12),(35,26),(50,37),(65,57),(75,68),(85,40),(100,12)]
     DUST = [(0,20),(20,35),(35,61),(50,92),(65,122),(75,145),(85,75),(100,25)]
 
-    # DEMO-DEFAULT normalization. Configurable, monotonic, not an EHS index.
     RISK_DEFAULTS = {'nh3Critical': 50.0, 'pm25Critical': 100.0, 'gain': 80.0,
                      'baselineNh3': 6.0, 'baselinePm25': 18.0}
 
@@ -346,7 +344,6 @@ class FactSafeSimulator(DemoScenario):
 
     @staticmethod
     def risk(nh3, pm25, defaults=None):
-        # Demonstration normalization only: not a calibrated safety/dose score.
         defaults = defaults or FactSafeSimulator.RISK_DEFAULTS
         return max(0, min(100, max(nh3 / defaults['nh3Critical'], pm25 / defaults['pm25Critical']) * defaults['gain']))
 
@@ -391,43 +388,68 @@ class FactSafeSimulator(DemoScenario):
 
 
 class FireScoutSimulator(DemoScenario):
+    """Fictional mission at an illustrative WGS84 center, never a real incident."""
     project = 'firescout'
+    ALIASES = {'victim_hotspot': 'hotspot_detection', 'smoke_link_loss': 'smoke_link_degradation'}
+    HOME = (12.0, 110.0)
+    INCIDENT = (12.002, 110.002)
     LINK = [(0,97),(25,93),(45,55),(60,28),(75,10),(90,30),(105,75),(120,94)]
-
     DEFAULT_RULES = {'candidateConfidence': 80, 'candidateFrames': 3, 'hotspotDeltaC': 30,
                      'hotspotPersistenceSeconds': 3, 'linkWarning': 40, 'linkCritical': 15,
                      'linkWarningExit': 50, 'linkCriticalExit': 25, 'linkPersistenceSeconds': 5}
 
-    def __init__(self, scenario_id=None, speed=1.0, seed=1729, rules=None):
-        super().__init__(scenario_id, speed, seed)
+    def __init__(self, scenario_id=None, speed=1.0, seed=1729, rules=None, sample_interval=1):
+        super().__init__(self.ALIASES.get(scenario_id, scenario_id), speed, seed)
         self.rules = {**self.DEFAULT_RULES, **(rules or {})}
-        if any(not isinstance(v, (int, float)) or not math.isfinite(v) or v <= 0 for v in self.rules.values()):
-            raise ValueError('FireScout demo rules must be positive finite numbers')
+        if any(not isinstance(v, (int, float)) or not math.isfinite(v) or v <= 0 for v in [*self.rules.values(), sample_interval]):
+            raise ValueError('FireScout demo rules and interval must be positive finite numbers')
+        self.config.update(continuous=True, history_bucket_seconds=1, retention_seconds=1800,
+                           history_max_points=1000, sample_interval=sample_interval)
+
+    def _initialize_session(self):
+        super()._initialize_session()
+        self.environment = PondEnvironment(self.seed)
+        self._candidate_first_seen = None
+        self.highest_observed_hotspot_c = None
 
     def metrics_at(self, seconds):
-        t = seconds
-        conf, temp, link = 20 + self.noise('confidence', 13, t), 34 + self.noise('thermal', 5, t), 95 + self.noise('link', 3, t)
-        if self.scenario_id == 'victim_hotspot':
-            conf = curve(t, [(0,15),(30,25),(55,76),(65,88),(90,94),(105,85),(120,30)])
-            temp = curve(t, [(0,36),(30,40),(55,85),(90,82),(120,60)])
-        elif self.scenario_id == 'smoke_link_loss':
-            conf = curve(t, [(0,30),(25,75),(35,75),(70,25),(95,35),(120,30)])
-            temp = curve(t, [(0,40),(35,55),(70,65),(120,44)])
-            link = curve(t, self.LINK)
-        video = not (self.scenario_id == 'smoke_link_loss' and 70 <= t < 94)
+        t = max(0, seconds)
+        n = lambda key, period: self.environment.variation(key, t, period)
+        smoke = self.scenario_id == 'smoke_link_degradation'
+        hotspot = self.scenario_id == 'hotspot_detection'
+        leg = (t % 360) / 60
+        latitude = self.HOME[0] + curve(leg, [(0,0),(1,.001),(2,.003),(3,.004),(4,.002),(5,.001),(6,0)])
+        longitude = self.HOME[1] + curve(leg, [(0,0),(1,.003),(2,.004),(3,.001),(4,-.001),(5,-.002),(6,0)])
         metrics = {
-            'link_quality_percent': link, 'battery_percent': max(0, 100 - t * .18),
-            'flight_elapsed_s': t, 'video_available': 1 if video else 0,
+            'uav_latitude_deg': latitude, 'uav_longitude_deg': longitude,
+            'uav_altitude_m': 80 + 2*n(20,60),
+            'wind_direction_deg': (curve(t, [(0,210 if smoke else 100 if hotspot else 40),
+                                    (120,245 if smoke else 135 if hotspot else 65)]) + 2*n(21,90)) % 360,
+            'wind_speed_m_s': max(0, curve(t,[(0,2 if smoke or hotspot else 1.8),(120,6.5 if smoke else 4 if hotspot else 2.5)]) + .3*n(22,45)),
+            'link_quality_percent': curve(t,self.LINK) if smoke else 96 + 2*n(23,35),
+            'battery_percent': max(0,100-t*.02), 'flight_elapsed_s': t,
+            'video_available': 0 if smoke and 70 <= t < 94 else 1,
+            'visibility_percent': curve(t,[(0,95),(60,20),(90,10),(120,80)]) if smoke else 95,
         }
-        if video:
-            metrics.update(detection_confidence=conf, hotspot_temp_c=temp, background_temp_c=33.0, detected_person_count=1 if self.candidate else 0)
+        metrics['uav_link_quality_pct'] = metrics['link_quality_percent']
+        if metrics['video_available']:
+            temp = curve(t,[(0,42),(30,70),(70,110),(100,85),(120,62)]) if hotspot else 33 + 3*n(24,60)
+            metrics.update(hotspot_temp_c=temp, background_temp_c=33.0)
+            if (hotspot or smoke) and t >= 20:
+                confidence = curve(t,[(20,25),(45,62),(65,88),(90,92),(120,85)]) if hotspot else curve(t,[(20,55),(35,72),(65,30),(94,25),(120,38)]) + 3*n(25,12)
+                metrics.update(detection_confidence=confidence, detection_confidence_pct=confidence)
+                if hotspot:
+                    metrics.update(hotspot_latitude_deg=self.INCIDENT[0],hotspot_longitude_deg=self.INCIDENT[1])
         return metrics
 
     def data_available(self, t=None):
         t = self.elapsed if t is None else t
-        return not (self.scenario_id == 'smoke_link_loss' and 78 <= t < 90)
+        return not (self.scenario_id == 'smoke_link_degradation' and 78 <= t < 90)
 
     def evaluate_at(self, t, metrics):
+        temperature = metrics.get('hotspot_temp_c')
+        if temperature is not None and self.data_available(t):
+            self.highest_observed_hotspot_c = max(temperature, self.highest_observed_hotspot_c or temperature)
         link = metrics['link_quality_percent']
         degraded = self.latch('link_degraded', link, t, self.rules['linkWarning'], self.rules['linkWarningExit'], low=True, persistence=self.rules['linkPersistenceSeconds'])
         lost = self.latch('link_lost', link, t, self.rules['linkCritical'], self.rules['linkCriticalExit'], low=True, persistence=self.rules['linkPersistenceSeconds'])
@@ -436,40 +458,64 @@ class FireScoutSimulator(DemoScenario):
         self.sensor_status = 'missing' if not self.data_available(t) else 'degraded' if degraded else 'valid'
         if old != self._status:
             self.event('link_lost' if lost else 'link_degraded' if degraded else 'link_recovered',
-                       f'UAV link {self._status}; synthetic diagnostic', 'info' if self._status == 'normal' else self._status, elapsed=t)
+                       f'UAV link {self._status}; synthetic demo operational indicator', 'info' if self._status == 'normal' else self._status, elapsed=t)
         if not self.data_available(t):
-            self.event('telemetry_stale', 'STALE / NO SIGNAL: simulated telemetry blackout; state channel remains synthetic', 'warning', True, t)
-        if t == 90 and self.scenario_id == 'smoke_link_loss':
+            self.event('telemetry_stale', 'STALE / NO SIGNAL: simulated telemetry blackout; state channel is synthetic', 'warning', True, t)
+        if t == 90 and self.scenario_id == 'smoke_link_degradation':
             self.event('reconnecting', 'Synthetic telemetry resumes; waiting for link recovery', once=True, elapsed=t)
-        conf = metrics.get('detection_confidence')
+        conf = metrics.get('detection_confidence_pct')
         self._candidate_frames = self._candidate_frames + 1 if conf is not None and conf >= self.rules['candidateConfidence'] and self.data_available(t) else 0
         if self._candidate_frames >= self.rules['candidateFrames']:
             self.candidate = True
             self.last_seen_sim_seconds = t
-            self.event('candidate_detected', 'SIMULATED CANDIDATE; needs operator confirmation. No real vision inference.', 'warning', True, t)
+            self.event('candidate_detected', f'SIMULATED CANDIDATE hotspot FS-H1 at {self.INCIDENT}: model confidence {conf:.1f}% (uncalibrated); human review required. No real inference.', 'warning', True, t)
         elif self.candidate and (conf is None or conf < 50):
             self.candidate = False
             self.event('track_lost', 'Simulated candidate out of view; retain last-seen timestamp', once=True, elapsed=t)
-        delta = metrics['hotspot_temp_c'] - metrics['background_temp_c'] if 'hotspot_temp_c' in metrics else 0
+        if conf is not None and self._candidate_first_seen is None:
+            self._candidate_first_seen = t
+        delta = metrics.get('hotspot_temp_c',33) - metrics.get('background_temp_c',33)
         hot = self.latch('hotspot', delta, t, self.rules['hotspotDeltaC'], self.rules['hotspotDeltaC'] - 5, persistence=self.rules['hotspotPersistenceSeconds'])
         if hot:
-            self.event('hotspot_detected', 'Persistent simulated hotspot ΔT > 30°C; no fire/victim confirmation', 'warning', True, t)
-        self.mission_status = 'link_degraded' if degraded else 'candidate_found' if self.candidate else 'searching'
+            self.event('hotspot_detected', 'Persistent SIMULATED hotspot FS-H1; ΔT demo setting, not fire/victim confirmation', 'warning', True, t)
+        self.mission_status = 'link_degraded' if degraded else 'monitoring' if t >= 120 else 'candidate_found' if self.candidate else 'searching'
         if t == 0:
-            self.event('telemetry_healthy', 'Synthetic UAV telemetry healthy; no confirmed targets', once=True, elapsed=t)
+            self.event('telemetry_healthy', 'SIMULATED launch from fictional base; all WGS84 positions simulated', once=True, elapsed=t)
+        if t == 30:
+            self.event('waypoint_reached', 'SIMULATED waypoint reached; scanning fictional ROI', once=True, elapsed=t)
+        if t == 120:
+            self.event('monitoring_started', 'Scripted scan complete; ongoing monitoring, no automatic hazard replay', once=True, elapsed=t)
+
+    def telemetry_packet(self):
+        packet = super().telemetry_packet()
+        m = packet['metrics']
+        track = ('FS-H1' if self.scenario_id == 'hotspot_detection' else 'FS-P1') if 'detection_confidence_pct' in m else None
+        packet['mission'] = {
+            'telemetry_source': 'simulated', 'positionSource': 'SIMULATED',
+            'altitudeReference': 'metres above fictional launch point (AGL demo assumption)',
+            'home': list(self.HOME), 'incident': list(self.INCIDENT),
+            'detection_type': 'hotspot' if track == 'FS-H1' else 'person' if track else 'none',
+            'detection_track_id': track, 'hotspot_id': 'FS-H1' if self.scenario_id == 'hotspot_detection' else 'BACKGROUND-ROI',
+            'samplingIntervalSeconds': max(self.config['sample_interval'],self.speed*.2),
+            'confidenceUncalibrated': True,
+        }
+        return packet
+
+    def state_packet(self):
+        return {**super().state_packet(), 'continuous': True, 'realElapsedSeconds': self.real_elapsed,
+                'highestObservedHotspotC': self.highest_observed_hotspot_c}
 
     def quality(self):
         quality = super().quality()
-        for key in ['detection_confidence', 'hotspot_temp_c', 'detected_person_count', 'background_temp_c']:
-            quality[key] = 'missing' if key not in self.get_metrics() else 'degraded' if self.scenario_id == 'smoke_link_loss' else 'simulated'
+        for key in ['detection_confidence','detection_confidence_pct','hotspot_temp_c','background_temp_c']:
+            if key not in self.get_metrics(): quality[key] = 'missing'
         return quality
 
     def metric_status(self):
-        return {'link_quality_percent': self._status, 'detection_confidence': 'warning' if self.candidate else 'normal',
+        return {'link_quality_percent': self._status, 'uav_link_quality_pct': self._status,
+                'detection_confidence_pct': 'warning' if self.candidate else 'normal',
                 'hotspot_temp_c': 'warning' if self._latches.get('hotspot') and self._latches['hotspot'].active else 'normal'}
 
     def get_current_phase(self):
-        if self._status != 'normal':
-            return self._status
-        attention = self.candidate or (self._latches.get('hotspot') and self._latches['hotspot'].active)
-        return 'early_signal' if attention else 'normal'
+        if self._status != 'normal': return self._status
+        return 'monitoring' if self.elapsed >= 120 else 'early_signal' if self.candidate else 'normal'
